@@ -1,11 +1,12 @@
-# Welcome to your Jupyter Book
+# Selamat Datang di Catatan Proyek Sain Data
 
-This is a small sample book to give you a feel for how book content is
-structured.
-It shows off a few of the major file types, as well as some sample content.
-It does not go in-depth into any particular topic - check out [the Jupyter Book documentation](https://jupyterbook.org) for more information.
+### Rachelia Andini Tendean (240411100007)
+### Dosen Pengampu : Bpk. Mula’ab, S.Si., M.Kom.
 
-Check out the content pages bundled with this sample book to see more.
+Sain Data merupakan bidang yang memanfaatkan berbagai metode dan teknik untuk mengolah serta menganalisis data sehingga dapat menghasilkan informasi dan pengetahuan yang berguna. Melalui proses pengumpulan, pengolahan, analisis, dan visualisasi data, berbagai pola maupun informasi penting dapat ditemukan untuk membantu dalam memahami suatu permasalahan dan mengambil keputusan.
+
+
+Berikut merupakan Materi Mata Kuliah Proyek Sain Data Semester 5:
 
 ```{tableofcontents}
 ```
