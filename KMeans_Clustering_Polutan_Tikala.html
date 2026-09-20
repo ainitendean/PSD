@@ -222,7 +222,6 @@
 <li class="toctree-l1 current active has-children"><a class="reference internal" href="Analisis_Polutan_Tikala.html">Analisis Data Polutan Udara di Wilayah Kecamatan Tikala Kabupaten Manado</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="Ekstraksi_Fitur_TSFEL_Tikala.html">Ekstraksi Fitur Time Series Polutan Udara dengan TSFEL pada Data Polutan Kecamatan Tikala, Manado</a></li>
 <li class="toctree-l2 current active"><a class="current reference internal" href="#">K-Means Clustering Data Polutan Udara</a></li>
-
 </ul>
 </details></li>
 </ul>
@@ -417,15 +416,12 @@
             </div>
             <nav aria-label="Page">
                 <ul class="pst-show_toc_level nav section-nav flex-column">
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">K-Means Clustering Data Polutan Udara</a><ul class="pst-show_toc_level nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#library-dan-konfigurasi">1. Library dan Konfigurasi</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#membaca-dan-memeriksa-dataset">2. Membaca dan Memeriksa Dataset</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#preprocessing">3. Preprocessing</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#evaluasi-k-means">4. Evaluasi K-Means</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#visualisasi-elbow-dan-silhouette">5. Visualisasi Elbow dan Silhouette</a></li>
-</ul>
-</li>
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#eksperimen-clustering-per-polutan">6. Eksperimen Clustering per Polutan</a><ul class="pst-show_toc_level nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#eksperimen-clustering-per-polutan">6. Eksperimen Clustering per Polutan</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ringkasan-k-terbaik">7. Ringkasan K Terbaik</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#k-means-final-dan-distribusi-cluster">8. K-Means Final dan Distribusi Cluster</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#scatter-plot-cluster-berdasarkan-nama">9. Scatter Plot Cluster Berdasarkan Nama</a></li>
@@ -438,11 +434,8 @@
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#hasil-implementasi">4. Hasil Implementasi</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#kesimpulan">12. Kesimpulan</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#kesimpulan">13. Kesimpulan</a></li>
 </ul>
-</li>
-</ul>
-
             </nav>
         </div>
     </div>
@@ -616,9 +609,8 @@ Jumlah fitur : 68
 </div>
 </div>
 </section>
-</section>
-<section class="tex2jax_ignore mathjax_ignore" id="eksperimen-clustering-per-polutan">
-<h1>6. Eksperimen Clustering per Polutan<a class="headerlink" href="#eksperimen-clustering-per-polutan" title="Link to this heading">#</a></h1>
+<section id="eksperimen-clustering-per-polutan">
+<h2>6. Eksperimen Clustering per Polutan<a class="headerlink" href="#eksperimen-clustering-per-polutan" title="Link to this heading">#</a></h2>
 <p>Setiap polutan memiliki empat skenario:</p>
 <ol class="arabic simple">
 <li><p>68 fitur tanpa PCA, K=2–10.</p></li>
@@ -2058,6 +2050,7 @@ Explained variance: 1.000000
 <img alt="_images/5e5dd13fc154dd3171f01e8736a04ae1d936779c3bcbf63e4a3b8cb90daf7411.png" src="_images/5e5dd13fc154dd3171f01e8736a04ae1d936779c3bcbf63e4a3b8cb90daf7411.png" />
 </div>
 </div>
+</section>
 <section id="ringkasan-k-terbaik">
 <h2>7. Ringkasan K Terbaik<a class="headerlink" href="#ringkasan-k-terbaik" title="Link to this heading">#</a></h2>
 <div class="cell docutils container">
@@ -5420,7 +5413,7 @@ Explained variance: 1.000000
 </section>
 </section>
 <section id="kesimpulan">
-<h2>12. Kesimpulan<a class="headerlink" href="#kesimpulan" title="Link to this heading">#</a></h2>
+<h2>13. Kesimpulan<a class="headerlink" href="#kesimpulan" title="Link to this heading">#</a></h2>
 <p>Berdasarkan hasil clustering menggunakan K-Means pada polutan CO, NO₂, dan SO₂, diperoleh hasil pengelompokan pada kondisi tanpa PCA dan dengan PCA. PCA mereduksi 68 fitur menjadi 37 komponen utama, sehingga jumlah dimensi data lebih rendah. Perbandingan Silhouette Score dan distribusi anggota cluster digunakan untuk melihat perubahan hasil clustering setelah reduksi dimensi. Cluster dengan jumlah anggota yang sedikit perlu diperhatikan dalam interpretasi karena memiliki karakteristik yang berbeda dari kelompok lainnya.</p>
 </section>
 </section>
@@ -5482,15 +5475,12 @@ Explained variance: 1.000000
   </div>
   <nav id="pst-page-toc-nav" class="page-toc" aria-labelledby="pst-page-navigation-heading-2">
     <ul class="pst-show_toc_level nav section-nav flex-column">
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">K-Means Clustering Data Polutan Udara</a><ul class="pst-show_toc_level nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#library-dan-konfigurasi">1. Library dan Konfigurasi</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#membaca-dan-memeriksa-dataset">2. Membaca dan Memeriksa Dataset</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#preprocessing">3. Preprocessing</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#evaluasi-k-means">4. Evaluasi K-Means</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#visualisasi-elbow-dan-silhouette">5. Visualisasi Elbow dan Silhouette</a></li>
-</ul>
-</li>
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#eksperimen-clustering-per-polutan">6. Eksperimen Clustering per Polutan</a><ul class="pst-show_toc_level nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#eksperimen-clustering-per-polutan">6. Eksperimen Clustering per Polutan</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ringkasan-k-terbaik">7. Ringkasan K Terbaik</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#k-means-final-dan-distribusi-cluster">8. K-Means Final dan Distribusi Cluster</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#scatter-plot-cluster-berdasarkan-nama">9. Scatter Plot Cluster Berdasarkan Nama</a></li>
@@ -5503,11 +5493,8 @@ Explained variance: 1.000000
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#hasil-implementasi">4. Hasil Implementasi</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#kesimpulan">12. Kesimpulan</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#kesimpulan">13. Kesimpulan</a></li>
 </ul>
-</li>
-</ul>
-
   </nav></div>
 
 </div></div>
