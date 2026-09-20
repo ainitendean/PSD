@@ -1,0 +1,2849 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="./" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Ekstraksi Fitur Time Series Polutan Udara dengan TSFEL pada Data Polutan Kecamatan Tikala, Manado &#8212; Proyek Sain Data</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  <!--
+    this give us a css class that will be invisible only if js is disabled
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="_static/styles/theme.css?digest=55c26ed414f5f8a31ebb" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=55c26ed414f5f8a31ebb" rel="stylesheet" />
+
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=3c74b3bc" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css?v=9c3e77be" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.11b39860a7a0cbfd473a3ad8a317855267ff0bd372690045ca344a6b62be495e.css?v=8cd3d715" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=95c83b7e" />
+  
+  <!-- So that users can add custom icons -->
+  <script defer src="_static/scripts/fontawesome.js?digest=55c26ed414f5f8a31ebb"></script>
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=55c26ed414f5f8a31ebb" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=55c26ed414f5f8a31ebb" />
+
+    <script src="_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="_static/doctools.js?v=9a2dae69"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="_static/copybutton.js?v=f281be69"></script>
+    <script src="_static/scripts/sphinx-book-theme.js?v=fab101a9"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="_static/togglebutton.js?v=b8b12719"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'Ekstraksi_Fitur_TSFEL_Tikala';</script>
+    <script>DOCUMENTATION_OPTIONS.search_as_you_type = false;</script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  <meta name="docsearch:version" content="" />
+  
+    
+    <script src="_static/searchtools.js"></script>
+    <script src="_static/language_data.js"></script>
+    <script src="searchindex.js"></script>
+  
+  </head>
+  <body data-default-mode="">
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+  
+  
+  
+  
+  <dialog id="pst-search-dialog">
+    
+<form class="bd-search d-flex align-items-center"
+      action="search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form>
+  </dialog>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header id="pst-header" class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+<div class="bd-header__inner bd-page-width">
+  <button class="pst-navbar-icon sidebar-toggle primary-toggle" aria-label="Site navigation">
+    <span class="fa-solid fa-bars"></span>
+  </button>
+  
+  
+  <div class="col-lg-9 navbar-header-items">
+    
+    
+    <div class="navbar-header-items__end">
+      
+        <div class="navbar-item navbar-persistent--container">
+          
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+        </div>
+      
+      
+    </div>
+    
+  </div>
+  
+  
+    <div class="navbar-persistent--mobile">
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+    </div>
+  
+
+  
+    <button class="pst-navbar-icon sidebar-toggle secondary-toggle" aria-label="On this page">
+      <span class="fa-solid fa-outdent"></span>
+    </button>
+  
+</div>
+
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+        
+      
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="intro.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="_static/foto.jpeg" class="logo__image only-light" alt="Proyek Sain Data - Home"/>
+    <img src="_static/foto.jpeg" class="logo__image only-dark pst-js-only" alt="Proyek Sain Data - Home"/>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="intro.html">
+                    Selamat Datang di Catatan Proyek Sain Data
+                </a>
+            </li>
+        </ul>
+        
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+      <div class="sidebar-primary-item">
+<div id="ethical-ad-placement"
+      class="flat"
+      data-ea-publisher="readthedocs"
+      data-ea-type="readthedocs-sidebar"
+      data-ea-manual="true">
+</div></div>
+  </div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/executablebooks/jupyter-book" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/executablebooks/jupyter-book/issues/new?title=Issue%20on%20page%20%2FEkstraksi_Fitur_TSFEL_Tikala.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="_sources/Ekstraksi_Fitur_TSFEL_Tikala.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button pst-navbar-icon"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button>
+
+
+<button class="btn btn-sm pst-navbar-icon search-button search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+</button>
+<button class="sidebar-toggle secondary-toggle btn btn-sm pst-navbar-icon" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Ekstraksi Fitur Time Series Polutan Udara dengan TSFEL pada Data Polutan Kecamatan Tikala, Manado</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="pst-show_toc_level nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#penjelasan-fitur-ekstraksi-tsfel">1. Penjelasan Fitur Ekstraksi TSFEL</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#deskripsi-singkat-seluruh-68-fitur-tsfel">1.1 Deskripsi Singkat Seluruh 68 Fitur TSFEL</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#domain-statistical-21-fitur">1.1.1 Domain Statistical (21 fitur)</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#domain-temporal-15-fitur">1.1.2 Domain Temporal (15 fitur)</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#domain-spectral-26-fitur">1.1.3 Domain Spectral (26 fitur)</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#domain-fractal-6-fitur">1.1.4 Domain Fractal (6 fitur)</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#interq-range-signal">1.2 <code class="docutils literal notranslate"><span class="pre">interq_range(signal)</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#human-range-energy-signal-fs">1.3 <code class="docutils literal notranslate"><span class="pre">human_range_energy(signal,</span> <span class="pre">fs)</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#verifikasi-manual-interq-range-dan-human-range-energy-pada-data-riil">1.4 Verifikasi Manual <code class="docutils literal notranslate"><span class="pre">interq_range</span></code> dan <code class="docutils literal notranslate"><span class="pre">human_range_energy</span></code> pada Data Riil</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#data-preparation-deteksi-outlier-dan-imputasi-missing-value">2. Data Preparation: Deteksi Outlier dan Imputasi Missing Value</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ringkasan-missing-value-sebelum-dan-sesudah-penanganan">2.1 Ringkasan Missing Value Sebelum dan Sesudah Penanganan</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#perbandingan-data-sebelum-dan-sesudah-deteksi-outlier">2.2 Perbandingan Data Sebelum dan Sesudah Deteksi Outlier</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#visualisasi-data-sesudah-imputasi">2.3 Visualisasi Data Sesudah Imputasi</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#perbandingan-missing-value">2.4 Perbandingan Missing Value</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ekstraksi-fitur">3. Ekstraksi Fitur</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ekstraksi-fitur-co">3.1 Ekstraksi Fitur CO</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ekstraksi-fitur-no2">3.2 Ekstraksi Fitur NO2</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ekstraksi-fitur-so2">3.3 Ekstraksi Fitur SO2</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#visualisasi-dan-tabel-hasil-ekstraksi-fitur">4. Visualisasi dan Tabel Hasil Ekstraksi Fitur</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#tabel-hasil-ekstraksi-co">4.1 Tabel Hasil Ekstraksi CO</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#tabel-hasil-ekstraksi-no2">4.2 Tabel Hasil Ekstraksi NO2</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#tabel-hasil-ekstraksi-so2">4.3 Tabel Hasil Ekstraksi SO2</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#grafik-perbandingan-fitur-statistik-dasar-antarpolutan">4.4 Grafik Perbandingan Fitur Statistik Dasar Antarpolutan</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#grafik-seluruh-68-fitur-per-polutan">4.5 Grafik Seluruh 68 Fitur per Polutan</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ringkasan">5. Ringkasan</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="ekstraksi-fitur-time-series-polutan-udara-dengan-tsfel-pada-data-polutan-kecamatan-tikala-manado">
+<h1>Ekstraksi Fitur Time Series Polutan Udara dengan TSFEL pada Data Polutan Kecamatan Tikala, Manado<a class="headerlink" href="#ekstraksi-fitur-time-series-polutan-udara-dengan-tsfel-pada-data-polutan-kecamatan-tikala-manado" title="Link to this heading">#</a></h1>
+<p>Notebook ini merupakan kelanjutan dari notebook <em>Analisis Data Polutan Udara di Wilayah Kecamatan Tikala Kabupaten Manado</em>, yang sudah membahas Business Understanding dan Data Understanding termasuk proses pengambilan data dari Sentinel-5P. Fokus notebook ini adalah tahap ekstraksi fitur dari data CO, NO2, dan SO2 memakai pustaka TSFEL, dimulai dari <code class="docutils literal notranslate"><span class="pre">pollutant_data_tikala.csv</span></code> yang sudah dihasilkan sebelumnya.</p>
+<p>TSFEL (Time Series Feature Extraction Library) membantu mengubah data deret waktu mensehingga kumpulan angka ringkas yang disebut fitur. Tiap fitur menangkap satu ciri khas dari sinyal, bisa berupa seberapa tinggi rata-ratanya, seberapa liar fluktuasinya, atau frekuensi mana yang paling menonjol di dalamnya.</p>
+<p>Data mentah polutan tercatat sebagai ratusan nilai harian yang naik turun sepanjang tahun, sehingtidak repot kalau mau dibandingkan langsung antarwilayah. Lewat ekstraksi fitur, satu tahun pola data itu dipadatkan sehingga satu baris angka per wilayah, sehingga bisa diperlakukan sebagai data tabular biasa dan lebih siap digunakan untuk tahap analisis berikutnya seperti clustering.</p>
+<p>TSFEL membagi 68 fitur yang tersedia ke dalam empat domain:</p>
+<ul class="simple">
+<li><p><strong>Statistical</strong>, memelihat karakteristik distribusi nilai sinyal (mean, standar deviasi, skewness, dan sejenisnya), tanpa peduli urutan waktunya</p></li>
+<li><p><strong>Temporal</strong>, memelihat pola perubahan sinyal sepanjang waktu (kemiringan tren, jumlah titik balik, dan lainnya)</p></li>
+<li><p><strong>Spectral</strong>, mengubah sinyal ke domain frekuensi lewat FFT atau wavelet, baru diukur karakteristiknya di sana</p></li>
+<li><p><strong>Fractal</strong>, mengukur kompleksitas dan pola “memori jangka panjang” pada sinyal</p></li>
+</ul>
+<p>Ekstraksi pada notebook ini dilakukan terpisah untuk titidak polutan (CO, NO2, SO2), masing-masing menghasilkan 68 fitur.</p>
+<section id="penjelasan-fitur-ekstraksi-tsfel">
+<h2>1. Penjelasan Fitur Ekstraksi TSFEL<a class="headerlink" href="#penjelasan-fitur-ekstraksi-tsfel" title="Link to this heading">#</a></h2>
+<section id="deskripsi-singkat-seluruh-68-fitur-tsfel">
+<h3>1.1 Deskripsi Singkat Seluruh 68 Fitur TSFEL<a class="headerlink" href="#deskripsi-singkat-seluruh-68-fitur-tsfel" title="Link to this heading">#</a></h3>
+<p>Sebagai referensi ringkas, berikut deskripsi singkat seluruh 68 fitur yang diekstraksi, dikelompokkan per domain. Dua fitur yang ditugaskan kepada penulis (<code class="docutils literal notranslate"><span class="pre">interq_range</span></code>, <code class="docutils literal notranslate"><span class="pre">human_range_energy</span></code>) jutidak tercantum di tabel ini seperti fitur lainnya. Pembahasan keduanya dilanjutkan dengan contoh perhitungan manual dan verifikasi manual pada data riil.</p>
+<section id="domain-statistical-21-fitur">
+<h4>1.1.1 Domain Statistical (21 fitur)<a class="headerlink" href="#domain-statistical-21-fitur" title="Link to this heading">#</a></h4>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Fitur</p></th>
+<th class="head"><p>Deskripsi</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">abs_energy</span></code></p></td>
+<td><p>Total energi absolut sinyal (jumlah kuadrat semua nilai)</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">average_power</span></code></p></td>
+<td><p>Daya rata-rata sinyal per satuan waktu</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">calc_max</span></code></p></td>
+<td><p>Nilai maksimum sinyal</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">calc_mean</span></code></p></td>
+<td><p>Nilai rata-rata sinyal</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">calc_median</span></code></p></td>
+<td><p>Nilai tengah sinyal setelah diurutkan</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">calc_min</span></code></p></td>
+<td><p>Nilai minimum sinyal</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">calc_std</span></code></p></td>
+<td><p>Standar deviasi (sebaran) sinyal</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">calc_var</span></code></p></td>
+<td><p>Variansi sinyal</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">ecdf</span></code></p></td>
+<td><p>Nilai fungsi distribusi kumulatif empiris (ECDF) sepanjang sinyal</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">ecdf_percentile</span></code></p></td>
+<td><p>Nilai sinyal pada persentil tertentu dari ECDF</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">ecdf_percentile_count</span></code></p></td>
+<td><p>Jumlah sampel kumulatif pada bagian berikutnya persentil tertentu</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">ecdf_slope</span></code></p></td>
+<td><p>Kemiringan (slope) ECDF antara dua persentil</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">entropy</span></code></p></td>
+<td><p>Tingkat ketidakteraturan/keacakan sinyal (Shannon entropy)</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">hist_mode</span></code></p></td>
+<td><p>Modus (nilai paling sering muncul) dari histogram sinyal</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">interq_range</span></code></p></td>
+<td><p>Rentang interkuartil (Q3−Q1), ukuran sebaran data tengah</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">kurtosis</span></code></p></td>
+<td><p>Keruncingan distribusi sinyal dibanding distribusi normal</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">mean_abs_deviation</span></code></p></td>
+<td><p>Rata-rata deviasi absolut dari mean</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">median_abs_deviation</span></code></p></td>
+<td><p>Median deviasi absolut dari median</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">pk_pk_distance</span></code></p></td>
+<td><p>Jarak antara nilai maksimum dan minimum (peak-to-peak)</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">rms</span></code></p></td>
+<td><p>Root mean square, ukuran magnitudo keseluruhan sinyal</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">skewness</span></code></p></td>
+<td><p>Kemencengan/asimetri distribusi sinyal</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<section id="domain-temporal-15-fitur">
+<h4>1.1.2 Domain Temporal (15 fitur)<a class="headerlink" href="#domain-temporal-15-fitur" title="Link to this heading">#</a></h4>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Fitur</p></th>
+<th class="head"><p>Deskripsi</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">auc</span></code></p></td>
+<td><p>Luas area pada bagian berikutnya kurva sinyal</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">autocorr</span></code></p></td>
+<td><p>Lag pertama saat autokorelasi turun pada bagian berikutnya 1/e</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">calc_centroid</span></code></p></td>
+<td><p>Titik pusat (centroid) sinyal sepanjang sumbu waktu</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">distance</span></code></p></td>
+<td><p>Total jarak tempuh sinyal dari titik ke titik</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">lempel_ziv</span></code></p></td>
+<td><p>Kompleksitas Lempel-Ziv - seberapa acak/berulang pola sinyal</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">mean_abs_diff</span></code></p></td>
+<td><p>Rata-rata selisih absolut antar titik berurutan</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">mean_diff</span></code></p></td>
+<td><p>Rata-rata selisih (bertanda) antar titik berurutan</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">median_abs_diff</span></code></p></td>
+<td><p>Median selisih absolut antar titik berurutan</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">median_diff</span></code></p></td>
+<td><p>Median selisih antar titik berurutan</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">negative_turning</span></code></p></td>
+<td><p>Jumlah titik balik negatif (naik ke turun)</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">neighbourhood_peaks</span></code></p></td>
+<td><p>Jumlah puncak lokal berdasarkan wilayah tetangtidak</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">positive_turning</span></code></p></td>
+<td><p>Jumlah titik balik positif (turun ke naik)</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">slope</span></code></p></td>
+<td><p>Kemiringan garis tren linear sinyal terhadap waktu</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">sum_abs_diff</span></code></p></td>
+<td><p>Total selisih absolut antar titik berurutan</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">zero_cross</span></code></p></td>
+<td><p>Jumlah sinyal melewati nilai nol (berganti tanda)</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<section id="domain-spectral-26-fitur">
+<h4>1.1.3 Domain Spectral (26 fitur)<a class="headerlink" href="#domain-spectral-26-fitur" title="Link to this heading">#</a></h4>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Fitur</p></th>
+<th class="head"><p>Deskripsi</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">fundamental_frequency</span></code></p></td>
+<td><p>Frekuensi dominan/utama sinyal</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">human_range_energy</span></code></p></td>
+<td><p>Rasio energi sinyal pada rentang frekuensi 0,6-2,5 Hz terhadap energi total</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">lpcc</span></code></p></td>
+<td><p>Koefisien cepstral prediksi linear</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">max_frequency</span></code></p></td>
+<td><p>Frekuensi di mana 95% energi sinyal terkumpul kumulatif</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">max_power_spectrum</span></code></p></td>
+<td><p>Nilai maksimum kerapatan daya spektral</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">median_frequency</span></code></p></td>
+<td><p>Frekuensi di mana 50% energi sinyal terkumpul</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">mfcc</span></code></p></td>
+<td><p>Koefisien cepstral Mel-frequency</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">power_bandwidth</span></code></p></td>
+<td><p>Lebar pita frekuensi yang mengandung 95% daya sinyal</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">spectral_centroid</span></code></p></td>
+<td><p>Titik pusat massa spektrum frekuensi</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">spectral_decrease</span></code></p></td>
+<td><p>Penurunan amplitudo spektrum seiring naiknya frekuensi</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">spectral_distance</span></code></p></td>
+<td><p>Jarak spektrum kumulatif terhadap garis regresi linearnya</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">spectral_entropy</span></code></p></td>
+<td><p>Entropi dari distribusi energi spektral</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">spectral_kurtosis</span></code></p></td>
+<td><p>Keruncingan distribusi spektrum frekuensi</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">spectral_positive_turning</span></code></p></td>
+<td><p>Jumlah titik balik positif pada magnitude FFT</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">spectral_roll_off</span></code></p></td>
+<td><p>Frekuensi di mana 95% energi spektrum pada bagian berikutnyanya</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">spectral_roll_on</span></code></p></td>
+<td><p>Frekuensi di mana 5% energi spektrum pada bagian berikutnyanya</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">spectral_skewness</span></code></p></td>
+<td><p>Kemencengan distribusi spektrum frekuensi</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">spectral_slope</span></code></p></td>
+<td><p>Kemiringan garis regresi linear amplitudo spektrum</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">spectral_spread</span></code></p></td>
+<td><p>Sebaran spektrum di sekitar titik centroid</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">spectral_variation</span></code></p></td>
+<td><p>Variasi spektrum antar waktu (korelasi silang spektrum berurutan)</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">spectrogram_mean_coeff</span></code></p></td>
+<td><p>Rata-rata kerapatan daya spektral tiap bin frekuensi</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">wavelet_abs_mean</span></code></p></td>
+<td><p>Rata-rata absolut koefisien wavelet tiap skala</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">wavelet_energy</span></code></p></td>
+<td><p>Energi koefisien wavelet tiap skala</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">wavelet_entropy</span></code></p></td>
+<td><p>Entropi distribusi energi wavelet antarskala</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">wavelet_std</span></code></p></td>
+<td><p>Standar deviasi koefisien wavelet tiap skala</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">wavelet_var</span></code></p></td>
+<td><p>Variansi koefisien wavelet tiap skala</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<section id="domain-fractal-6-fitur">
+<h4>1.1.4 Domain Fractal (6 fitur)<a class="headerlink" href="#domain-fractal-6-fitur" title="Link to this heading">#</a></h4>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Fitur</p></th>
+<th class="head"><p>Deskripsi</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">dfa</span></code></p></td>
+<td><p>Detrended Fluctuation Analysis - korelasi/pola jangka panjang sinyal</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">higuchi_fractal_dimension</span></code></p></td>
+<td><p>Dimensi fraktal sinyal, metode Higuchi</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">hurst_exponent</span></code></p></td>
+<td><p>Eksponen Hurst (analisis R/S) - “memori” jangka panjang sinyal</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">maximum_fractal_length</span></code></p></td>
+<td><p>Panjang fraktal maksimum (MFL)</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">mse</span></code></p></td>
+<td><p>Multiscale Entropy - ketidakteraturan sinyal di berbagai skala waktu</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">petrosian_fractal_dimension</span></code></p></td>
+<td><p>Dimensi fraktal Petrosian</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>Total: 21 + 15 + 26 + 6 = <strong>68 fitur</strong>.</p>
+<p>Bagian ini menjelaskan dua fitur yang ditugaskan kepada penulis dalam pembagian tugas satu kelas: <code class="docutils literal notranslate"><span class="pre">interq_range</span></code> dari domain Statistical, dan <code class="docutils literal notranslate"><span class="pre">human_range_energy</span></code> dari domain Spectral.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="err">!</span><span class="n">pip</span> <span class="n">install</span> <span class="n">tsfel</span> <span class="o">-</span><span class="n">q</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ <span class=" -Color -Color-Green">63.4/63.4 kB</span> <span class=" -Color -Color-Red">3.3 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:00</span>
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ <span class=" -Color -Color-Green">4.9/4.9 MB</span> <span class=" -Color -Color-Red">42.0 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:00</span>
+?25h
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">tsfel.feature_extraction.features</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">tsfel_features</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p><strong>Penjelasan kode:</strong></p>
+<ul class="simple">
+<li><p>baris pertama menginstal pustaka TSFEL di lingkungan Colab</p></li>
+<li><p>baris kedua mengimpor modul <code class="docutils literal notranslate"><span class="pre">features</span></code> dari TSFEL, tempat semua fungsi ekstraksi fitur (termasuk <code class="docutils literal notranslate"><span class="pre">interq_range</span></code> dan <code class="docutils literal notranslate"><span class="pre">human_range_energy</span></code>) berada, lalu <code class="docutils literal notranslate"><span class="pre">numpy</span></code> diimpor untuk kebutuhan perhitungan numerik</p></li>
+</ul>
+</section>
+</section>
+<section id="interq-range-signal">
+<h3>1.2 <code class="docutils literal notranslate"><span class="pre">interq_range(signal)</span></code><a class="headerlink" href="#interq-range-signal" title="Link to this heading">#</a></h3>
+<p><strong>Domain:</strong> Statistical</p>
+<p>Interquartile Range (IQR) mengukur seberapa lebar 50% data yang letaknya di tengah, dihitung dari jarak antara kuartil atas (Q3, batas 75% data terkecil) dan kuartil bawah (Q1, batas 25% data terkecil). Bedanya dengan standar deviasi yang mengukur penyebaran dari titik rata-rata, IQR hanya memperhatikan posisi data setelah diurutkan, sehingtidak IQR relatif kebal terhadap outlier di ujung-ujung distribusi. Prinsip yang sama jutidak sehingga dasar deteksi outlier lewat boxplot, di mana batas whisker-nya dihitung dari Q1 − 1,5×IQR dan Q3 + 1,5×IQR.</p>
+<p>Kalau diterapkan ke sinyal polutan, IQR menggambarkan seberapa stabil konsentrasi suatu polutan di luar hari-hari yang ekstrem. Nilai IQR kecil berarti sebagian besar hari punya konsentrasi yang mirip satu sama lain, sedangkan IQR besar menandakan fluktuasi harian yang cukup signifikan.</p>
+<p><strong>Rumus:</strong>
+$<span class="math notranslate nohighlight">\(
+IQR = Q_3 - Q_1
+\)</span>$</p>
+<p>dengan <span class="math notranslate nohighlight">\(Q_1\)</span> dan <span class="math notranslate nohighlight">\(Q_3\)</span> dihitung dari data terurut memakai metode interpolasi linear (metode default TSFEL maupun NumPy):
+$<span class="math notranslate nohighlight">\(
+\text{posisi} = (n-1)\times p, \quad p \in \{0{,}25;\ 0{,}75\}
+\)</span>$</p>
+<p><strong>Contoh perhitungan manual, langkah per langkah:</strong></p>
+<p>Sinyal contoh: <span class="math notranslate nohighlight">\(x = [2,\ 4,\ 4,\ 4,\ 5,\ 5,\ 7,\ 9]\)</span> (<span class="math notranslate nohighlight">\(n=8\)</span>, sudah terurut).</p>
+<p><em>Langkah 1, posisi Q1:</em>
+$<span class="math notranslate nohighlight">\(
+\text{posisi}_{25} = (8-1)\times 0{,}25 = 1{,}75
+\)</span><span class="math notranslate nohighlight">\(
+Posisi 1,75 ada di antara indeks ke-1 (nilai 4) dan indeks ke-2 (nilai 4), sehingga:
+\)</span><span class="math notranslate nohighlight">\(
+Q_1 = 4 + 0{,}75\times(4-4) = 4{,}0
+\)</span>$</p>
+<p><em>Langkah 2, posisi Q3:</em>
+$<span class="math notranslate nohighlight">\(
+\text{posisi}_{75} = (8-1)\times 0{,}75 = 5{,}25
+\)</span><span class="math notranslate nohighlight">\(
+Posisi 5,25 ada di antara indeks ke-5 (nilai 5) dan indeks ke-6 (nilai 7), sehingga:
+\)</span><span class="math notranslate nohighlight">\(
+Q_3 = 5 + 0{,}25\times(7-5) = 5{,}5
+\)</span>$</p>
+<p><em>Langkah 3, hasil IQR:</em>
+$<span class="math notranslate nohighlight">\(
+IQR = Q_3 - Q_1 = 5{,}5 - 4{,}0 = \mathbf{1{,}5}
+\)</span>$</p>
+<p>Hasil ini akan dimemeriksa ulang lewat fungsi TSFEL pada kode pada bagian berikutnya, dan seharusnya persis sama dengan hitungan manual di atas.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Contoh perhitungan IQR secara manual tanpa fungsi percentile atau fungsi fitur TSFEL</span>
+<span class="n">x_contoh</span> <span class="o">=</span> <span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">9</span><span class="p">]</span>
+
+<span class="c1"># Mengurutkan data secara manual dengan bubble sort</span>
+<span class="n">x_urut</span> <span class="o">=</span> <span class="n">x_contoh</span><span class="p">[:]</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">x_urut</span><span class="p">)):</span>
+    <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">x_urut</span><span class="p">)</span> <span class="o">-</span> <span class="n">i</span> <span class="o">-</span> <span class="mi">1</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">x_urut</span><span class="p">[</span><span class="n">j</span><span class="p">]</span> <span class="o">&gt;</span> <span class="n">x_urut</span><span class="p">[</span><span class="n">j</span> <span class="o">+</span> <span class="mi">1</span><span class="p">]:</span>
+            <span class="n">sementara</span> <span class="o">=</span> <span class="n">x_urut</span><span class="p">[</span><span class="n">j</span><span class="p">]</span>
+            <span class="n">x_urut</span><span class="p">[</span><span class="n">j</span><span class="p">]</span> <span class="o">=</span> <span class="n">x_urut</span><span class="p">[</span><span class="n">j</span> <span class="o">+</span> <span class="mi">1</span><span class="p">]</span>
+            <span class="n">x_urut</span><span class="p">[</span><span class="n">j</span> <span class="o">+</span> <span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">sementara</span>
+
+<span class="n">n</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">x_urut</span><span class="p">)</span>
+
+<span class="c1"># Posisi kuartil mengikuti rumus (n-1) x p</span>
+<span class="n">pos_q1</span> <span class="o">=</span> <span class="p">(</span><span class="n">n</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span> <span class="o">*</span> <span class="mf">0.25</span>
+<span class="n">pos_q3</span> <span class="o">=</span> <span class="p">(</span><span class="n">n</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span> <span class="o">*</span> <span class="mf">0.75</span>
+
+<span class="c1"># Interpolasi linear manual untuk Q1</span>
+<span class="n">idx_q1</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">pos_q1</span><span class="p">)</span>
+<span class="n">pecahan_q1</span> <span class="o">=</span> <span class="n">pos_q1</span> <span class="o">-</span> <span class="n">idx_q1</span>
+<span class="n">q1</span> <span class="o">=</span> <span class="n">x_urut</span><span class="p">[</span><span class="n">idx_q1</span><span class="p">]</span> <span class="o">+</span> <span class="n">pecahan_q1</span> <span class="o">*</span> <span class="p">(</span><span class="n">x_urut</span><span class="p">[</span><span class="n">idx_q1</span> <span class="o">+</span> <span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="n">x_urut</span><span class="p">[</span><span class="n">idx_q1</span><span class="p">])</span>
+
+<span class="c1"># Interpolasi linear manual untuk Q3</span>
+<span class="n">idx_q3</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">pos_q3</span><span class="p">)</span>
+<span class="n">pecahan_q3</span> <span class="o">=</span> <span class="n">pos_q3</span> <span class="o">-</span> <span class="n">idx_q3</span>
+<span class="n">q3</span> <span class="o">=</span> <span class="n">x_urut</span><span class="p">[</span><span class="n">idx_q3</span><span class="p">]</span> <span class="o">+</span> <span class="n">pecahan_q3</span> <span class="o">*</span> <span class="p">(</span><span class="n">x_urut</span><span class="p">[</span><span class="n">idx_q3</span> <span class="o">+</span> <span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="n">x_urut</span><span class="p">[</span><span class="n">idx_q3</span><span class="p">])</span>
+
+<span class="n">iqr_manual</span> <span class="o">=</span> <span class="n">q3</span> <span class="o">-</span> <span class="n">q1</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Data terurut:&quot;</span><span class="p">,</span> <span class="n">x_urut</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Posisi Q1 = </span><span class="si">{</span><span class="n">pos_q1</span><span class="si">}</span><span class="s2">, Q1 = </span><span class="si">{</span><span class="n">q1</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Posisi Q3 = </span><span class="si">{</span><span class="n">pos_q3</span><span class="si">}</span><span class="s2">, Q3 = </span><span class="si">{</span><span class="n">q3</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;IQR = Q3 - Q1 = </span><span class="si">{</span><span class="n">iqr_manual</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Data terurut: [2, 4, 4, 4, 5, 5, 7, 9]
+Posisi Q1 = 1.75, Q1 = 4.0
+Posisi Q3 = 5.25, Q3 = 5.5
+IQR = Q3 - Q1 = 1.5
+</pre></div>
+</div>
+</div>
+</div>
+<p><strong>Penjelasan kode:</strong></p>
+<ul class="simple">
+<li><p>data contoh disimpan sebagai list Python sederhana, tanpa <code class="docutils literal notranslate"><span class="pre">numpy.percentile</span></code> dan tanpa fungsi <code class="docutils literal notranslate"><span class="pre">interq_range</span></code> dari TSFEL</p></li>
+<li><p>data diurutkan secara manual menggunakan bubble sort agar proses pengurutan dapat dimelihat secara eksplisit</p></li>
+<li><p>posisi Q1 dan Q3 dihitung menggunakan rumus <code class="docutils literal notranslate"><span class="pre">(n-1)</span> <span class="pre">×</span> <span class="pre">p</span></code></p></li>
+<li><p>nilai Q1 dan Q3 diperoleh dengan interpolasi linear secara manual berdasarkan posisi desimalnya</p></li>
+<li><p>nilai <code class="docutils literal notranslate"><span class="pre">interq_range</span></code> kemudian dihitung langsung dengan rumus <code class="docutils literal notranslate"><span class="pre">Q3</span> <span class="pre">-</span> <span class="pre">Q1</span></code></p></li>
+<li><p>tidak ada fungsi statistik bawaan yang digunakan untuk menghitung hasil IQR</p></li>
+</ul>
+</section>
+<section id="human-range-energy-signal-fs">
+<h3>1.3 <code class="docutils literal notranslate"><span class="pre">human_range_energy(signal,</span> <span class="pre">fs)</span></code><a class="headerlink" href="#human-range-energy-signal-fs" title="Link to this heading">#</a></h3>
+<p><strong>Domain:</strong> Spectral</p>
+<p>Fitur ini awalnya diuntuk untuk sinyal gerak tubuh manusia, misalnya data accelerometer, guna mengukur seberapa besar porsi energi sinyal yang berada pada rentang frekuensi 0,6-2,5 Hz, rentang yang berkaitan dengan aktivitas fisik seperti langkah kaki atau detak jantung. Perhitungannya lewat transformasi Fourier (FFT), yang mengubah sinyal dari domain waktu ke domain frekuensi, lalu membandingkan energi pada pita frekuensi tersebut terhadap energi total seluruh spektrum.</p>
+<p>Ada satu hal yang perlu digarisbawahi: karena fitur ini awalnya dirancang untuk sinyal gerak yang berfrekuensi tinggi (skala sub-detik), penerapannya pada data polutan harian (1 sampel per hari, jauh pada bagian berikutnya 0,6 Hz) kemungkinan besar akan selalu menghasilkan nilai 0. Ini bukan tanda ada yang salah dengan datanya, melainkan konsekuensi wajar dari perbedaan skala waktu antara konteks asal fitur ini (gerak manusia) dengan data yang digunakan pada bagian ini (konsentrasi polutan harian).</p>
+<p><strong>Rumus:</strong>
+$<span class="math notranslate nohighlight">\(
+HRE = \frac{\displaystyle\sum_{0.6 \le f \le 2.5} |X(f)|^2}{\displaystyle\sum_{f} |X(f)|^2}, \quad X(f) = \text{FFT}(x)
+\)</span>$</p>
+<p><strong>Contoh perhitungan manual, langkah per langkah:</strong></p>
+<p>Diuntuk sinyal gabungan dua frekuensi, <span class="math notranslate nohighlight">\(f_s = 10\)</span> Hz, durasi 20 detik (<span class="math notranslate nohighlight">\(n=200\)</span> sampel):
+$<span class="math notranslate nohighlight">\(
+x(t) = \sin(2\pi \cdot 1{,}0 \cdot t) + 0{,}5\sin(2\pi \cdot 4{,}0 \cdot t)
+\)</span>$</p>
+<p><em>Langkah 1, resolusi frekuensi FFT:</em>
+$<span class="math notranslate nohighlight">\(
+\Delta f = \frac{f_s}{n} = \frac{10}{200} = 0{,}05 \text{ Hz}
+\)</span>$</p>
+<p><em>Langkah 2, hitung Power Spectral Density (PSD) tiap bin lewat FFT:</em></p>
+<p>Nyaris seluruh energi sinyal ini terkumpul di dua bin frekuensi:</p>
+<ul class="simple">
+<li><p>Bin pada <span class="math notranslate nohighlight">\(f = 1{,}0\)</span> Hz (komponen utama): <span class="math notranslate nohighlight">\(PSD \approx 10.000\)</span></p></li>
+<li><p>Bin pada <span class="math notranslate nohighlight">\(f = 4{,}0\)</span> Hz (komponen kedua): <span class="math notranslate nohighlight">\(PSD \approx 2.500\)</span></p></li>
+<li><p>Total energi seluruh spektrum: <span class="math notranslate nohighlight">\(12.500\)</span></p></li>
+</ul>
+<p><em>Langkah 3, jumlahkan energi yang jatuh di rentang <span class="math notranslate nohighlight">\(0{,}6 \le f \le 2{,}5\)</span> Hz:</em></p>
+<p>Cuma bin <span class="math notranslate nohighlight">\(f=1{,}0\)</span> Hz yang masuk rentang ini (bin <span class="math notranslate nohighlight">\(f=4{,}0\)</span> Hz berada di luar), sehingga:
+$<span class="math notranslate nohighlight">\(
+\sum_{0.6\le f\le 2.5} |X(f)|^2 = 10.000
+\)</span>$</p>
+<p><em>Langkah 4, rasio HRE:</em>
+$<span class="math notranslate nohighlight">\(
+HRE = \frac{10.000}{12.500} = \mathbf{0{,}8}
+\)</span>$</p>
+<p>Hasil ini akan dimemeriksa ulang lewat fungsi TSFEL pada kode pada bagian berikutnya.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Contoh verifikasi human_range_energy secara manual</span>
+<span class="c1"># Data contoh menggunakan frekuensi sampling 10 Hz.</span>
+<span class="n">fs_contoh</span> <span class="o">=</span> <span class="mi">10</span>
+<span class="n">batas_bawah</span> <span class="o">=</span> <span class="mf">0.6</span>
+<span class="n">batas_atas</span> <span class="o">=</span> <span class="mf">2.5</span>
+
+<span class="c1"># Frekuensi maksimum yang dapat direpresentasikan adalah frekuensi Nyquist.</span>
+<span class="n">nyquist</span> <span class="o">=</span> <span class="n">fs_contoh</span> <span class="o">/</span> <span class="mi">2</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Frekuensi sampling = </span><span class="si">{</span><span class="n">fs_contoh</span><span class="si">}</span><span class="s2"> Hz&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Frekuensi Nyquist = </span><span class="si">{</span><span class="n">nyquist</span><span class="si">}</span><span class="s2"> Hz&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Rentang human_range_energy = </span><span class="si">{</span><span class="n">batas_bawah</span><span class="si">}</span><span class="s2">-</span><span class="si">{</span><span class="n">batas_atas</span><span class="si">}</span><span class="s2"> Hz&quot;</span><span class="p">)</span>
+
+<span class="k">if</span> <span class="n">batas_bawah</span> <span class="o">&gt;</span> <span class="n">nyquist</span><span class="p">:</span>
+    <span class="n">energi_dalam_rentang</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="k">else</span><span class="p">:</span>
+    <span class="n">energi_dalam_rentang</span> <span class="o">=</span> <span class="s2">&quot;perlu dihitung dari komponen frekuensi yang masuk rentang&quot;</span>
+
+<span class="k">if</span> <span class="n">energi_dalam_rentang</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+    <span class="n">hre_manual</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Seluruh rentang 0,6-2,5 Hz berada di atas Nyquist.&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Energi pada rentang tersebut = 0&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;HRE manual = 0 / energi total = 0&quot;</span><span class="p">)</span>
+<span class="k">else</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">energi_dalam_rentang</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Frekuensi sampling = 10 Hz
+Frekuensi Nyquist = 5.0 Hz
+Rentang human_range_energy = 0.6-2.5 Hz
+perlu dihitung dari komponen frekuensi yang masuk rentang
+</pre></div>
+</div>
+</div>
+</div>
+<p><strong>Penjelasan kode:</strong></p>
+<ul class="simple">
+<li><p>verifikasi dilakukan tanpa <code class="docutils literal notranslate"><span class="pre">np.fft</span></code>, <code class="docutils literal notranslate"><span class="pre">np.abs</span></code>, atau fungsi <code class="docutils literal notranslate"><span class="pre">human_range_energy</span></code> dari TSFEL</p></li>
+<li><p>frekuensi Nyquist dihitung langsung dengan rumus <code class="docutils literal notranslate"><span class="pre">fs</span> <span class="pre">/</span> <span class="pre">2</span></code></p></li>
+<li><p>karena <code class="docutils literal notranslate"><span class="pre">fs</span> <span class="pre">=</span> <span class="pre">10</span> <span class="pre">Hz</span></code>, frekuensi maksimum yang dapat direpresentasikan adalah 5 Hz, sehingtidak rentang 0,6–2,5 Hz memang masih dapat direpresentasikan pada contoh ini</p></li>
+<li><p>contoh ini hanya menunjukkan pemeriksaan batas frekuensi secara manual; perhitungan rasio energi lengkap digunakan pada data riil apabila terdapat komponen frekuensi di dalam rentang tersebut</p></li>
+</ul>
+</section>
+<section id="verifikasi-manual-interq-range-dan-human-range-energy-pada-data-riil">
+<h3>1.4 Verifikasi Manual <code class="docutils literal notranslate"><span class="pre">interq_range</span></code> dan <code class="docutils literal notranslate"><span class="pre">human_range_energy</span></code> pada Data Riil<a class="headerlink" href="#verifikasi-manual-interq-range-dan-human-range-energy-pada-data-riil" title="Link to this heading">#</a></h3>
+<p>Verifikasi berikut menggunakan data riil CO, NO2, dan SO2 dari <code class="docutils literal notranslate"><span class="pre">pollutant_data_tikala.csv</span></code>. Perhitungan enam hasil dilakukan kembali secara manual, bukan dengan mengmengambil nilai dari hasil ekstraksi TSFEL.</p>
+<p>Untuk <code class="docutils literal notranslate"><span class="pre">interq_range</span></code>, data diurutkan secara manual, posisi Q1 dan Q3 dihitung menggunakan rumus interpolasi, lalu IQR dihitung sebagai <code class="docutils literal notranslate"><span class="pre">Q3</span> <span class="pre">-</span> <span class="pre">Q1</span></code>.</p>
+<p>Untuk <code class="docutils literal notranslate"><span class="pre">human_range_energy</span></code>, data polutan memiliki satu pengamatan per hari sehingtidak <code class="docutils literal notranslate"><span class="pre">fs</span> <span class="pre">=</span> <span class="pre">1</span> <span class="pre">Hz</span></code>. Frekuensi Nyquist adalah <code class="docutils literal notranslate"><span class="pre">0,5</span> <span class="pre">Hz</span></code>, sedangkan rentang fitur adalah <code class="docutils literal notranslate"><span class="pre">0,6–2,5</span> <span class="pre">Hz</span></code>. Karena seluruh rentang fitur berada di atas Nyquist, energi pada rentang tersebut secara matematis adalah 0 sehingtidak HRE = 0.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Verifikasi manual fitur TSFEL menggunakan data yang sama dengan input TSFEL.</span>
+<span class="c1"># Perhitungan interq_range dilakukan secara manual tanpa menggunakan fungsi</span>
+<span class="c1"># percentile atau fungsi ekstraksi fitur TSFEL.</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">urut_manual</span><span class="p">(</span><span class="n">data</span><span class="p">):</span>
+    <span class="n">hasil</span> <span class="o">=</span> <span class="n">data</span><span class="p">[:]</span>
+
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">hasil</span><span class="p">)):</span>
+        <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">hasil</span><span class="p">)</span> <span class="o">-</span> <span class="n">i</span> <span class="o">-</span> <span class="mi">1</span><span class="p">):</span>
+            <span class="k">if</span> <span class="n">hasil</span><span class="p">[</span><span class="n">j</span><span class="p">]</span> <span class="o">&gt;</span> <span class="n">hasil</span><span class="p">[</span><span class="n">j</span> <span class="o">+</span> <span class="mi">1</span><span class="p">]:</span>
+                <span class="n">sementara</span> <span class="o">=</span> <span class="n">hasil</span><span class="p">[</span><span class="n">j</span><span class="p">]</span>
+                <span class="n">hasil</span><span class="p">[</span><span class="n">j</span><span class="p">]</span> <span class="o">=</span> <span class="n">hasil</span><span class="p">[</span><span class="n">j</span> <span class="o">+</span> <span class="mi">1</span><span class="p">]</span>
+                <span class="n">hasil</span><span class="p">[</span><span class="n">j</span> <span class="o">+</span> <span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">sementara</span>
+
+    <span class="k">return</span> <span class="n">hasil</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">kuartil_manual</span><span class="p">(</span><span class="n">data_urut</span><span class="p">,</span> <span class="n">p</span><span class="p">):</span>
+    <span class="n">n</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">data_urut</span><span class="p">)</span>
+
+    <span class="n">posisi</span> <span class="o">=</span> <span class="p">(</span><span class="n">n</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span> <span class="o">*</span> <span class="n">p</span>
+    <span class="n">indeks</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">posisi</span><span class="p">)</span>
+    <span class="n">pecahan</span> <span class="o">=</span> <span class="n">posisi</span> <span class="o">-</span> <span class="n">indeks</span>
+
+    <span class="k">if</span> <span class="n">indeks</span> <span class="o">+</span> <span class="mi">1</span> <span class="o">&lt;</span> <span class="n">n</span><span class="p">:</span>
+        <span class="k">return</span> <span class="p">(</span>
+            <span class="n">data_urut</span><span class="p">[</span><span class="n">indeks</span><span class="p">]</span>
+            <span class="o">+</span> <span class="n">pecahan</span> <span class="o">*</span> <span class="p">(</span><span class="n">data_urut</span><span class="p">[</span><span class="n">indeks</span> <span class="o">+</span> <span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="n">data_urut</span><span class="p">[</span><span class="n">indeks</span><span class="p">])</span>
+        <span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">data_urut</span><span class="p">[</span><span class="n">indeks</span><span class="p">]</span>
+
+
+<span class="n">hasil_manual</span> <span class="o">=</span> <span class="p">[]</span>
+
+<span class="k">for</span> <span class="n">polutan</span> <span class="ow">in</span> <span class="p">[</span><span class="s2">&quot;CO&quot;</span><span class="p">,</span> <span class="s2">&quot;NO2&quot;</span><span class="p">,</span> <span class="s2">&quot;SO2&quot;</span><span class="p">]:</span>
+
+    <span class="c1"># Menggunakan data hasil preprocessing yang juga menjadi</span>
+    <span class="c1"># input pada proses ekstraksi fitur TSFEL.</span>
+    <span class="n">data</span> <span class="o">=</span> <span class="p">[</span>
+        <span class="nb">float</span><span class="p">(</span><span class="n">nilai</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">nilai</span> <span class="ow">in</span> <span class="n">sinyal_bersih</span><span class="p">[</span><span class="n">polutan</span><span class="p">]</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span>
+        <span class="k">if</span> <span class="n">nilai</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span>
+    <span class="p">]</span>
+
+    <span class="c1"># Pengurutan dilakukan secara manual.</span>
+    <span class="n">data_urut</span> <span class="o">=</span> <span class="n">urut_manual</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+
+    <span class="c1"># Perhitungan kuartil Q1 dan Q3 dilakukan secara manual.</span>
+    <span class="n">q1</span> <span class="o">=</span> <span class="n">kuartil_manual</span><span class="p">(</span><span class="n">data_urut</span><span class="p">,</span> <span class="mf">0.25</span><span class="p">)</span>
+    <span class="n">q3</span> <span class="o">=</span> <span class="n">kuartil_manual</span><span class="p">(</span><span class="n">data_urut</span><span class="p">,</span> <span class="mf">0.75</span><span class="p">)</span>
+
+    <span class="c1"># Interquartile Range dihitung berdasarkan selisih Q3 dan Q1.</span>
+    <span class="n">iqr</span> <span class="o">=</span> <span class="n">q3</span> <span class="o">-</span> <span class="n">q1</span>
+
+    <span class="c1"># Data merupakan data harian sehingga frekuensi sampling ditetapkan</span>
+    <span class="c1"># sebesar 1 Hz.</span>
+    <span class="n">fs_riil</span> <span class="o">=</span> <span class="mi">1</span>
+    <span class="n">nyquist</span> <span class="o">=</span> <span class="n">fs_riil</span> <span class="o">/</span> <span class="mi">2</span>
+
+    <span class="c1"># Rentang frekuensi human_range_energy.</span>
+    <span class="n">batas_bawah</span> <span class="o">=</span> <span class="mf">0.6</span>
+    <span class="n">batas_atas</span> <span class="o">=</span> <span class="mf">2.5</span>
+
+    <span class="c1"># Rentang 0,6-2,5 Hz berada di atas frekuensi Nyquist 0,5 Hz.</span>
+    <span class="c1"># Oleh karena itu, energi pada rentang tersebut bernilai 0.</span>
+    <span class="k">if</span> <span class="n">batas_bawah</span> <span class="o">&gt;</span> <span class="n">nyquist</span><span class="p">:</span>
+        <span class="n">hre</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">hre</span> <span class="o">=</span> <span class="s2">&quot;perlu perhitungan spektrum&quot;</span>
+
+    <span class="n">hasil_manual</span><span class="o">.</span><span class="n">append</span><span class="p">({</span>
+        <span class="s2">&quot;polutan&quot;</span><span class="p">:</span> <span class="n">polutan</span><span class="p">,</span>
+        <span class="s2">&quot;jumlah_data&quot;</span><span class="p">:</span> <span class="nb">len</span><span class="p">(</span><span class="n">data</span><span class="p">),</span>
+        <span class="s2">&quot;Q1&quot;</span><span class="p">:</span> <span class="n">q1</span><span class="p">,</span>
+        <span class="s2">&quot;Q3&quot;</span><span class="p">:</span> <span class="n">q3</span><span class="p">,</span>
+        <span class="s2">&quot;interq_range_manual&quot;</span><span class="p">:</span> <span class="n">iqr</span><span class="p">,</span>
+        <span class="s2">&quot;human_range_energy_manual&quot;</span><span class="p">:</span> <span class="n">hre</span>
+    <span class="p">})</span>
+
+
+<span class="c1"># Menampilkan hasil verifikasi manual.</span>
+<span class="k">for</span> <span class="n">hasil</span> <span class="ow">in</span> <span class="n">hasil_manual</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="se">\n</span><span class="si">{</span><span class="n">hasil</span><span class="p">[</span><span class="s1">&#39;polutan&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Jumlah data = </span><span class="si">{</span><span class="n">hasil</span><span class="p">[</span><span class="s1">&#39;jumlah_data&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Q1 = </span><span class="si">{</span><span class="n">hasil</span><span class="p">[</span><span class="s1">&#39;Q1&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Q3 = </span><span class="si">{</span><span class="n">hasil</span><span class="p">[</span><span class="s1">&#39;Q3&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;IQR manual = </span><span class="si">{</span><span class="n">hasil</span><span class="p">[</span><span class="s1">&#39;interq_range_manual&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;HRE manual = </span><span class="si">{</span><span class="n">hasil</span><span class="p">[</span><span class="s1">&#39;human_range_energy_manual&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>CO
+Jumlah data = 363
+Q1 = 0.022673277184367124
+Q3 = 0.0274572344496846
+IQR manual = 0.004783957265317475
+HRE manual = 0
+
+NO2
+Jumlah data = 363
+Q1 = 4.394871823857708e-06
+Q3 = 1.1356197228451493e-05
+IQR manual = 6.9613254045937845e-06
+HRE manual = 0
+
+SO2
+Jumlah data = 363
+Q1 = -7.622202666915108e-05
+Q3 = 5.2876204920561626e-05
+IQR manual = 0.0001290982315897127
+HRE manual = 0
+</pre></div>
+</div>
+</div>
+</div>
+<p><strong>Penjelasan kode:</strong></p>
+<ul class="simple">
+<li><p>Data CO, NO₂, dan SO₂ diambil dari <code class="docutils literal notranslate"><span class="pre">sinyal_bersih</span></code>, yaitu data yang telah melalui tahap preprocessing dan digunakan sebagai input dalam ekstraksi fitur TSFEL.</p></li>
+<li><p>Nilai pada setiap polutan dikonversi menjadi tipe numerik sebelum dilakukan perhitungan.</p></li>
+<li><p>Pengurutan data dilakukan menggunakan algoritma <strong>bubble sort</strong> yang diimplementasikan secara manual.</p></li>
+<li><p>Q1 dan Q3 dihitung menggunakan interpolasi linear berdasarkan posisi <code class="docutils literal notranslate"><span class="pre">(n-1)</span> <span class="pre">×</span> <span class="pre">p</span></code>, dengan <code class="docutils literal notranslate"><span class="pre">p</span> <span class="pre">=</span> <span class="pre">0,25</span></code> untuk Q1 dan <code class="docutils literal notranslate"><span class="pre">p</span> <span class="pre">=</span> <span class="pre">0,75</span></code> untuk Q3.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">interq_range_manual</span></code> dihitung secara langsung menggunakan selisih antara Q3 dan Q1.</p></li>
+<li><p>Untuk <code class="docutils literal notranslate"><span class="pre">human_range_energy</span></code>, frekuensi sampling ditetapkan sebesar <code class="docutils literal notranslate"><span class="pre">1</span> <span class="pre">Hz</span></code> sehingga frekuensi Nyquist adalah <code class="docutils literal notranslate"><span class="pre">0,5</span> <span class="pre">Hz</span></code>.</p></li>
+<li><p>Rentang frekuensi <code class="docutils literal notranslate"><span class="pre">human_range_energy</span></code> sebesar <code class="docutils literal notranslate"><span class="pre">0,6–2,5</span> <span class="pre">Hz</span></code> berada di atas frekuensi Nyquist, sehingga tidak terdapat frekuensi yang dapat direpresentasikan pada rentang tersebut dan hasil manual ditetapkan sebesar <code class="docutils literal notranslate"><span class="pre">0</span></code>.</p></li>
+<li><p>Perhitungan verifikasi dilakukan tanpa menggunakan <code class="docutils literal notranslate"><span class="pre">np.percentile</span></code>, fungsi IQR bawaan, <code class="docutils literal notranslate"><span class="pre">np.fft</span></code>, <code class="docutils literal notranslate"><span class="pre">tsfel_features.interq_range</span></code>, maupun <code class="docutils literal notranslate"><span class="pre">tsfel_features.human_range_energy</span></code>.</p></li>
+<li><p>Hasil perhitungan manual dapat dibandingkan dengan hasil ekstraksi TSFEL karena kedua proses menggunakan data input yang sama, yaitu <code class="docutils literal notranslate"><span class="pre">sinyal_bersih</span></code>.</p></li>
+</ul>
+<p><strong>Hasil verifikasi manual data riil:</strong></p>
+<p>Kode pada sel sebelumnya menghasilkan enam hasil, yaitu <code class="docutils literal notranslate"><span class="pre">interq_range</span></code> dan <code class="docutils literal notranslate"><span class="pre">human_range_energy</span></code> untuk masing-masing CO, NO2, dan SO2. Nilai IQR dihitung dari data riil dengan pengurutan dan interpolasi manual, sedangkan HRE ditentukan dari batas frekuensi Nyquist data harian.</p>
+</section>
+</section>
+<section id="data-preparation-deteksi-outlier-dan-imputasi-missing-value">
+<h2>2. Data Preparation: Deteksi Outlier dan Imputasi Missing Value<a class="headerlink" href="#data-preparation-deteksi-outlier-dan-imputasi-missing-value" title="Link to this heading">#</a></h2>
+<p>Sebelum sinyal CO, NO2, dan SO2 dimasukkan ke proses ekstraksi fitur, ketiganya perlu dibersihkan dulu dari outlier dan nilai kosong, karena TSFEL tidak bisa mengolah data yang masih mengandung NaN. Tahap ini dipisahkan dari proses ekstraksi agar alurnya lebih jelas: bersihkan dulu semua polutan sekaligus, baru masuk ke ekstraksi fitur satu per satu pada bagian berikutnya.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+
+<span class="n">POLUTAN_TARGET</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;CO&quot;</span><span class="p">,</span> <span class="s2">&quot;NO2&quot;</span><span class="p">,</span> <span class="s2">&quot;SO2&quot;</span><span class="p">]</span>
+
+<span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">&quot;pollutant_data_tikala.csv&quot;</span><span class="p">)</span>
+<span class="n">df</span><span class="p">[</span><span class="s2">&quot;date&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_datetime</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s2">&quot;date&quot;</span><span class="p">])</span>
+<span class="n">df</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="s2">&quot;date&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">drop</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+<span class="c1"># Menyimpan data asli sebelum proses penanganan</span>
+<span class="n">df_awal</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+
+<span class="n">sinyal_bersih</span> <span class="o">=</span> <span class="p">{}</span>
+<span class="n">ringkasan_missing_list</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="n">batas_iqr</span> <span class="o">=</span> <span class="p">{}</span>
+<span class="n">outliers_iqr_dict</span> <span class="o">=</span> <span class="p">{}</span>
+
+<span class="k">for</span> <span class="n">pol</span> <span class="ow">in</span> <span class="n">POLUTAN_TARGET</span><span class="p">:</span>
+    <span class="n">df</span><span class="p">[</span><span class="n">pol</span><span class="p">]</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_numeric</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="n">pol</span><span class="p">],</span> <span class="n">errors</span><span class="o">=</span><span class="s2">&quot;coerce&quot;</span><span class="p">)</span>
+
+    <span class="c1"># Missing value pada data awal</span>
+    <span class="n">n_missing_awal</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="n">pol</span><span class="p">]</span><span class="o">.</span><span class="n">isna</span><span class="p">()</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
+    <span class="n">persen_missing_awal</span> <span class="o">=</span> <span class="p">(</span><span class="n">n_missing_awal</span> <span class="o">/</span> <span class="nb">len</span><span class="p">(</span><span class="n">df</span><span class="p">))</span> <span class="o">*</span> <span class="mi">100</span>
+
+    <span class="c1"># Deteksi outlier dengan metode IQR</span>
+    <span class="n">q1</span><span class="p">,</span> <span class="n">q3</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="n">pol</span><span class="p">]</span><span class="o">.</span><span class="n">quantile</span><span class="p">([</span><span class="mf">0.25</span><span class="p">,</span> <span class="mf">0.75</span><span class="p">])</span>
+    <span class="n">iqr</span> <span class="o">=</span> <span class="n">q3</span> <span class="o">-</span> <span class="n">q1</span>
+    <span class="n">lower</span> <span class="o">=</span> <span class="n">q1</span> <span class="o">-</span> <span class="mf">1.5</span> <span class="o">*</span> <span class="n">iqr</span>
+    <span class="n">upper</span> <span class="o">=</span> <span class="n">q3</span> <span class="o">+</span> <span class="mf">1.5</span> <span class="o">*</span> <span class="n">iqr</span>
+
+    <span class="n">kondisi_outlier</span> <span class="o">=</span> <span class="p">(</span>
+        <span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="n">pol</span><span class="p">]</span> <span class="o">&lt;</span> <span class="n">lower</span><span class="p">)</span> <span class="o">|</span>
+        <span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="n">pol</span><span class="p">]</span> <span class="o">&gt;</span> <span class="n">upper</span><span class="p">)</span>
+    <span class="p">)</span>
+
+    <span class="n">outliers_iqr_dict</span><span class="p">[</span><span class="n">pol</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">kondisi_outlier</span><span class="p">,</span> <span class="p">[</span><span class="s2">&quot;date&quot;</span><span class="p">,</span> <span class="n">pol</span><span class="p">]]</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+    <span class="n">jumlah_outlier</span> <span class="o">=</span> <span class="n">kondisi_outlier</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
+
+    <span class="n">batas_iqr</span><span class="p">[</span><span class="n">pol</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="s2">&quot;lower&quot;</span><span class="p">:</span> <span class="n">lower</span><span class="p">,</span>
+        <span class="s2">&quot;upper&quot;</span><span class="p">:</span> <span class="n">upper</span>
+    <span class="p">}</span>
+
+    <span class="c1"># Outlier dijadikan NaN agar ikut ditangani pada tahap imputasi</span>
+    <span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">kondisi_outlier</span><span class="p">,</span> <span class="n">pol</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span>
+
+    <span class="c1"># Missing setelah deteksi outlier</span>
+    <span class="n">n_missing_setelah_outlier</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="n">pol</span><span class="p">]</span><span class="o">.</span><span class="n">isna</span><span class="p">()</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
+    <span class="n">persen_missing_setelah_outlier</span> <span class="o">=</span> <span class="p">(</span><span class="n">n_missing_setelah_outlier</span> <span class="o">/</span> <span class="nb">len</span><span class="p">(</span><span class="n">df</span><span class="p">))</span> <span class="o">*</span> <span class="mi">100</span>
+
+    <span class="c1"># Imputasi berdasarkan waktu</span>
+    <span class="n">hasil_interpolasi</span> <span class="o">=</span> <span class="p">(</span>
+        <span class="n">df</span><span class="o">.</span><span class="n">set_index</span><span class="p">(</span><span class="s2">&quot;date&quot;</span><span class="p">)[[</span><span class="n">pol</span><span class="p">]]</span>
+        <span class="o">.</span><span class="n">interpolate</span><span class="p">(</span><span class="n">method</span><span class="o">=</span><span class="s2">&quot;time&quot;</span><span class="p">)</span>
+        <span class="o">.</span><span class="n">ffill</span><span class="p">()</span>
+        <span class="o">.</span><span class="n">bfill</span><span class="p">()</span>
+    <span class="p">)</span>
+
+    <span class="c1"># Missing setelah imputasi</span>
+    <span class="n">n_missing_sesudah</span> <span class="o">=</span> <span class="n">hasil_interpolasi</span><span class="p">[</span><span class="n">pol</span><span class="p">]</span><span class="o">.</span><span class="n">isna</span><span class="p">()</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
+    <span class="n">persen_missing_sesudah</span> <span class="o">=</span> <span class="p">(</span><span class="n">n_missing_sesudah</span> <span class="o">/</span> <span class="nb">len</span><span class="p">(</span><span class="n">df</span><span class="p">))</span> <span class="o">*</span> <span class="mi">100</span>
+
+    <span class="n">sinyal_bersih</span><span class="p">[</span><span class="n">pol</span><span class="p">]</span> <span class="o">=</span> <span class="n">hasil_interpolasi</span><span class="p">[</span><span class="n">pol</span><span class="p">]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">float</span><span class="p">)</span><span class="o">.</span><span class="n">values</span>
+
+    <span class="n">ringkasan_missing_list</span><span class="o">.</span><span class="n">append</span><span class="p">({</span>
+        <span class="s2">&quot;polutan&quot;</span><span class="p">:</span> <span class="n">pol</span><span class="p">,</span>
+        <span class="s2">&quot;missing_awal&quot;</span><span class="p">:</span> <span class="n">n_missing_awal</span><span class="p">,</span>
+        <span class="s2">&quot;persen_awal&quot;</span><span class="p">:</span> <span class="n">persen_missing_awal</span><span class="p">,</span>
+        <span class="s2">&quot;jumlah_outlier&quot;</span><span class="p">:</span> <span class="n">jumlah_outlier</span><span class="p">,</span>
+        <span class="s2">&quot;missing_setelah_outlier&quot;</span><span class="p">:</span> <span class="n">n_missing_setelah_outlier</span><span class="p">,</span>
+        <span class="s2">&quot;persen_setelah_outlier&quot;</span><span class="p">:</span> <span class="n">persen_missing_setelah_outlier</span><span class="p">,</span>
+        <span class="s2">&quot;missing_sesudah_imputasi&quot;</span><span class="p">:</span> <span class="n">n_missing_sesudah</span><span class="p">,</span>
+        <span class="s2">&quot;persen_sesudah_imputasi&quot;</span><span class="p">:</span> <span class="n">persen_missing_sesudah</span>
+    <span class="p">})</span>
+
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">===== </span><span class="si">{</span><span class="n">pol</span><span class="si">}</span><span class="s2"> =====&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Missing value awal               : </span><span class="si">{</span><span class="n">n_missing_awal</span><span class="si">}</span><span class="s2"> (</span><span class="si">{</span><span class="n">persen_missing_awal</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">%)&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Jumlah outlier                  : </span><span class="si">{</span><span class="n">jumlah_outlier</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Missing setelah deteksi outlier : </span><span class="si">{</span><span class="n">n_missing_setelah_outlier</span><span class="si">}</span><span class="s2"> (</span><span class="si">{</span><span class="n">persen_missing_setelah_outlier</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">%)&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Missing setelah imputasi         : </span><span class="si">{</span><span class="n">n_missing_sesudah</span><span class="si">}</span><span class="s2"> (</span><span class="si">{</span><span class="n">persen_missing_sesudah</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">%)&quot;</span><span class="p">)</span>
+
+<span class="c1"># Membuat data hasil penanganan dengan tanggal yang tetap sama</span>
+<span class="n">df_setelah</span> <span class="o">=</span> <span class="n">df_awal</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+<span class="k">for</span> <span class="n">pol</span> <span class="ow">in</span> <span class="n">POLUTAN_TARGET</span><span class="p">:</span>
+    <span class="n">df_setelah</span><span class="p">[</span><span class="n">pol</span><span class="p">]</span> <span class="o">=</span> <span class="n">sinyal_bersih</span><span class="p">[</span><span class="n">pol</span><span class="p">]</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Preprocessing selesai untuk:&quot;</span><span class="p">,</span> <span class="n">POLUTAN_TARGET</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>===== CO =====
+Missing value awal               : 180 (49.59%)
+Jumlah outlier                  : 2
+Missing setelah deteksi outlier : 182 (50.14%)
+Missing setelah imputasi         : 0 (0.00%)
+
+===== NO2 =====
+Missing value awal               : 240 (66.12%)
+Jumlah outlier                  : 7
+Missing setelah deteksi outlier : 247 (68.04%)
+Missing setelah imputasi         : 0 (0.00%)
+
+===== SO2 =====
+Missing value awal               : 181 (49.86%)
+Jumlah outlier                  : 12
+Missing setelah deteksi outlier : 193 (53.17%)
+Missing setelah imputasi         : 0 (0.00%)
+
+Preprocessing selesai untuk: [&#39;CO&#39;, &#39;NO2&#39;, &#39;SO2&#39;]
+</pre></div>
+</div>
+</div>
+</div>
+<p><strong>Penjelasan kode:</strong></p>
+<ul class="simple">
+<li><p>data dibaca dari <code class="docutils literal notranslate"><span class="pre">pollutant_data_tikala.csv</span></code>, kemudian kolom <code class="docutils literal notranslate"><span class="pre">date</span></code> diubah mensehingga datetime dan diurutkan berdasarkan tanggal</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">df_awal</span></code> digunakan untuk menyimpan kondisi data sebelum penanganan, sehingtidak hasil sebelum dan sesudah dapat dibandingkan</p></li>
+<li><p>missing value awal dihitung sebelum proses deteksi outlier</p></li>
+<li><p>outlier dideteksi menggunakan metode IQR dengan batas <code class="docutils literal notranslate"><span class="pre">Q1</span> <span class="pre">-</span> <span class="pre">1,5×IQR</span></code> dan <code class="docutils literal notranslate"><span class="pre">Q3</span> <span class="pre">+</span> <span class="pre">1,5×IQR</span></code></p></li>
+<li><p>nilai yang terdeteksi sebagai outlier diubah mensehingga <code class="docutils literal notranslate"><span class="pre">NaN</span></code> agar ikut ditangani pada proses imputasi</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">interpolate(method=&quot;time&quot;)</span></code> digunakan untuk mengisi nilai kosong berdasarkan urutan waktu, kemudian <code class="docutils literal notranslate"><span class="pre">ffill()</span></code> dan <code class="docutils literal notranslate"><span class="pre">bfill()</span></code> digunakan untuk mengisi nilai kosong yang masih berada di awal atau akhir data</p></li>
+<li><p>kolom <code class="docutils literal notranslate"><span class="pre">date</span></code> tidak diubah selama proses preprocessing</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">sinyal_bersih</span></code> menyimpan sinyal hasil penanganan yang akan digunakan pada ekstraksi fitur</p></li>
+</ul>
+<section id="ringkasan-missing-value-sebelum-dan-sesudah-penanganan">
+<h3>2.1 Ringkasan Missing Value Sebelum dan Sesudah Penanganan<a class="headerlink" href="#ringkasan-missing-value-sebelum-dan-sesudah-penanganan" title="Link to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">ringkasan_missing</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">ringkasan_missing_list</span><span class="p">)</span>
+<span class="n">display</span><span class="p">(</span><span class="n">ringkasan_missing</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html">
+  <div id="df-a0e02195-e793-4de8-bfe5-5fd465fc3bfa" class="colab-df-container">
+    <div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>polutan</th>
+      <th>missing_awal</th>
+      <th>persen_awal</th>
+      <th>jumlah_outlier</th>
+      <th>missing_setelah_outlier</th>
+      <th>persen_setelah_outlier</th>
+      <th>missing_sesudah_imputasi</th>
+      <th>persen_sesudah_imputasi</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>CO</td>
+      <td>180</td>
+      <td>49.586777</td>
+      <td>2</td>
+      <td>182</td>
+      <td>50.137741</td>
+      <td>0</td>
+      <td>0.0</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>NO2</td>
+      <td>240</td>
+      <td>66.115702</td>
+      <td>7</td>
+      <td>247</td>
+      <td>68.044077</td>
+      <td>0</td>
+      <td>0.0</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>SO2</td>
+      <td>181</td>
+      <td>49.862259</td>
+      <td>12</td>
+      <td>193</td>
+      <td>53.168044</td>
+      <td>0</td>
+      <td>0.0</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+    <div class="colab-df-buttons">
+
+  <div class="colab-df-container">
+    <button class="colab-df-convert" onclick="convertToInteractive('df-a0e02195-e793-4de8-bfe5-5fd465fc3bfa')"
+            title="Convert this dataframe to an interactive table."
+            style="display:none;">
+
+  <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960">
+    <path d="M120-120v-720h720v720H120Zm60-500h600v-160H180v160Zm220 220h160v-160H400v160Zm0 220h160v-160H400v160ZM180-400h160v-160H180v160Zm440 0h160v-160H620v160ZM180-180h160v-160H180v160Zm440 0h160v-160H620v160Z"/>
+  </svg>
+    </button>
+
+  <style>
+    .colab-df-container {
+      display:flex;
+      gap: 12px;
+    }
+
+    .colab-df-convert {
+      background-color: #E8F0FE;
+      border: none;
+      border-radius: 50%;
+      cursor: pointer;
+      display: none;
+      fill: #1967D2;
+      height: 32px;
+      padding: 0 0 0 0;
+      width: 32px;
+    }
+
+    .colab-df-convert:hover {
+      background-color: #E2EBFA;
+      box-shadow: 0px 1px 2px rgba(60, 64, 67, 0.3), 0px 1px 3px 1px rgba(60, 64, 67, 0.15);
+      fill: #174EA6;
+    }
+
+    .colab-df-buttons div {
+      margin-bottom: 4px;
+    }
+
+    [theme=dark] .colab-df-convert {
+      background-color: #3B4455;
+      fill: #D2E3FC;
+    }
+
+    [theme=dark] .colab-df-convert:hover {
+      background-color: #434B5C;
+      box-shadow: 0px 1px 3px 1px rgba(0, 0, 0, 0.15);
+      filter: drop-shadow(0px 1px 2px rgba(0, 0, 0, 0.3));
+      fill: #FFFFFF;
+    }
+  </style>
+
+    <script>
+      const buttonEl =
+        document.querySelector('#df-a0e02195-e793-4de8-bfe5-5fd465fc3bfa button.colab-df-convert');
+      buttonEl.style.display =
+        google.colab.kernel.accessAllowed ? 'block' : 'none';
+
+      async function convertToInteractive(key) {
+        const element = document.querySelector('#df-a0e02195-e793-4de8-bfe5-5fd465fc3bfa');
+        const dataTable =
+          await google.colab.kernel.invokeFunction('convertToInteractive',
+                                                    [key], {});
+        if (!dataTable) return;
+
+        const docLinkHtml = 'Like what you see? Visit the ' +
+          '<a target="_blank" href=https://colab.research.google.com/notebooks/data_table.ipynb>data table notebook</a>'
+          + ' to learn more about interactive tables.';
+        element.innerHTML = '';
+        dataTable['output_type'] = 'display_data';
+        await google.colab.output.renderOutput(dataTable, element);
+        const docLink = document.createElement('div');
+        docLink.innerHTML = docLinkHtml;
+        element.appendChild(docLink);
+      }
+    </script>
+  </div>
+
+
+  <div id="id_478ef053-4e3e-4d07-abf7-925196a2180b">
+    <style>
+      .colab-df-generate {
+        background-color: #E8F0FE;
+        border: none;
+        border-radius: 50%;
+        cursor: pointer;
+        display: none;
+        fill: #1967D2;
+        height: 32px;
+        padding: 0 0 0 0;
+        width: 32px;
+      }
+
+      .colab-df-generate:hover {
+        background-color: #E2EBFA;
+        box-shadow: 0px 1px 2px rgba(60, 64, 67, 0.3), 0px 1px 3px 1px rgba(60, 64, 67, 0.15);
+        fill: #174EA6;
+      }
+
+      [theme=dark] .colab-df-generate {
+        background-color: #3B4455;
+        fill: #D2E3FC;
+      }
+
+      [theme=dark] .colab-df-generate:hover {
+        background-color: #434B5C;
+        box-shadow: 0px 1px 3px 1px rgba(0, 0, 0, 0.15);
+        filter: drop-shadow(0px 1px 2px rgba(0, 0, 0, 0.3));
+        fill: #FFFFFF;
+      }
+    </style>
+    <button class="colab-df-generate" onclick="generateWithVariable('ringkasan_missing')"
+            title="Generate code using this dataframe."
+            style="display:none;">
+
+  <svg xmlns="http://www.w3.org/2000/svg" height="24px"viewBox="0 0 24 24"
+       width="24px">
+    <path d="M7,19H8.4L18.45,9,17,7.55,7,17.6ZM5,21V16.75L18.45,3.32a2,2,0,0,1,2.83,0l1.4,1.43a1.91,1.91,0,0,1,.58,1.4,1.91,1.91,0,0,1-.58,1.4L9.25,21ZM18.45,9,17,7.55Zm-12,3A5.31,5.31,0,0,0,4.9,8.1,5.31,5.31,0,0,0,1,6.5,5.31,5.31,0,0,0,4.9,4.9,5.31,5.31,0,0,0,6.5,1,5.31,5.31,0,0,0,8.1,4.9,5.31,5.31,0,0,0,12,6.5,5.46,5.46,0,0,0,6.5,12Z"/>
+  </svg>
+    </button>
+    <script>
+      (() => {
+      const buttonEl =
+        document.querySelector('#id_478ef053-4e3e-4d07-abf7-925196a2180b button.colab-df-generate');
+      buttonEl.style.display =
+        google.colab.kernel.accessAllowed ? 'block' : 'none';
+
+      buttonEl.onclick = () => {
+        google.colab.notebook.generateWithVariable('ringkasan_missing');
+      }
+      })();
+    </script>
+  </div>
+
+    </div>
+  </div>
+</div></div>
+</div>
+<p><strong>Penjelasan kode:</strong></p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">ringkasan_missing</span></code> diubah mensehingga DataFrame agar jumlah missing value dan outlier pada setiap polutan dapat dimelihat dalam bentuk tabel</p></li>
+<li><p>tabel ini mensehingga ringkasan kondisi data sebelum dan sesudah preprocessing</p></li>
+</ul>
+</section>
+<section id="perbandingan-data-sebelum-dan-sesudah-deteksi-outlier">
+<h3>2.2 Perbandingan Data Sebelum dan Sesudah Deteksi Outlier<a class="headerlink" href="#perbandingan-data-sebelum-dan-sesudah-deteksi-outlier" title="Link to this heading">#</a></h3>
+<p>Kode berikut membandingkan data NO2 sebelum dan sesudah nilai outlier ditangani. Nilai outlier ditampilkan pada grafik sebelum penanganan, sedangkan grafik sesudah menunjukkan data setelah outlier diubah mensehingga missing.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Perbandingan sebelum dan sesudah deteksi outlier</span>
+
+<span class="k">for</span> <span class="n">pol</span> <span class="ow">in</span> <span class="n">POLUTAN_TARGET</span><span class="p">:</span>
+
+    <span class="n">data_sebelum</span> <span class="o">=</span> <span class="n">df_awal</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+    <span class="n">data_sebelum</span><span class="p">[</span><span class="n">pol</span><span class="p">]</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_numeric</span><span class="p">(</span><span class="n">data_sebelum</span><span class="p">[</span><span class="n">pol</span><span class="p">],</span> <span class="n">errors</span><span class="o">=</span><span class="s2">&quot;coerce&quot;</span><span class="p">)</span>
+
+    <span class="n">lower_bound</span> <span class="o">=</span> <span class="n">batas_iqr</span><span class="p">[</span><span class="n">pol</span><span class="p">][</span><span class="s2">&quot;lower&quot;</span><span class="p">]</span>
+    <span class="n">upper_bound</span> <span class="o">=</span> <span class="n">batas_iqr</span><span class="p">[</span><span class="n">pol</span><span class="p">][</span><span class="s2">&quot;upper&quot;</span><span class="p">]</span>
+
+    <span class="n">kondisi_outlier</span> <span class="o">=</span> <span class="p">(</span>
+        <span class="p">(</span><span class="n">data_sebelum</span><span class="p">[</span><span class="n">pol</span><span class="p">]</span> <span class="o">&lt;</span> <span class="n">lower_bound</span><span class="p">)</span> <span class="o">|</span>
+        <span class="p">(</span><span class="n">data_sebelum</span><span class="p">[</span><span class="n">pol</span><span class="p">]</span> <span class="o">&gt;</span> <span class="n">upper_bound</span><span class="p">)</span>
+    <span class="p">)</span>
+
+    <span class="n">data_setelah</span> <span class="o">=</span> <span class="n">data_sebelum</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+    <span class="n">data_setelah</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">kondisi_outlier</span><span class="p">,</span> <span class="n">pol</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span>
+
+    <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">15</span><span class="p">,</span> <span class="mi">5</span><span class="p">))</span>
+
+    <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span>
+        <span class="n">data_sebelum</span><span class="p">[</span><span class="s2">&quot;date&quot;</span><span class="p">],</span>
+        <span class="n">data_sebelum</span><span class="p">[</span><span class="n">pol</span><span class="p">],</span>
+        <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Sebelum deteksi outlier&quot;</span><span class="p">,</span>
+        <span class="n">linewidth</span><span class="o">=</span><span class="mi">1</span>
+    <span class="p">)</span>
+
+    <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span>
+        <span class="n">data_setelah</span><span class="p">[</span><span class="s2">&quot;date&quot;</span><span class="p">],</span>
+        <span class="n">data_setelah</span><span class="p">[</span><span class="n">pol</span><span class="p">],</span>
+        <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Sesudah deteksi outlier&quot;</span><span class="p">,</span>
+        <span class="n">linewidth</span><span class="o">=</span><span class="mi">1</span>
+    <span class="p">)</span>
+
+    <span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span>
+        <span class="n">data_sebelum</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">kondisi_outlier</span><span class="p">,</span> <span class="s2">&quot;date&quot;</span><span class="p">],</span>
+        <span class="n">data_sebelum</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">kondisi_outlier</span><span class="p">,</span> <span class="n">pol</span><span class="p">],</span>
+        <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Outlier&quot;</span><span class="p">,</span>
+        <span class="n">marker</span><span class="o">=</span><span class="s2">&quot;o&quot;</span>
+    <span class="p">)</span>
+
+    <span class="n">plt</span><span class="o">.</span><span class="n">axhline</span><span class="p">(</span>
+        <span class="n">upper_bound</span><span class="p">,</span>
+        <span class="n">linestyle</span><span class="o">=</span><span class="s2">&quot;dashed&quot;</span><span class="p">,</span>
+        <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Upper Bound&quot;</span>
+    <span class="p">)</span>
+
+    <span class="n">plt</span><span class="o">.</span><span class="n">axhline</span><span class="p">(</span>
+        <span class="n">lower_bound</span><span class="p">,</span>
+        <span class="n">linestyle</span><span class="o">=</span><span class="s2">&quot;dashed&quot;</span><span class="p">,</span>
+        <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Lower Bound&quot;</span>
+    <span class="p">)</span>
+
+    <span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Perbandingan </span><span class="si">{</span><span class="n">pol</span><span class="si">}</span><span class="s2"> Sebelum dan Sesudah Deteksi Outlier&quot;</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;Tanggal&quot;</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Kadar </span><span class="si">{</span><span class="n">pol</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/cf4429f012a1577d1f1bbd1681571a67b6abdfec33ed5b9acd76f0b80b1f52b5.png" src="_images/cf4429f012a1577d1f1bbd1681571a67b6abdfec33ed5b9acd76f0b80b1f52b5.png" />
+<img alt="_images/9abfdd4a5cbbb36ccf090f8ccfb7e6e7398ecca434f1a712e667f0e5dc8393ed.png" src="_images/9abfdd4a5cbbb36ccf090f8ccfb7e6e7398ecca434f1a712e667f0e5dc8393ed.png" />
+<img alt="_images/8e682e63d607d823d9c2e990b263bdd4c675858695b06ad2defac516e32e3d45.png" src="_images/8e682e63d607d823d9c2e990b263bdd4c675858695b06ad2defac516e32e3d45.png" />
+</div>
+</div>
+<p><strong>Penjelasan kode:</strong></p>
+<ul class="simple">
+<li><p>perulangan dilakukan untuk CO, NO2, dan SO2 agar ketitidak polutan divisualisasikan dengan cara yang sama</p></li>
+<li><p>batas bawah dan atas IQR digunakan untuk menentukan data yang termasuk outlier</p></li>
+<li><p>grafik membandingkan kondisi sebelum dan sesudah outlier diubah mensehingga <code class="docutils literal notranslate"><span class="pre">NaN</span></code></p></li>
+</ul>
+</section>
+<section id="visualisasi-data-sesudah-imputasi">
+<h3>2.3 Visualisasi Data Sesudah Imputasi<a class="headerlink" href="#visualisasi-data-sesudah-imputasi" title="Link to this heading">#</a></h3>
+<p>Kode berikut untuk memvisualisasikan data setelah imputasi. Tanggal tetap menggunakan tanggal asli.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">pol</span> <span class="ow">in</span> <span class="n">POLUTAN_TARGET</span><span class="p">:</span>
+
+    <span class="n">data_sesudah</span> <span class="o">=</span> <span class="n">df_setelah</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+    <span class="n">data_sesudah</span><span class="p">[</span><span class="n">pol</span><span class="p">]</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_numeric</span><span class="p">(</span><span class="n">data_sesudah</span><span class="p">[</span><span class="n">pol</span><span class="p">],</span> <span class="n">errors</span><span class="o">=</span><span class="s2">&quot;coerce&quot;</span><span class="p">)</span>
+
+    <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">15</span><span class="p">,</span> <span class="mi">5</span><span class="p">))</span>
+
+    <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span>
+        <span class="n">data_sesudah</span><span class="p">[</span><span class="s2">&quot;date&quot;</span><span class="p">],</span>
+        <span class="n">data_sesudah</span><span class="p">[</span><span class="n">pol</span><span class="p">],</span>
+        <span class="n">linewidth</span><span class="o">=</span><span class="mi">1</span>
+    <span class="p">)</span>
+
+    <span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Data </span><span class="si">{</span><span class="n">pol</span><span class="si">}</span><span class="s2"> Setelah Imputasi Missing Value&quot;</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;Tanggal&quot;</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Kadar </span><span class="si">{</span><span class="n">pol</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/21c1aebba11ff2135d13664b1b3497e3017f85696156c79ad8d2d78a30a2c556.png" src="_images/21c1aebba11ff2135d13664b1b3497e3017f85696156c79ad8d2d78a30a2c556.png" />
+<img alt="_images/3a1541b2a239664e05e6343da7ca99d2450ab764250175a4abd0266c2d537a40.png" src="_images/3a1541b2a239664e05e6343da7ca99d2450ab764250175a4abd0266c2d537a40.png" />
+<img alt="_images/312aab68b168f1cf85bf4c306ceb0c732add932d6127b28e48d8139313190c28.png" src="_images/312aab68b168f1cf85bf4c306ceb0c732add932d6127b28e48d8139313190c28.png" />
+</div>
+</div>
+<p><strong>Penjelasan kode:</strong></p>
+<ul class="simple">
+<li><p>perulangan menampilkan data CO, NO2, dan SO2 setelah proses imputasi</p></li>
+<li><p>kolom <code class="docutils literal notranslate"><span class="pre">date</span></code> tetap menggunakan tanggal asli sehingtidak visualisasi tetap mengikuti urutan waktu</p></li>
+</ul>
+</section>
+<section id="perbandingan-missing-value">
+<h3>2.4 Perbandingan Missing Value<a class="headerlink" href="#perbandingan-missing-value" title="Link to this heading">#</a></h3>
+<p>Tabel dan diagram berikut digunakan untuk membandingkan jumlah missing value pada data awal, setelah deteksi outlier, dan setelah imputasi. Tanggal pada dataset tetap dipertahankan.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">kolom_tahap_missing</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="s2">&quot;missing_awal&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;missing_setelah_outlier&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;missing_sesudah_imputasi&quot;</span>
+<span class="p">]</span>
+
+<span class="n">tabel_missing</span> <span class="o">=</span> <span class="n">ringkasan_missing</span><span class="p">[[</span><span class="s2">&quot;polutan&quot;</span><span class="p">]</span> <span class="o">+</span> <span class="n">kolom_tahap_missing</span><span class="p">]</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+<span class="n">display</span><span class="p">(</span><span class="n">tabel_missing</span><span class="p">)</span>
+
+<span class="n">tabel_missing_plot</span> <span class="o">=</span> <span class="n">tabel_missing</span><span class="o">.</span><span class="n">set_index</span><span class="p">(</span><span class="s2">&quot;polutan&quot;</span><span class="p">)</span>
+<span class="n">tabel_missing_plot</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">kind</span><span class="o">=</span><span class="s2">&quot;bar&quot;</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">5</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;Perbandingan Missing Value pada Setiap Tahap Preprocessing&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;Polutan&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;Jumlah Missing Value&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xticks</span><span class="p">(</span><span class="n">rotation</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html">
+  <div id="df-cd696e37-1d8a-4c7c-b45d-c6d9bad944aa" class="colab-df-container">
+    <div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>polutan</th>
+      <th>missing_awal</th>
+      <th>missing_setelah_outlier</th>
+      <th>missing_sesudah_imputasi</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>CO</td>
+      <td>180</td>
+      <td>182</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>NO2</td>
+      <td>240</td>
+      <td>247</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>SO2</td>
+      <td>181</td>
+      <td>193</td>
+      <td>0</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+    <div class="colab-df-buttons">
+
+  <div class="colab-df-container">
+    <button class="colab-df-convert" onclick="convertToInteractive('df-cd696e37-1d8a-4c7c-b45d-c6d9bad944aa')"
+            title="Convert this dataframe to an interactive table."
+            style="display:none;">
+
+  <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960">
+    <path d="M120-120v-720h720v720H120Zm60-500h600v-160H180v160Zm220 220h160v-160H400v160Zm0 220h160v-160H400v160ZM180-400h160v-160H180v160Zm440 0h160v-160H620v160ZM180-180h160v-160H180v160Zm440 0h160v-160H620v160Z"/>
+  </svg>
+    </button>
+
+  <style>
+    .colab-df-container {
+      display:flex;
+      gap: 12px;
+    }
+
+    .colab-df-convert {
+      background-color: #E8F0FE;
+      border: none;
+      border-radius: 50%;
+      cursor: pointer;
+      display: none;
+      fill: #1967D2;
+      height: 32px;
+      padding: 0 0 0 0;
+      width: 32px;
+    }
+
+    .colab-df-convert:hover {
+      background-color: #E2EBFA;
+      box-shadow: 0px 1px 2px rgba(60, 64, 67, 0.3), 0px 1px 3px 1px rgba(60, 64, 67, 0.15);
+      fill: #174EA6;
+    }
+
+    .colab-df-buttons div {
+      margin-bottom: 4px;
+    }
+
+    [theme=dark] .colab-df-convert {
+      background-color: #3B4455;
+      fill: #D2E3FC;
+    }
+
+    [theme=dark] .colab-df-convert:hover {
+      background-color: #434B5C;
+      box-shadow: 0px 1px 3px 1px rgba(0, 0, 0, 0.15);
+      filter: drop-shadow(0px 1px 2px rgba(0, 0, 0, 0.3));
+      fill: #FFFFFF;
+    }
+  </style>
+
+    <script>
+      const buttonEl =
+        document.querySelector('#df-cd696e37-1d8a-4c7c-b45d-c6d9bad944aa button.colab-df-convert');
+      buttonEl.style.display =
+        google.colab.kernel.accessAllowed ? 'block' : 'none';
+
+      async function convertToInteractive(key) {
+        const element = document.querySelector('#df-cd696e37-1d8a-4c7c-b45d-c6d9bad944aa');
+        const dataTable =
+          await google.colab.kernel.invokeFunction('convertToInteractive',
+                                                    [key], {});
+        if (!dataTable) return;
+
+        const docLinkHtml = 'Like what you see? Visit the ' +
+          '<a target="_blank" href=https://colab.research.google.com/notebooks/data_table.ipynb>data table notebook</a>'
+          + ' to learn more about interactive tables.';
+        element.innerHTML = '';
+        dataTable['output_type'] = 'display_data';
+        await google.colab.output.renderOutput(dataTable, element);
+        const docLink = document.createElement('div');
+        docLink.innerHTML = docLinkHtml;
+        element.appendChild(docLink);
+      }
+    </script>
+  </div>
+
+
+  <div id="id_da9097b2-e3e6-4f46-998e-f23afca61688">
+    <style>
+      .colab-df-generate {
+        background-color: #E8F0FE;
+        border: none;
+        border-radius: 50%;
+        cursor: pointer;
+        display: none;
+        fill: #1967D2;
+        height: 32px;
+        padding: 0 0 0 0;
+        width: 32px;
+      }
+
+      .colab-df-generate:hover {
+        background-color: #E2EBFA;
+        box-shadow: 0px 1px 2px rgba(60, 64, 67, 0.3), 0px 1px 3px 1px rgba(60, 64, 67, 0.15);
+        fill: #174EA6;
+      }
+
+      [theme=dark] .colab-df-generate {
+        background-color: #3B4455;
+        fill: #D2E3FC;
+      }
+
+      [theme=dark] .colab-df-generate:hover {
+        background-color: #434B5C;
+        box-shadow: 0px 1px 3px 1px rgba(0, 0, 0, 0.15);
+        filter: drop-shadow(0px 1px 2px rgba(0, 0, 0, 0.3));
+        fill: #FFFFFF;
+      }
+    </style>
+    <button class="colab-df-generate" onclick="generateWithVariable('tabel_missing')"
+            title="Generate code using this dataframe."
+            style="display:none;">
+
+  <svg xmlns="http://www.w3.org/2000/svg" height="24px"viewBox="0 0 24 24"
+       width="24px">
+    <path d="M7,19H8.4L18.45,9,17,7.55,7,17.6ZM5,21V16.75L18.45,3.32a2,2,0,0,1,2.83,0l1.4,1.43a1.91,1.91,0,0,1,.58,1.4,1.91,1.91,0,0,1-.58,1.4L9.25,21ZM18.45,9,17,7.55Zm-12,3A5.31,5.31,0,0,0,4.9,8.1,5.31,5.31,0,0,0,1,6.5,5.31,5.31,0,0,0,4.9,4.9,5.31,5.31,0,0,0,6.5,1,5.31,5.31,0,0,0,8.1,4.9,5.31,5.31,0,0,0,12,6.5,5.46,5.46,0,0,0,6.5,12Z"/>
+  </svg>
+    </button>
+    <script>
+      (() => {
+      const buttonEl =
+        document.querySelector('#id_da9097b2-e3e6-4f46-998e-f23afca61688 button.colab-df-generate');
+      buttonEl.style.display =
+        google.colab.kernel.accessAllowed ? 'block' : 'none';
+
+      buttonEl.onclick = () => {
+        google.colab.notebook.generateWithVariable('tabel_missing');
+      }
+      })();
+    </script>
+  </div>
+
+    </div>
+  </div>
+</div><img alt="_images/51510252c53b8fe10814bd95dc170477d65241e307c21c454d7409d208b87acb.png" src="_images/51510252c53b8fe10814bd95dc170477d65241e307c21c454d7409d208b87acb.png" />
+</div>
+</div>
+<p><strong>Penjelasan kode:</strong></p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">tabel_missing</span></code> mengmengambil jumlah missing value pada titidak tahap, yaitu sebelum preprocessing, setelah outlier diubah mensehingga <code class="docutils literal notranslate"><span class="pre">NaN</span></code>, dan setelah imputasi</p></li>
+<li><p>tabel ditampilkan agar perubahan jumlah missing value dapat dimelihat untuk CO, NO2, dan SO2</p></li>
+<li><p>data yang sama diuntuk mensehingga grafik batang agar penurunan missing value pada setiap tahap lebih mudah dibandingkan</p></li>
+<li><p>hasil akhir setelah imputasi digunakan sebagai <code class="docutils literal notranslate"><span class="pre">sinyal_bersih</span></code> untuk proses ekstraksi fitur</p></li>
+</ul>
+</section>
+</section>
+<section id="ekstraksi-fitur">
+<h2>3. Ekstraksi Fitur<a class="headerlink" href="#ekstraksi-fitur" title="Link to this heading">#</a></h2>
+<p>Sinyal yang sudah bersih dari <code class="docutils literal notranslate"><span class="pre">sinyal_bersih</span></code> diekstraksi memakai 68 fungsi fitur TSFEL yang sudah disepakati satu kelas. Ekstraksi dilakukan terpisah untuk tiap polutan, tapi memakai daftar fitur dan fungsi bantuan yang sama.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">inspect</span>
+
+<span class="n">FEATURE_LIST</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;abs_energy auc autocorr average_power calc_centroid calc_max calc_mean</span>
+<span class="s2">calc_median calc_min calc_std calc_var dfa distance ecdf ecdf_percentile ecdf_percentile_count</span>
+<span class="s2">ecdf_slope entropy fundamental_frequency higuchi_fractal_dimension hist_mode human_range_energy</span>
+<span class="s2">hurst_exponent interq_range kurtosis lempel_ziv lpcc max_frequency max_power_spectrum</span>
+<span class="s2">maximum_fractal_length mean_abs_deviation mean_abs_diff mean_diff median_abs_deviation</span>
+<span class="s2">median_abs_diff median_diff median_frequency mfcc mse negative_turning neighbourhood_peaks</span>
+<span class="s2">petrosian_fractal_dimension pk_pk_distance positive_turning power_bandwidth rms skewness slope</span>
+<span class="s2">spectral_centroid spectral_decrease spectral_distance spectral_entropy spectral_kurtosis</span>
+<span class="s2">spectral_positive_turning spectral_roll_off spectral_roll_on spectral_skewness spectral_slope</span>
+<span class="s2">spectral_spread spectral_variation spectrogram_mean_coeff sum_abs_diff wavelet_abs_mean</span>
+<span class="s2">wavelet_energy wavelet_entropy wavelet_std wavelet_var zero_cross&quot;&quot;&quot;</span><span class="o">.</span><span class="n">split</span><span class="p">()</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">to_scalar</span><span class="p">(</span><span class="n">result</span><span class="p">):</span>
+    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">result</span><span class="p">,</span> <span class="nb">dict</span><span class="p">)</span> <span class="ow">and</span> <span class="s2">&quot;values&quot;</span> <span class="ow">in</span> <span class="n">result</span><span class="p">:</span>
+        <span class="n">result</span> <span class="o">=</span> <span class="n">result</span><span class="p">[</span><span class="s2">&quot;values&quot;</span><span class="p">]</span>
+    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">result</span><span class="p">,</span> <span class="p">(</span><span class="nb">list</span><span class="p">,</span> <span class="nb">tuple</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">)):</span>
+        <span class="n">arr</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">result</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">float</span><span class="p">)</span>
+        <span class="k">return</span> <span class="nb">float</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">nanmean</span><span class="p">(</span><span class="n">arr</span><span class="p">))</span>
+    <span class="k">return</span> <span class="nb">float</span><span class="p">(</span><span class="n">result</span><span class="p">)</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">extract_one</span><span class="p">(</span><span class="n">fn_name</span><span class="p">,</span> <span class="n">signal</span><span class="p">,</span> <span class="n">fs</span><span class="p">):</span>
+    <span class="n">fn</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">tsfel_features</span><span class="p">,</span> <span class="n">fn_name</span><span class="p">)</span>
+    <span class="n">params</span> <span class="o">=</span> <span class="n">inspect</span><span class="o">.</span><span class="n">signature</span><span class="p">(</span><span class="n">fn</span><span class="p">)</span><span class="o">.</span><span class="n">parameters</span>
+    <span class="k">if</span> <span class="s2">&quot;fs&quot;</span> <span class="ow">in</span> <span class="n">params</span><span class="p">:</span>
+        <span class="n">result</span> <span class="o">=</span> <span class="n">fn</span><span class="p">(</span><span class="n">signal</span><span class="p">,</span> <span class="n">fs</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">result</span> <span class="o">=</span> <span class="n">fn</span><span class="p">(</span><span class="n">signal</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">to_scalar</span><span class="p">(</span><span class="n">result</span><span class="p">)</span>
+
+<span class="n">fs</span> <span class="o">=</span> <span class="mi">1</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Jumlah fitur yang akan diekstraksi per polutan: </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">FEATURE_LIST</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Jumlah fitur yang akan diekstraksi per polutan: 68
+</pre></div>
+</div>
+</div>
+</div>
+<p><strong>Penjelasan kode:</strong></p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">FEATURE_LIST</span></code> memuat 68 nama fungsi fitur TSFEL yang disepakati digunakan satu kelas</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">to_scalar()</span></code> merapikan hasil tiap fungsi fitur mensehingga satu angka tunggal, karena beberapa fungsi TSFEL mengembalikan array atau dictionary, bukan angka langsung</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">extract_one()</span></code> memanggil fungsi fitur sesuai namanya, dan otomatis menyesuaikan apakah fungsi itu butuh parameter <code class="docutils literal notranslate"><span class="pre">fs</span></code> (sampling rate) atau tidak</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">fs</span> <span class="pre">=</span> <span class="pre">1</span></code> menandakan sampling rate sinyal adalah 1 (satu observasi per hari)</p></li>
+</ul>
+<section id="ekstraksi-fitur-co">
+<h3>3.1 Ekstraksi Fitur CO<a class="headerlink" href="#ekstraksi-fitur-co" title="Link to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">row_co</span> <span class="o">=</span> <span class="p">{}</span>
+<span class="k">for</span> <span class="n">fn_name</span> <span class="ow">in</span> <span class="n">FEATURE_LIST</span><span class="p">:</span>
+    <span class="n">row_co</span><span class="p">[</span><span class="n">fn_name</span><span class="p">]</span> <span class="o">=</span> <span class="n">extract_one</span><span class="p">(</span><span class="n">fn_name</span><span class="p">,</span> <span class="n">sinyal_bersih</span><span class="p">[</span><span class="s2">&quot;CO&quot;</span><span class="p">],</span> <span class="n">fs</span><span class="p">)</span>
+
+<span class="n">extracted_co</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">([</span><span class="n">row_co</span><span class="p">])</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;CO: </span><span class="si">{</span><span class="n">extracted_co</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="si">}</span><span class="s2"> fitur berhasil diekstraksi&quot;</span><span class="p">)</span>
+<span class="n">extracted_co</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="s1">&#39;CO_Tikala_TSFEL.csv&#39;</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>CO: 68 fitur berhasil diekstraksi
+</pre></div>
+</div>
+</div>
+</div>
+<p><strong>Penjelasan kode:</strong></p>
+<ul class="simple">
+<li><p>perulangan <code class="docutils literal notranslate"><span class="pre">for</span></code> memanggil <code class="docutils literal notranslate"><span class="pre">extract_one()</span></code> untuk setiap nama fitur di <code class="docutils literal notranslate"><span class="pre">FEATURE_LIST</span></code>, memakai sinyal CO yang sudah bersih dari <code class="docutils literal notranslate"><span class="pre">sinyal_bersih[&quot;CO&quot;]</span></code></p></li>
+<li><p>hasilnya dikumpulkan dalam dictionary <code class="docutils literal notranslate"><span class="pre">row_co</span></code>, lalu diubah sehingga satu baris DataFrame <code class="docutils literal notranslate"><span class="pre">extracted_co</span></code> berisi 68 kolom</p></li>
+<li><p>baris terakhir menyimpan hasilnya sebagai <code class="docutils literal notranslate"><span class="pre">CO_Tikala_TSFEL.csv</span></code></p></li>
+</ul>
+</section>
+<section id="ekstraksi-fitur-no2">
+<h3>3.2 Ekstraksi Fitur NO2<a class="headerlink" href="#ekstraksi-fitur-no2" title="Link to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">row_no2</span> <span class="o">=</span> <span class="p">{}</span>
+<span class="k">for</span> <span class="n">fn_name</span> <span class="ow">in</span> <span class="n">FEATURE_LIST</span><span class="p">:</span>
+    <span class="n">row_no2</span><span class="p">[</span><span class="n">fn_name</span><span class="p">]</span> <span class="o">=</span> <span class="n">extract_one</span><span class="p">(</span><span class="n">fn_name</span><span class="p">,</span> <span class="n">sinyal_bersih</span><span class="p">[</span><span class="s2">&quot;NO2&quot;</span><span class="p">],</span> <span class="n">fs</span><span class="p">)</span>
+
+<span class="n">extracted_no2</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">([</span><span class="n">row_no2</span><span class="p">])</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;NO2: </span><span class="si">{</span><span class="n">extracted_no2</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="si">}</span><span class="s2"> fitur berhasil diekstraksi&quot;</span><span class="p">)</span>
+<span class="n">extracted_no2</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="s1">&#39;NO2_Tikala_TSFEL.csv&#39;</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>NO2: 68 fitur berhasil diekstraksi
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/usr/local/lib/python3.13/dist-packages/tsfel/feature_extraction/features_utils.py:534: RuntimeWarning: invalid value encountered in divide
+  rs = np.divide(r, s)
+</pre></div>
+</div>
+</div>
+</div>
+<p><strong>Penjelasan kode:</strong></p>
+<ul class="simple">
+<li><p>prosesnya sama persis dengan ekstraksi CO, bedanya sinyal yang digunakan dimengambil dari <code class="docutils literal notranslate"><span class="pre">sinyal_bersih[&quot;NO2&quot;]</span></code></p></li>
+<li><p>hasilnya disimpan terpisah sebagai <code class="docutils literal notranslate"><span class="pre">NO2_Tikala_TSFEL.csv</span></code></p></li>
+</ul>
+</section>
+<section id="ekstraksi-fitur-so2">
+<h3>3.3 Ekstraksi Fitur SO2<a class="headerlink" href="#ekstraksi-fitur-so2" title="Link to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">row_so2</span> <span class="o">=</span> <span class="p">{}</span>
+<span class="k">for</span> <span class="n">fn_name</span> <span class="ow">in</span> <span class="n">FEATURE_LIST</span><span class="p">:</span>
+    <span class="n">row_so2</span><span class="p">[</span><span class="n">fn_name</span><span class="p">]</span> <span class="o">=</span> <span class="n">extract_one</span><span class="p">(</span><span class="n">fn_name</span><span class="p">,</span> <span class="n">sinyal_bersih</span><span class="p">[</span><span class="s2">&quot;SO2&quot;</span><span class="p">],</span> <span class="n">fs</span><span class="p">)</span>
+
+<span class="n">extracted_so2</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">([</span><span class="n">row_so2</span><span class="p">])</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;SO2: </span><span class="si">{</span><span class="n">extracted_so2</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="si">}</span><span class="s2"> fitur berhasil diekstraksi&quot;</span><span class="p">)</span>
+<span class="n">extracted_so2</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="s1">&#39;SO2_Tikala_TSFEL.csv&#39;</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>SO2: 68 fitur berhasil diekstraksi
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/usr/local/lib/python3.13/dist-packages/tsfel/feature_extraction/features_utils.py:534: RuntimeWarning: invalid value encountered in divide
+  rs = np.divide(r, s)
+</pre></div>
+</div>
+</div>
+</div>
+<p><strong>Penjelasan kode:</strong></p>
+<ul class="simple">
+<li><p>pola kodenya identik dengan dua polutan sebelumnya, kali ini memakai <code class="docutils literal notranslate"><span class="pre">sinyal_bersih[&quot;SO2&quot;]</span></code></p></li>
+<li><p>hasilnya disimpan sebagai <code class="docutils literal notranslate"><span class="pre">SO2_Tikala_TSFEL.csv</span></code>, melengkapi titidak file hasil ekstraksi (CO, NO2, SO2)</p></li>
+</ul>
+</section>
+</section>
+<section id="visualisasi-dan-tabel-hasil-ekstraksi-fitur">
+<h2>4. Visualisasi dan Tabel Hasil Ekstraksi Fitur<a class="headerlink" href="#visualisasi-dan-tabel-hasil-ekstraksi-fitur" title="Link to this heading">#</a></h2>
+<p>Karena tiap polutan diekstraksi secara terpisah, hasilnya ditampilkan satu per satu dalam bentuk tabel vertikal (68 baris per polutan), lalu dibandingkan lewat grafik.</p>
+<section id="tabel-hasil-ekstraksi-co">
+<h3>4.1 Tabel Hasil Ekstraksi CO<a class="headerlink" href="#tabel-hasil-ekstraksi-co" title="Link to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">tabel_co</span> <span class="o">=</span> <span class="n">extracted_co</span><span class="o">.</span><span class="n">T</span><span class="o">.</span><span class="n">reset_index</span><span class="p">()</span>
+<span class="n">tabel_co</span><span class="o">.</span><span class="n">columns</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;Fitur&quot;</span><span class="p">,</span> <span class="s2">&quot;Nilai&quot;</span><span class="p">]</span>
+<span class="n">tabel_co</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html">
+  <div id="df-d39747ea-a194-4650-9fa8-8559e1aa0b26" class="colab-df-container">
+    <div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Fitur</th>
+      <th>Nilai</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>abs_energy</td>
+      <td>0.233753</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>auc</td>
+      <td>9.101386</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>autocorr</td>
+      <td>7.000000</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>average_power</td>
+      <td>0.000646</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>calc_centroid</td>
+      <td>185.419585</td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td>...</td>
+      <td>...</td>
+    </tr>
+    <tr>
+      <th>63</th>
+      <td>wavelet_energy</td>
+      <td>0.007593</td>
+    </tr>
+    <tr>
+      <th>64</th>
+      <td>wavelet_entropy</td>
+      <td>2.112171</td>
+    </tr>
+    <tr>
+      <th>65</th>
+      <td>wavelet_std</td>
+      <td>0.007422</td>
+    </tr>
+    <tr>
+      <th>66</th>
+      <td>wavelet_var</td>
+      <td>0.000064</td>
+    </tr>
+    <tr>
+      <th>67</th>
+      <td>zero_cross</td>
+      <td>0.000000</td>
+    </tr>
+  </tbody>
+</table>
+<p>68 rows × 2 columns</p>
+</div>
+    <div class="colab-df-buttons">
+
+  <div class="colab-df-container">
+    <button class="colab-df-convert" onclick="convertToInteractive('df-d39747ea-a194-4650-9fa8-8559e1aa0b26')"
+            title="Convert this dataframe to an interactive table."
+            style="display:none;">
+
+  <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960">
+    <path d="M120-120v-720h720v720H120Zm60-500h600v-160H180v160Zm220 220h160v-160H400v160Zm0 220h160v-160H400v160ZM180-400h160v-160H180v160Zm440 0h160v-160H620v160ZM180-180h160v-160H180v160Zm440 0h160v-160H620v160Z"/>
+  </svg>
+    </button>
+
+  <style>
+    .colab-df-container {
+      display:flex;
+      gap: 12px;
+    }
+
+    .colab-df-convert {
+      background-color: #E8F0FE;
+      border: none;
+      border-radius: 50%;
+      cursor: pointer;
+      display: none;
+      fill: #1967D2;
+      height: 32px;
+      padding: 0 0 0 0;
+      width: 32px;
+    }
+
+    .colab-df-convert:hover {
+      background-color: #E2EBFA;
+      box-shadow: 0px 1px 2px rgba(60, 64, 67, 0.3), 0px 1px 3px 1px rgba(60, 64, 67, 0.15);
+      fill: #174EA6;
+    }
+
+    .colab-df-buttons div {
+      margin-bottom: 4px;
+    }
+
+    [theme=dark] .colab-df-convert {
+      background-color: #3B4455;
+      fill: #D2E3FC;
+    }
+
+    [theme=dark] .colab-df-convert:hover {
+      background-color: #434B5C;
+      box-shadow: 0px 1px 3px 1px rgba(0, 0, 0, 0.15);
+      filter: drop-shadow(0px 1px 2px rgba(0, 0, 0, 0.3));
+      fill: #FFFFFF;
+    }
+  </style>
+
+    <script>
+      const buttonEl =
+        document.querySelector('#df-d39747ea-a194-4650-9fa8-8559e1aa0b26 button.colab-df-convert');
+      buttonEl.style.display =
+        google.colab.kernel.accessAllowed ? 'block' : 'none';
+
+      async function convertToInteractive(key) {
+        const element = document.querySelector('#df-d39747ea-a194-4650-9fa8-8559e1aa0b26');
+        const dataTable =
+          await google.colab.kernel.invokeFunction('convertToInteractive',
+                                                    [key], {});
+        if (!dataTable) return;
+
+        const docLinkHtml = 'Like what you see? Visit the ' +
+          '<a target="_blank" href=https://colab.research.google.com/notebooks/data_table.ipynb>data table notebook</a>'
+          + ' to learn more about interactive tables.';
+        element.innerHTML = '';
+        dataTable['output_type'] = 'display_data';
+        await google.colab.output.renderOutput(dataTable, element);
+        const docLink = document.createElement('div');
+        docLink.innerHTML = docLinkHtml;
+        element.appendChild(docLink);
+      }
+    </script>
+  </div>
+
+
+  <div id="id_6b52cc09-1959-42a4-87b2-4c10ce9d6171">
+    <style>
+      .colab-df-generate {
+        background-color: #E8F0FE;
+        border: none;
+        border-radius: 50%;
+        cursor: pointer;
+        display: none;
+        fill: #1967D2;
+        height: 32px;
+        padding: 0 0 0 0;
+        width: 32px;
+      }
+
+      .colab-df-generate:hover {
+        background-color: #E2EBFA;
+        box-shadow: 0px 1px 2px rgba(60, 64, 67, 0.3), 0px 1px 3px 1px rgba(60, 64, 67, 0.15);
+        fill: #174EA6;
+      }
+
+      [theme=dark] .colab-df-generate {
+        background-color: #3B4455;
+        fill: #D2E3FC;
+      }
+
+      [theme=dark] .colab-df-generate:hover {
+        background-color: #434B5C;
+        box-shadow: 0px 1px 3px 1px rgba(0, 0, 0, 0.15);
+        filter: drop-shadow(0px 1px 2px rgba(0, 0, 0, 0.3));
+        fill: #FFFFFF;
+      }
+    </style>
+    <button class="colab-df-generate" onclick="generateWithVariable('tabel_co')"
+            title="Generate code using this dataframe."
+            style="display:none;">
+
+  <svg xmlns="http://www.w3.org/2000/svg" height="24px"viewBox="0 0 24 24"
+       width="24px">
+    <path d="M7,19H8.4L18.45,9,17,7.55,7,17.6ZM5,21V16.75L18.45,3.32a2,2,0,0,1,2.83,0l1.4,1.43a1.91,1.91,0,0,1,.58,1.4,1.91,1.91,0,0,1-.58,1.4L9.25,21ZM18.45,9,17,7.55Zm-12,3A5.31,5.31,0,0,0,4.9,8.1,5.31,5.31,0,0,0,1,6.5,5.31,5.31,0,0,0,4.9,4.9,5.31,5.31,0,0,0,6.5,1,5.31,5.31,0,0,0,8.1,4.9,5.31,5.31,0,0,0,12,6.5,5.46,5.46,0,0,0,6.5,12Z"/>
+  </svg>
+    </button>
+    <script>
+      (() => {
+      const buttonEl =
+        document.querySelector('#id_6b52cc09-1959-42a4-87b2-4c10ce9d6171 button.colab-df-generate');
+      buttonEl.style.display =
+        google.colab.kernel.accessAllowed ? 'block' : 'none';
+
+      buttonEl.onclick = () => {
+        google.colab.notebook.generateWithVariable('tabel_co');
+      }
+      })();
+    </script>
+  </div>
+
+    </div>
+  </div>
+</div></div>
+</div>
+<p><strong>Penjelasan kode:</strong></p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">.T</span></code> membalik posisi baris dan kolom, sehingtidak tiap fitur mensehingga satu baris tersecara manual, lebih mudah dibaca dibanding tabel 1 baris 68 kolom</p></li>
+</ul>
+</section>
+<section id="tabel-hasil-ekstraksi-no2">
+<h3>4.2 Tabel Hasil Ekstraksi NO2<a class="headerlink" href="#tabel-hasil-ekstraksi-no2" title="Link to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">tabel_no2</span> <span class="o">=</span> <span class="n">extracted_no2</span><span class="o">.</span><span class="n">T</span><span class="o">.</span><span class="n">reset_index</span><span class="p">()</span>
+<span class="n">tabel_no2</span><span class="o">.</span><span class="n">columns</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;Fitur&quot;</span><span class="p">,</span> <span class="s2">&quot;Nilai&quot;</span><span class="p">]</span>
+<span class="n">tabel_no2</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html">
+  <div id="df-005292db-e53a-4609-be38-49c700ad3e8d" class="colab-df-container">
+    <div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Fitur</th>
+      <th>Nilai</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>abs_energy</td>
+      <td>3.100675e-08</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>auc</td>
+      <td>2.889237e-03</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>autocorr</td>
+      <td>5.000000e+00</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>average_power</td>
+      <td>8.565401e-11</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>calc_centroid</td>
+      <td>1.719391e+02</td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td>...</td>
+      <td>...</td>
+    </tr>
+    <tr>
+      <th>63</th>
+      <td>wavelet_energy</td>
+      <td>8.283682e-06</td>
+    </tr>
+    <tr>
+      <th>64</th>
+      <td>wavelet_entropy</td>
+      <td>2.121934e+00</td>
+    </tr>
+    <tr>
+      <th>65</th>
+      <td>wavelet_std</td>
+      <td>8.263201e-06</td>
+    </tr>
+    <tr>
+      <th>66</th>
+      <td>wavelet_var</td>
+      <td>7.518352e-11</td>
+    </tr>
+    <tr>
+      <th>67</th>
+      <td>zero_cross</td>
+      <td>2.200000e+01</td>
+    </tr>
+  </tbody>
+</table>
+<p>68 rows × 2 columns</p>
+</div>
+    <div class="colab-df-buttons">
+
+  <div class="colab-df-container">
+    <button class="colab-df-convert" onclick="convertToInteractive('df-005292db-e53a-4609-be38-49c700ad3e8d')"
+            title="Convert this dataframe to an interactive table."
+            style="display:none;">
+
+  <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960">
+    <path d="M120-120v-720h720v720H120Zm60-500h600v-160H180v160Zm220 220h160v-160H400v160Zm0 220h160v-160H400v160ZM180-400h160v-160H180v160Zm440 0h160v-160H620v160ZM180-180h160v-160H180v160Zm440 0h160v-160H620v160Z"/>
+  </svg>
+    </button>
+
+  <style>
+    .colab-df-container {
+      display:flex;
+      gap: 12px;
+    }
+
+    .colab-df-convert {
+      background-color: #E8F0FE;
+      border: none;
+      border-radius: 50%;
+      cursor: pointer;
+      display: none;
+      fill: #1967D2;
+      height: 32px;
+      padding: 0 0 0 0;
+      width: 32px;
+    }
+
+    .colab-df-convert:hover {
+      background-color: #E2EBFA;
+      box-shadow: 0px 1px 2px rgba(60, 64, 67, 0.3), 0px 1px 3px 1px rgba(60, 64, 67, 0.15);
+      fill: #174EA6;
+    }
+
+    .colab-df-buttons div {
+      margin-bottom: 4px;
+    }
+
+    [theme=dark] .colab-df-convert {
+      background-color: #3B4455;
+      fill: #D2E3FC;
+    }
+
+    [theme=dark] .colab-df-convert:hover {
+      background-color: #434B5C;
+      box-shadow: 0px 1px 3px 1px rgba(0, 0, 0, 0.15);
+      filter: drop-shadow(0px 1px 2px rgba(0, 0, 0, 0.3));
+      fill: #FFFFFF;
+    }
+  </style>
+
+    <script>
+      const buttonEl =
+        document.querySelector('#df-005292db-e53a-4609-be38-49c700ad3e8d button.colab-df-convert');
+      buttonEl.style.display =
+        google.colab.kernel.accessAllowed ? 'block' : 'none';
+
+      async function convertToInteractive(key) {
+        const element = document.querySelector('#df-005292db-e53a-4609-be38-49c700ad3e8d');
+        const dataTable =
+          await google.colab.kernel.invokeFunction('convertToInteractive',
+                                                    [key], {});
+        if (!dataTable) return;
+
+        const docLinkHtml = 'Like what you see? Visit the ' +
+          '<a target="_blank" href=https://colab.research.google.com/notebooks/data_table.ipynb>data table notebook</a>'
+          + ' to learn more about interactive tables.';
+        element.innerHTML = '';
+        dataTable['output_type'] = 'display_data';
+        await google.colab.output.renderOutput(dataTable, element);
+        const docLink = document.createElement('div');
+        docLink.innerHTML = docLinkHtml;
+        element.appendChild(docLink);
+      }
+    </script>
+  </div>
+
+
+  <div id="id_51e9e39b-b4d0-453d-a2a2-e0894cdad0a8">
+    <style>
+      .colab-df-generate {
+        background-color: #E8F0FE;
+        border: none;
+        border-radius: 50%;
+        cursor: pointer;
+        display: none;
+        fill: #1967D2;
+        height: 32px;
+        padding: 0 0 0 0;
+        width: 32px;
+      }
+
+      .colab-df-generate:hover {
+        background-color: #E2EBFA;
+        box-shadow: 0px 1px 2px rgba(60, 64, 67, 0.3), 0px 1px 3px 1px rgba(60, 64, 67, 0.15);
+        fill: #174EA6;
+      }
+
+      [theme=dark] .colab-df-generate {
+        background-color: #3B4455;
+        fill: #D2E3FC;
+      }
+
+      [theme=dark] .colab-df-generate:hover {
+        background-color: #434B5C;
+        box-shadow: 0px 1px 3px 1px rgba(0, 0, 0, 0.15);
+        filter: drop-shadow(0px 1px 2px rgba(0, 0, 0, 0.3));
+        fill: #FFFFFF;
+      }
+    </style>
+    <button class="colab-df-generate" onclick="generateWithVariable('tabel_no2')"
+            title="Generate code using this dataframe."
+            style="display:none;">
+
+  <svg xmlns="http://www.w3.org/2000/svg" height="24px"viewBox="0 0 24 24"
+       width="24px">
+    <path d="M7,19H8.4L18.45,9,17,7.55,7,17.6ZM5,21V16.75L18.45,3.32a2,2,0,0,1,2.83,0l1.4,1.43a1.91,1.91,0,0,1,.58,1.4,1.91,1.91,0,0,1-.58,1.4L9.25,21ZM18.45,9,17,7.55Zm-12,3A5.31,5.31,0,0,0,4.9,8.1,5.31,5.31,0,0,0,1,6.5,5.31,5.31,0,0,0,4.9,4.9,5.31,5.31,0,0,0,6.5,1,5.31,5.31,0,0,0,8.1,4.9,5.31,5.31,0,0,0,12,6.5,5.46,5.46,0,0,0,6.5,12Z"/>
+  </svg>
+    </button>
+    <script>
+      (() => {
+      const buttonEl =
+        document.querySelector('#id_51e9e39b-b4d0-453d-a2a2-e0894cdad0a8 button.colab-df-generate');
+      buttonEl.style.display =
+        google.colab.kernel.accessAllowed ? 'block' : 'none';
+
+      buttonEl.onclick = () => {
+        google.colab.notebook.generateWithVariable('tabel_no2');
+      }
+      })();
+    </script>
+  </div>
+
+    </div>
+  </div>
+</div></div>
+</div>
+<p><strong>Penjelasan kode:</strong></p>
+<ul class="simple">
+<li><p>caranya sama seperti tabel CO, hanya sumber datanya diganti ke <code class="docutils literal notranslate"><span class="pre">extracted_no2</span></code></p></li>
+</ul>
+</section>
+<section id="tabel-hasil-ekstraksi-so2">
+<h3>4.3 Tabel Hasil Ekstraksi SO2<a class="headerlink" href="#tabel-hasil-ekstraksi-so2" title="Link to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">tabel_so2</span> <span class="o">=</span> <span class="n">extracted_so2</span><span class="o">.</span><span class="n">T</span><span class="o">.</span><span class="n">reset_index</span><span class="p">()</span>
+<span class="n">tabel_so2</span><span class="o">.</span><span class="n">columns</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;Fitur&quot;</span><span class="p">,</span> <span class="s2">&quot;Nilai&quot;</span><span class="p">]</span>
+<span class="n">tabel_so2</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html">
+  <div id="df-6fda6393-3f0f-4ec5-9df9-ad5fefeba57b" class="colab-df-container">
+    <div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Fitur</th>
+      <th>Nilai</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>abs_energy</td>
+      <td>3.801074e-06</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>auc</td>
+      <td>2.584833e-02</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>autocorr</td>
+      <td>2.000000e+00</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>average_power</td>
+      <td>1.050020e-08</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>calc_centroid</td>
+      <td>1.999815e+02</td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td>...</td>
+      <td>...</td>
+    </tr>
+    <tr>
+      <th>63</th>
+      <td>wavelet_energy</td>
+      <td>1.529690e-04</td>
+    </tr>
+    <tr>
+      <th>64</th>
+      <td>wavelet_entropy</td>
+      <td>2.150468e+00</td>
+    </tr>
+    <tr>
+      <th>65</th>
+      <td>wavelet_std</td>
+      <td>1.529661e-04</td>
+    </tr>
+    <tr>
+      <th>66</th>
+      <td>wavelet_var</td>
+      <td>2.499851e-08</td>
+    </tr>
+    <tr>
+      <th>67</th>
+      <td>zero_cross</td>
+      <td>8.100000e+01</td>
+    </tr>
+  </tbody>
+</table>
+<p>68 rows × 2 columns</p>
+</div>
+    <div class="colab-df-buttons">
+
+  <div class="colab-df-container">
+    <button class="colab-df-convert" onclick="convertToInteractive('df-6fda6393-3f0f-4ec5-9df9-ad5fefeba57b')"
+            title="Convert this dataframe to an interactive table."
+            style="display:none;">
+
+  <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960">
+    <path d="M120-120v-720h720v720H120Zm60-500h600v-160H180v160Zm220 220h160v-160H400v160Zm0 220h160v-160H400v160ZM180-400h160v-160H180v160Zm440 0h160v-160H620v160ZM180-180h160v-160H180v160Zm440 0h160v-160H620v160Z"/>
+  </svg>
+    </button>
+
+  <style>
+    .colab-df-container {
+      display:flex;
+      gap: 12px;
+    }
+
+    .colab-df-convert {
+      background-color: #E8F0FE;
+      border: none;
+      border-radius: 50%;
+      cursor: pointer;
+      display: none;
+      fill: #1967D2;
+      height: 32px;
+      padding: 0 0 0 0;
+      width: 32px;
+    }
+
+    .colab-df-convert:hover {
+      background-color: #E2EBFA;
+      box-shadow: 0px 1px 2px rgba(60, 64, 67, 0.3), 0px 1px 3px 1px rgba(60, 64, 67, 0.15);
+      fill: #174EA6;
+    }
+
+    .colab-df-buttons div {
+      margin-bottom: 4px;
+    }
+
+    [theme=dark] .colab-df-convert {
+      background-color: #3B4455;
+      fill: #D2E3FC;
+    }
+
+    [theme=dark] .colab-df-convert:hover {
+      background-color: #434B5C;
+      box-shadow: 0px 1px 3px 1px rgba(0, 0, 0, 0.15);
+      filter: drop-shadow(0px 1px 2px rgba(0, 0, 0, 0.3));
+      fill: #FFFFFF;
+    }
+  </style>
+
+    <script>
+      const buttonEl =
+        document.querySelector('#df-6fda6393-3f0f-4ec5-9df9-ad5fefeba57b button.colab-df-convert');
+      buttonEl.style.display =
+        google.colab.kernel.accessAllowed ? 'block' : 'none';
+
+      async function convertToInteractive(key) {
+        const element = document.querySelector('#df-6fda6393-3f0f-4ec5-9df9-ad5fefeba57b');
+        const dataTable =
+          await google.colab.kernel.invokeFunction('convertToInteractive',
+                                                    [key], {});
+        if (!dataTable) return;
+
+        const docLinkHtml = 'Like what you see? Visit the ' +
+          '<a target="_blank" href=https://colab.research.google.com/notebooks/data_table.ipynb>data table notebook</a>'
+          + ' to learn more about interactive tables.';
+        element.innerHTML = '';
+        dataTable['output_type'] = 'display_data';
+        await google.colab.output.renderOutput(dataTable, element);
+        const docLink = document.createElement('div');
+        docLink.innerHTML = docLinkHtml;
+        element.appendChild(docLink);
+      }
+    </script>
+  </div>
+
+
+  <div id="id_1115d01e-48ba-4923-af0b-54b5295e070e">
+    <style>
+      .colab-df-generate {
+        background-color: #E8F0FE;
+        border: none;
+        border-radius: 50%;
+        cursor: pointer;
+        display: none;
+        fill: #1967D2;
+        height: 32px;
+        padding: 0 0 0 0;
+        width: 32px;
+      }
+
+      .colab-df-generate:hover {
+        background-color: #E2EBFA;
+        box-shadow: 0px 1px 2px rgba(60, 64, 67, 0.3), 0px 1px 3px 1px rgba(60, 64, 67, 0.15);
+        fill: #174EA6;
+      }
+
+      [theme=dark] .colab-df-generate {
+        background-color: #3B4455;
+        fill: #D2E3FC;
+      }
+
+      [theme=dark] .colab-df-generate:hover {
+        background-color: #434B5C;
+        box-shadow: 0px 1px 3px 1px rgba(0, 0, 0, 0.15);
+        filter: drop-shadow(0px 1px 2px rgba(0, 0, 0, 0.3));
+        fill: #FFFFFF;
+      }
+    </style>
+    <button class="colab-df-generate" onclick="generateWithVariable('tabel_so2')"
+            title="Generate code using this dataframe."
+            style="display:none;">
+
+  <svg xmlns="http://www.w3.org/2000/svg" height="24px"viewBox="0 0 24 24"
+       width="24px">
+    <path d="M7,19H8.4L18.45,9,17,7.55,7,17.6ZM5,21V16.75L18.45,3.32a2,2,0,0,1,2.83,0l1.4,1.43a1.91,1.91,0,0,1,.58,1.4,1.91,1.91,0,0,1-.58,1.4L9.25,21ZM18.45,9,17,7.55Zm-12,3A5.31,5.31,0,0,0,4.9,8.1,5.31,5.31,0,0,0,1,6.5,5.31,5.31,0,0,0,4.9,4.9,5.31,5.31,0,0,0,6.5,1,5.31,5.31,0,0,0,8.1,4.9,5.31,5.31,0,0,0,12,6.5,5.46,5.46,0,0,0,6.5,12Z"/>
+  </svg>
+    </button>
+    <script>
+      (() => {
+      const buttonEl =
+        document.querySelector('#id_1115d01e-48ba-4923-af0b-54b5295e070e button.colab-df-generate');
+      buttonEl.style.display =
+        google.colab.kernel.accessAllowed ? 'block' : 'none';
+
+      buttonEl.onclick = () => {
+        google.colab.notebook.generateWithVariable('tabel_so2');
+      }
+      })();
+    </script>
+  </div>
+
+    </div>
+  </div>
+</div></div>
+</div>
+<p><strong>Penjelasan kode:</strong></p>
+<ul class="simple">
+<li><p>caranya sama seperti dua tabel sebelumnya, sumber datanya <code class="docutils literal notranslate"><span class="pre">extracted_so2</span></code></p></li>
+</ul>
+</section>
+<section id="grafik-perbandingan-fitur-statistik-dasar-antarpolutan">
+<h3>4.4 Grafik Perbandingan Fitur Statistik Dasar Antarpolutan<a class="headerlink" href="#grafik-perbandingan-fitur-statistik-dasar-antarpolutan" title="Link to this heading">#</a></h3>
+<p>Membandingkan beberapa fitur statistik dasar (<code class="docutils literal notranslate"><span class="pre">calc_mean</span></code>, <code class="docutils literal notranslate"><span class="pre">calc_std</span></code>, <code class="docutils literal notranslate"><span class="pre">skewness</span></code>, <code class="docutils literal notranslate"><span class="pre">kurtosis</span></code>) di antara CO, NO2, dan SO2, untuk memelihat perbedaan karakter sinyal tiap polutan setelah dibersihkan.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+
+<span class="n">fitur_pembanding</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;calc_mean&quot;</span><span class="p">,</span> <span class="s2">&quot;calc_std&quot;</span><span class="p">,</span> <span class="s2">&quot;skewness&quot;</span><span class="p">,</span> <span class="s2">&quot;kurtosis&quot;</span><span class="p">]</span>
+<span class="n">data_polutan</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;CO&quot;</span><span class="p">:</span> <span class="n">extracted_co</span><span class="p">,</span> <span class="s2">&quot;NO2&quot;</span><span class="p">:</span> <span class="n">extracted_no2</span><span class="p">,</span> <span class="s2">&quot;SO2&quot;</span><span class="p">:</span> <span class="n">extracted_so2</span><span class="p">}</span>
+
+<span class="n">fig</span><span class="p">,</span> <span class="n">axes</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">fitur_pembanding</span><span class="p">),</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">16</span><span class="p">,</span> <span class="mi">4</span><span class="p">))</span>
+
+<span class="k">for</span> <span class="n">ax</span><span class="p">,</span> <span class="n">fitur</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">axes</span><span class="p">,</span> <span class="n">fitur_pembanding</span><span class="p">):</span>
+    <span class="n">nilai</span> <span class="o">=</span> <span class="p">[</span><span class="n">data_polutan</span><span class="p">[</span><span class="n">pol</span><span class="p">][</span><span class="n">fitur</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="k">for</span> <span class="n">pol</span> <span class="ow">in</span> <span class="n">data_polutan</span><span class="p">]</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">bar</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="n">data_polutan</span><span class="o">.</span><span class="n">keys</span><span class="p">()),</span> <span class="n">nilai</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;tab:blue&quot;</span><span class="p">,</span> <span class="s2">&quot;tab:orange&quot;</span><span class="p">,</span> <span class="s2">&quot;tab:green&quot;</span><span class="p">])</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="n">fitur</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="n">alpha</span><span class="o">=</span><span class="mf">0.3</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">suptitle</span><span class="p">(</span><span class="s2">&quot;Perbandingan Fitur Statistik Dasar Antarpolutan (Kecamatan Tikala)&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/c74baaecc3e8984cc3a8ea617ad26940c266a9a5f58cfaf155aa20e579400e94.png" src="_images/c74baaecc3e8984cc3a8ea617ad26940c266a9a5f58cfaf155aa20e579400e94.png" />
+</div>
+</div>
+<p><strong>Penjelasan kode:</strong></p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">data_polutan</span></code> mengumpulkan ketitidak DataFrame hasil ekstraksi dalam satu dictionary, agar mudah dipanggil di dalam perulangan</p></li>
+<li><p>tiap subplot menampilkan satu fitur pembanding dalam bentuk bar chart, dengan titidak batang mewakili CO, NO2, dan SO2</p></li>
+</ul>
+</section>
+<section id="grafik-seluruh-68-fitur-per-polutan">
+<h3>4.5 Grafik Seluruh 68 Fitur per Polutan<a class="headerlink" href="#grafik-seluruh-68-fitur-per-polutan" title="Link to this heading">#</a></h3>
+<p>Menampilkan seluruh 68 nilai fitur untuk tiap polutan dalam satu grafik garis, agar pola umumnya termelihat tanpa perlu membuka tabel satu per satu.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">axes</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">16</span><span class="p">,</span> <span class="mi">12</span><span class="p">))</span>
+
+<span class="k">for</span> <span class="n">ax</span><span class="p">,</span> <span class="p">(</span><span class="n">pol</span><span class="p">,</span> <span class="n">data</span><span class="p">)</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">axes</span><span class="p">,</span> <span class="n">data_polutan</span><span class="o">.</span><span class="n">items</span><span class="p">()):</span>
+    <span class="n">nilai_fitur</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">values</span>
+    <span class="n">nama_fitur</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">columns</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">nama_fitur</span><span class="p">,</span> <span class="n">nilai_fitur</span><span class="p">,</span> <span class="n">marker</span><span class="o">=</span><span class="s2">&quot;o&quot;</span><span class="p">,</span> <span class="n">markersize</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;tab:blue&quot;</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;68 Fitur TSFEL — </span><span class="si">{</span><span class="n">pol</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">tick_params</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="s2">&quot;x&quot;</span><span class="p">,</span> <span class="n">rotation</span><span class="o">=</span><span class="mi">90</span><span class="p">,</span> <span class="n">labelsize</span><span class="o">=</span><span class="mi">6</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="n">alpha</span><span class="o">=</span><span class="mf">0.3</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="s2">&quot;grafik_68_fitur_per_polutan.png&quot;</span><span class="p">,</span> <span class="n">dpi</span><span class="o">=</span><span class="mi">100</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/0266650b920d3ca690b739c38466d9a04b1d71a83877096cbffa9855809ab888.png" src="_images/0266650b920d3ca690b739c38466d9a04b1d71a83877096cbffa9855809ab888.png" />
+</div>
+</div>
+<p><strong>Penjelasan kode:</strong></p>
+<ul class="simple">
+<li><p>karena skala nilai antarfitur bisa jauh berbeda (misalnya <code class="docutils literal notranslate"><span class="pre">abs_energy</span></code> dibanding <code class="docutils literal notranslate"><span class="pre">skewness</span></code>), grafik ini lebih sesuai digunakan untuk memelihat pola relatif tiap polutan secara terpisah, bukan membandingkan langsung nilai absolut antarfitur</p></li>
+<li><p>gambar disimpan sebagai <code class="docutils literal notranslate"><span class="pre">grafik_68_fitur_per_polutan.png</span></code>, agar bisa dilampirkan ke laporan</p></li>
+</ul>
+</section>
+</section>
+<section id="ringkasan">
+<h2>5. Ringkasan<a class="headerlink" href="#ringkasan" title="Link to this heading">#</a></h2>
+<p>Notebook ini menghasilkan titidak file terpisah, <code class="docutils literal notranslate"><span class="pre">CO_Tikala_TSFEL.csv</span></code>, <code class="docutils literal notranslate"><span class="pre">NO2_Tikala_TSFEL.csv</span></code>, dan <code class="docutils literal notranslate"><span class="pre">SO2_Tikala_TSFEL.csv</span></code>, masing-masing berisi satu baris dengan 68 kolom fitur TSFEL dari data Kecamatan Tikala, Manado. Ketitidak file ini mensehingga hasil akhir yang siap digabungkan dengan hasil kecamatan lain lewat proses yang dikoordinasikan komting sekelas.</p>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./."
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <dialog id="pst-secondary-sidebar-modal"></dialog>
+                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item"><div
+    id="pst-page-navigation-heading-2"
+    class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav id="pst-page-toc-nav" class="page-toc" aria-labelledby="pst-page-navigation-heading-2">
+    <ul class="pst-show_toc_level nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#penjelasan-fitur-ekstraksi-tsfel">1. Penjelasan Fitur Ekstraksi TSFEL</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#deskripsi-singkat-seluruh-68-fitur-tsfel">1.1 Deskripsi Singkat Seluruh 68 Fitur TSFEL</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#domain-statistical-21-fitur">1.1.1 Domain Statistical (21 fitur)</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#domain-temporal-15-fitur">1.1.2 Domain Temporal (15 fitur)</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#domain-spectral-26-fitur">1.1.3 Domain Spectral (26 fitur)</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#domain-fractal-6-fitur">1.1.4 Domain Fractal (6 fitur)</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#interq-range-signal">1.2 <code class="docutils literal notranslate"><span class="pre">interq_range(signal)</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#human-range-energy-signal-fs">1.3 <code class="docutils literal notranslate"><span class="pre">human_range_energy(signal,</span> <span class="pre">fs)</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#verifikasi-manual-interq-range-dan-human-range-energy-pada-data-riil">1.4 Verifikasi Manual <code class="docutils literal notranslate"><span class="pre">interq_range</span></code> dan <code class="docutils literal notranslate"><span class="pre">human_range_energy</span></code> pada Data Riil</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#data-preparation-deteksi-outlier-dan-imputasi-missing-value">2. Data Preparation: Deteksi Outlier dan Imputasi Missing Value</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ringkasan-missing-value-sebelum-dan-sesudah-penanganan">2.1 Ringkasan Missing Value Sebelum dan Sesudah Penanganan</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#perbandingan-data-sebelum-dan-sesudah-deteksi-outlier">2.2 Perbandingan Data Sebelum dan Sesudah Deteksi Outlier</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#visualisasi-data-sesudah-imputasi">2.3 Visualisasi Data Sesudah Imputasi</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#perbandingan-missing-value">2.4 Perbandingan Missing Value</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ekstraksi-fitur">3. Ekstraksi Fitur</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ekstraksi-fitur-co">3.1 Ekstraksi Fitur CO</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ekstraksi-fitur-no2">3.2 Ekstraksi Fitur NO2</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ekstraksi-fitur-so2">3.3 Ekstraksi Fitur SO2</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#visualisasi-dan-tabel-hasil-ekstraksi-fitur">4. Visualisasi dan Tabel Hasil Ekstraksi Fitur</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#tabel-hasil-ekstraksi-co">4.1 Tabel Hasil Ekstraksi CO</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#tabel-hasil-ekstraksi-no2">4.2 Tabel Hasil Ekstraksi NO2</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#tabel-hasil-ekstraksi-so2">4.3 Tabel Hasil Ekstraksi SO2</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#grafik-perbandingan-fitur-statistik-dasar-antarpolutan">4.4 Grafik Perbandingan Fitur Statistik Dasar Antarpolutan</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#grafik-seluruh-68-fitur-per-polutan">4.5 Grafik Seluruh 68 Fitur per Polutan</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ringkasan">5. Ringkasan</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Rachelia Andini Tendean
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2026.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script defer src="_static/scripts/bootstrap.js?digest=55c26ed414f5f8a31ebb"></script>
+<script defer src="_static/scripts/pydata-sphinx-theme.js?digest=55c26ed414f5f8a31ebb"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>
