@@ -225,7 +225,6 @@
 <li class="toctree-l1 current active has-children"><a class="reference internal" href="Analisis_Polutan_Tikala.html">Analisis Data Polutan Udara di Wilayah Kecamatan Tikala Kabupaten Manado</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
 <li class="toctree-l2 current active"><a class="current reference internal" href="#">Ekstraksi Fitur Time Series Polutan Udara dengan TSFEL pada Data Polutan Kecamatan Tikala, Manado</a></li>
 <li class="toctree-l2"><a class="reference internal" href="KMeans_Clustering_Polutan_Tikala.html">K-Means Clustering Data Polutan Udara</a></li>
-
 </ul>
 </details></li>
 </ul>
@@ -428,9 +427,9 @@
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#domain-fractal-6-fitur">1.1.4 Domain Fractal (6 fitur)</a></li>
 </ul>
 </li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#interq-range-signal">1.2 <code class="docutils literal notranslate"><span class="pre">interq_range(signal)</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#human-range-energy-signal-fs">1.3 <code class="docutils literal notranslate"><span class="pre">human_range_energy(signal,</span> <span class="pre">fs)</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#verifikasi-manual-interq-range-dan-human-range-energy-pada-data-riil">1.4 Verifikasi Manual <code class="docutils literal notranslate"><span class="pre">interq_range</span></code> dan <code class="docutils literal notranslate"><span class="pre">human_range_energy</span></code> pada Data Riil</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#interq-range-signal-interquartile-range-iqr">1.2 <code class="docutils literal notranslate"><span class="pre">interq_range(signal)</span></code> — Interquartile Range (IQR)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#human-range-energy-signal-fs-human-range-energy-hre">1.3 human_range_energy(signal, fs) — Human Range Energy (HRE)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#verifikasi-manual-interq-range-dan-human-range-energy-pada-data-asli">1.4 Verifikasi Manual <code class="docutils literal notranslate"><span class="pre">interq_range</span></code> dan <code class="docutils literal notranslate"><span class="pre">human_range_energy</span></code> pada Data Asli</a></li>
 </ul>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#data-preparation-deteksi-outlier-dan-imputasi-missing-value">2. Data Preparation: Deteksi Outlier dan Imputasi Missing Value</a><ul class="nav section-nav flex-column">
@@ -747,13 +746,6 @@
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ <span class=" -Color -Color-Green">63.4/63.4 kB</span> <span class=" -Color -Color-Red">3.3 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:00</span>
-   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ <span class=" -Color -Color-Green">4.9/4.9 MB</span> <span class=" -Color -Color-Red">42.0 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:00</span>
-?25h
-</pre></div>
-</div>
-</div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -770,42 +762,66 @@
 </ul>
 </section>
 </section>
-<section id="interq-range-signal">
-<h3>1.2 <code class="docutils literal notranslate"><span class="pre">interq_range(signal)</span></code><a class="headerlink" href="#interq-range-signal" title="Link to this heading">#</a></h3>
-<p><strong>Domain:</strong> Statistical</p>
-<p>Interquartile Range (IQR) mengukur seberapa lebar 50% data yang letaknya di tengah, dihitung dari jarak antara kuartil atas (Q3, batas 75% data terkecil) dan kuartil bawah (Q1, batas 25% data terkecil). Bedanya dengan standar deviasi yang mengukur penyebaran dari titik rata-rata, IQR hanya memperhatikan posisi data setelah diurutkan, sehingtidak IQR relatif kebal terhadap outlier di ujung-ujung distribusi. Prinsip yang sama jutidak sehingga dasar deteksi outlier lewat boxplot, di mana batas whisker-nya dihitung dari Q1 − 1,5×IQR dan Q3 + 1,5×IQR.</p>
-<p>Kalau diterapkan ke sinyal polutan, IQR menggambarkan seberapa stabil konsentrasi suatu polutan di luar hari-hari yang ekstrem. Nilai IQR kecil berarti sebagian besar hari punya konsentrasi yang mirip satu sama lain, sedangkan IQR besar menandakan fluktuasi harian yang cukup signifikan.</p>
+<section id="interq-range-signal-interquartile-range-iqr">
+<h3>1.2 <code class="docutils literal notranslate"><span class="pre">interq_range(signal)</span></code> — Interquartile Range (IQR)<a class="headerlink" href="#interq-range-signal-interquartile-range-iqr" title="Link to this heading">#</a></h3>
+<p><strong>Kategori:</strong> Statistik</p>
+<p><strong>Intinya apa?</strong>
+IQR itu cara mengukur “seberapa lebar” separuh data yang ada di tengah-tengah, setelah data diurutkan dari kecil ke besar. Kita potong 25% data paling kecil dan 25% data paling besar, terus lihat seberapa jauh jarak antara batas-batasnya.</p>
+<p>Bedanya dengan standar deviasi:</p>
+<ul class="simple">
+<li><p>Standar deviasi → ngukur sebaran dari titik rata-rata, dan gampang keganggu kalau ada data yang aneh/ekstrem (outlier).</p></li>
+<li><p>IQR → cuma lihat posisi data setelah diurutkan, jadi outlier di ujung-ujung nggak terlalu ngaruh.</p></li>
+</ul>
+<p>Prinsip ini juga dipakai buat deteksi outlier di boxplot, lewat batas whisker: <span class="math notranslate nohighlight">\(Q_1 - 1{,}5 \times IQR\)</span> dan <span class="math notranslate nohighlight">\(Q_3 + 1{,}5 \times IQR\)</span>.</p>
+<p><strong>Kalau dipakai buat sinyal polutan:</strong>
+IQR nunjukin seberapa stabil kadar suatu polutan di luar hari-hari ekstrem.</p>
+<ul class="simple">
+<li><p>IQR kecil → sebagian besar hari kadarnya mirip-mirip (stabil).</p></li>
+<li><p>IQR besar → kadarnya naik-turun cukup jauh dari hari ke hari.</p></li>
+</ul>
+<p><strong>Dua istilah kunci:</strong></p>
+<ul class="simple">
+<li><p><strong>Q1 (kuartil bawah):</strong> titik di mana 25% data terkecil ada di bawahnya.</p></li>
+<li><p><strong>Q3 (kuartil atas):</strong> titik di mana 75% data terkecil ada di bawahnya (atau 25% data terbesar ada di atasnya).</p></li>
+</ul>
 <p><strong>Rumus:</strong>
 $<span class="math notranslate nohighlight">\(
 IQR = Q_3 - Q_1
 \)</span>$</p>
-<p>dengan <span class="math notranslate nohighlight">\(Q_1\)</span> dan <span class="math notranslate nohighlight">\(Q_3\)</span> dihitung dari data terurut memakai metode interpolasi linear (metode default TSFEL maupun NumPy):
+<p>Q1 dan Q3 dicari dari data yang sudah diurutkan, pakai metode interpolasi linear (ini metode default di TSFEL maupun NumPy):
 $<span class="math notranslate nohighlight">\(
-\text{posisi} = (n-1)\times p, \quad p \in \{0{,}25;\ 0{,}75\}
+\text{posisi} = (n-1) \times p, \quad p = 0{,}25 \text{ untuk } Q_1,\ p = 0{,}75 \text{ untuk } Q_3
 \)</span>$</p>
-<p><strong>Contoh perhitungan manual, langkah per langkah:</strong></p>
-<p>Sinyal contoh: <span class="math notranslate nohighlight">\(x = [2,\ 4,\ 4,\ 4,\ 5,\ 5,\ 7,\ 9]\)</span> (<span class="math notranslate nohighlight">\(n=8\)</span>, sudah terurut).</p>
-<p><em>Langkah 1, posisi Q1:</em>
+<p><strong>Contoh perhitungan, langkah demi langkah</strong></p>
+<p>Data contoh (sudah diurutkan, <span class="math notranslate nohighlight">\(n = 8\)</span>):</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">index</span><span class="p">:</span>  <span class="mi">0</span>  <span class="mi">1</span>  <span class="mi">2</span>  <span class="mi">3</span>  <span class="mi">4</span>  <span class="mi">5</span>  <span class="mi">6</span>  <span class="mi">7</span>
+<span class="n">nilai</span><span class="p">:</span>  <span class="mi">2</span>  <span class="mi">4</span>  <span class="mi">4</span>  <span class="mi">4</span>  <span class="mi">5</span>  <span class="mi">5</span>  <span class="mi">7</span>  <span class="mi">9</span>
+</pre></div>
+</div>
+<p><strong>Langkah 1  Cari Q1</strong></p>
+<p>Posisinya dulu:
 $<span class="math notranslate nohighlight">\(
-\text{posisi}_{25} = (8-1)\times 0{,}25 = 1{,}75
-\)</span><span class="math notranslate nohighlight">\(
-Posisi 1,75 ada di antara indeks ke-1 (nilai 4) dan indeks ke-2 (nilai 4), sehingga:
-\)</span><span class="math notranslate nohighlight">\(
-Q_1 = 4 + 0{,}75\times(4-4) = 4{,}0
+\text{posisi}_{25} = (8-1) \times 0{,}25 = 1{,}75
 \)</span>$</p>
-<p><em>Langkah 2, posisi Q3:</em>
+<p>Posisi 1,75 artinya: nggak tepat di satu index, tapi ada <strong>di antara</strong> index 1 dan index 2 — sudah “jalan” 75% dari index 1 menuju index 2.</p>
+<p>Nilai di index 1 dan 2 sama-sama 4, jadi:
 $<span class="math notranslate nohighlight">\(
-\text{posisi}_{75} = (8-1)\times 0{,}75 = 5{,}25
-\)</span><span class="math notranslate nohighlight">\(
-Posisi 5,25 ada di antara indeks ke-5 (nilai 5) dan indeks ke-6 (nilai 7), sehingga:
-\)</span><span class="math notranslate nohighlight">\(
-Q_3 = 5 + 0{,}25\times(7-5) = 5{,}5
+Q_1 = 4 + 0{,}75 \times (4 - 4) = 4{,}0
 \)</span>$</p>
-<p><em>Langkah 3, hasil IQR:</em>
+<p><strong>Langkah 2  Cari Q3</strong></p>
+<p>Posisinya:
 $<span class="math notranslate nohighlight">\(
+\text{posisi}_{75} = (8-1) \times 0{,}75 = 5{,}25
+\)</span>$</p>
+<p>Posisi 5,25 ada di antara index 5 (nilai 5) dan index 6 (nilai 7), sudah jalan 25% dari index 5 menuju index 6:
+$<span class="math notranslate nohighlight">\(
+Q_3 = 5 + 0{,}25 \times (7 - 5) = 5{,}5
+\)</span>$</p>
+<p><strong>Langkah 3  Hitung IQR</strong></p>
+<div class="math notranslate nohighlight">
+\[
 IQR = Q_3 - Q_1 = 5{,}5 - 4{,}0 = \mathbf{1{,}5}
-\)</span>$</p>
-<p>Hasil ini akan dimemeriksa ulang lewat fungsi TSFEL pada kode pada bagian berikutnya, dan seharusnya persis sama dengan hitungan manual di atas.</p>
+\]</div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Contoh perhitungan IQR secara manual tanpa fungsi percentile atau fungsi fitur TSFEL</span>
@@ -864,41 +880,43 @@ IQR = Q3 - Q1 = 1.5
 <li><p>tidak ada fungsi statistik bawaan yang digunakan untuk menghitung hasil IQR</p></li>
 </ul>
 </section>
-<section id="human-range-energy-signal-fs">
-<h3>1.3 <code class="docutils literal notranslate"><span class="pre">human_range_energy(signal,</span> <span class="pre">fs)</span></code><a class="headerlink" href="#human-range-energy-signal-fs" title="Link to this heading">#</a></h3>
-<p><strong>Domain:</strong> Spectral</p>
-<p>Fitur ini awalnya diuntuk untuk sinyal gerak tubuh manusia, misalnya data accelerometer, guna mengukur seberapa besar porsi energi sinyal yang berada pada rentang frekuensi 0,6-2,5 Hz, rentang yang berkaitan dengan aktivitas fisik seperti langkah kaki atau detak jantung. Perhitungannya lewat transformasi Fourier (FFT), yang mengubah sinyal dari domain waktu ke domain frekuensi, lalu membandingkan energi pada pita frekuensi tersebut terhadap energi total seluruh spektrum.</p>
-<p>Ada satu hal yang perlu digarisbawahi: karena fitur ini awalnya dirancang untuk sinyal gerak yang berfrekuensi tinggi (skala sub-detik), penerapannya pada data polutan harian (1 sampel per hari, jauh pada bagian berikutnya 0,6 Hz) kemungkinan besar akan selalu menghasilkan nilai 0. Ini bukan tanda ada yang salah dengan datanya, melainkan konsekuensi wajar dari perbedaan skala waktu antara konteks asal fitur ini (gerak manusia) dengan data yang digunakan pada bagian ini (konsentrasi polutan harian).</p>
-<p><strong>Rumus:</strong>
-$<span class="math notranslate nohighlight">\(
+<section id="human-range-energy-signal-fs-human-range-energy-hre">
+<h3>1.3 human_range_energy(signal, fs) — Human Range Energy (HRE)<a class="headerlink" href="#human-range-energy-signal-fs-human-range-energy-hre" title="Link to this heading">#</a></h3>
+<p>Kategori: Spektral (frekuensi)</p>
+<p>Fitur ini awalnya dibuat untuk menganalisis sinyal gerak tubuh manusia, misalnya data accelerometer dari HP atau smartwatch. Tujuannya adalah mengukur seberapa besar porsi energi sinyal yang berada pada rentang frekuensi 0,6 sampai 2,5 Hz. Rentang ini biasanya berkaitan dengan aktivitas fisik seperti langkah kaki atau detak jantung.</p>
+<p>Cara kerjanya begini. Sinyal yang tadinya berada dalam domain waktu diubah dulu ke domain frekuensi menggunakan FFT (Fast Fourier Transform). Setelah itu kita bisa tahu berapa besar energi sinyal pada setiap frekuensi. Energi yang jatuh pada rentang 0,6 sampai 2,5 Hz kemudian dijumlahkan, lalu dibandingkan dengan energi total di seluruh spektrum. Hasilnya adalah sebuah rasio antara 0 dan 1. Semakin besar porsi energi yang ada di rentang tersebut, semakin besar pula nilai HRE-nya.</p>
+<p>Ada satu hal penting untuk kasus data polutan. Fitur ini dirancang untuk sinyal berfrekuensi tinggi, dalam skala sub detik seperti gerak tubuh manusia. Kalau fitur ini diterapkan pada data polutan harian, yang hanya punya satu sampel per hari dan jauh lebih lambat dari 0,6 Hz, hasilnya kemungkinan besar akan selalu bernilai 0. Ini bukan berarti ada kesalahan pada data. Itu memang konsekuensi wajar karena skala waktu datanya sangat berbeda dari konteks asal fitur ini, yaitu gerak manusia yang cepat, dibandingkan dengan konsentrasi polutan yang berubah pelan dari hari ke hari.</p>
+<p>Rumusnya sebagai berikut.</p>
+<div class="math notranslate nohighlight">
+\[
 HRE = \frac{\displaystyle\sum_{0.6 \le f \le 2.5} |X(f)|^2}{\displaystyle\sum_{f} |X(f)|^2}, \quad X(f) = \text{FFT}(x)
-\)</span>$</p>
-<p><strong>Contoh perhitungan manual, langkah per langkah:</strong></p>
-<p>Diuntuk sinyal gabungan dua frekuensi, <span class="math notranslate nohighlight">\(f_s = 10\)</span> Hz, durasi 20 detik (<span class="math notranslate nohighlight">\(n=200\)</span> sampel):
-$<span class="math notranslate nohighlight">\(
-x(t) = \sin(2\pi \cdot 1{,}0 \cdot t) + 0{,}5\sin(2\pi \cdot 4{,}0 \cdot t)
-\)</span>$</p>
-<p><em>Langkah 1, resolusi frekuensi FFT:</em>
-$<span class="math notranslate nohighlight">\(
+\]</div>
+<p>Bagian pembilang adalah jumlah energi pada rentang 0,6 sampai 2,5 Hz. Bagian penyebut adalah jumlah energi di seluruh frekuensi, atau total energi sinyal secara keseluruhan.</p>
+<p>Contoh perhitungan manual, langkah demi langkah</p>
+<p>Sinyal contoh yang digunakan adalah gabungan dua gelombang sinus, dengan frekuensi sampling 10 Hz atau 10 sampel per detik, durasi 20 detik, sehingga totalnya ada 200 sampel.</p>
+<div class="math notranslate nohighlight">
+\[
+x(t) = \sin(2\pi \cdot 1{,}0 \cdot t) + 0{,}5 \sin(2\pi \cdot 4{,}0 \cdot t)
+\]</div>
+<p>Sinyal ini merupakan campuran gelombang berfrekuensi 1 Hz dan gelombang berfrekuensi 4 Hz dengan amplitudo yang lebih kecil.</p>
+<p>Langkah pertama adalah mencari resolusi frekuensi dari FFT. Resolusi ini menentukan seberapa detail FFT bisa membedakan antar frekuensi.</p>
+<div class="math notranslate nohighlight">
+\[
 \Delta f = \frac{f_s}{n} = \frac{10}{200} = 0{,}05 \text{ Hz}
-\)</span>$</p>
-<p><em>Langkah 2, hitung Power Spectral Density (PSD) tiap bin lewat FFT:</em></p>
-<p>Nyaris seluruh energi sinyal ini terkumpul di dua bin frekuensi:</p>
-<ul class="simple">
-<li><p>Bin pada <span class="math notranslate nohighlight">\(f = 1{,}0\)</span> Hz (komponen utama): <span class="math notranslate nohighlight">\(PSD \approx 10.000\)</span></p></li>
-<li><p>Bin pada <span class="math notranslate nohighlight">\(f = 4{,}0\)</span> Hz (komponen kedua): <span class="math notranslate nohighlight">\(PSD \approx 2.500\)</span></p></li>
-<li><p>Total energi seluruh spektrum: <span class="math notranslate nohighlight">\(12.500\)</span></p></li>
-</ul>
-<p><em>Langkah 3, jumlahkan energi yang jatuh di rentang <span class="math notranslate nohighlight">\(0{,}6 \le f \le 2{,}5\)</span> Hz:</em></p>
-<p>Cuma bin <span class="math notranslate nohighlight">\(f=1{,}0\)</span> Hz yang masuk rentang ini (bin <span class="math notranslate nohighlight">\(f=4{,}0\)</span> Hz berada di luar), sehingga:
-$<span class="math notranslate nohighlight">\(
+\]</div>
+<p>Langkah kedua adalah menghitung energi, atau PSD, pada setiap frekuensi lewat FFT. Karena sinyal ini hanya merupakan gabungan dua gelombang sinus murni, hampir seluruh energinya terkumpul pada dua titik frekuensi saja. Pada frekuensi 1,0 Hz, yang merupakan komponen utama, energinya sekitar 10.000. Pada frekuensi 4,0 Hz, yang merupakan komponen kedua, energinya sekitar 2.500. Total energi di seluruh spektrum adalah 12.500.</p>
+<p>Langkah ketiga adalah menjumlahkan energi yang masuk ke rentang 0,6 sampai 2,5 Hz. Frekuensi 1,0 Hz masuk ke dalam rentang tersebut, sedangkan frekuensi 4,0 Hz berada di luar rentang karena sudah melebihi 2,5 Hz. Jadi hanya energi pada frekuensi 1,0 Hz yang dihitung.</p>
+<div class="math notranslate nohighlight">
+\[
 \sum_{0.6\le f\le 2.5} |X(f)|^2 = 10.000
-\)</span>$</p>
-<p><em>Langkah 4, rasio HRE:</em>
-$<span class="math notranslate nohighlight">\(
+\]</div>
+<p>Langkah keempat adalah menghitung rasio HRE.</p>
+<div class="math notranslate nohighlight">
+\[
 HRE = \frac{10.000}{12.500} = \mathbf{0{,}8}
-\)</span>$</p>
-<p>Hasil ini akan dimemeriksa ulang lewat fungsi TSFEL pada kode pada bagian berikutnya.</p>
+\]</div>
+<p>Artinya sekitar 80 persen dari total energi sinyal ini berada pada rentang frekuensi yang dikaitkan dengan gerak manusia, yaitu <strong>0,6 sampai 2,5 Hz</strong>. Ini masuk akal karena komponen utama sinyalnya, yaitu 1 Hz, memang berada di dalam rentang tersebut.</p>
+<p>Catatan tambahan: hasil perhitungan manual ini nantinya akan dicocokkan kembali dengan hasil fungsi TSFEL pada bagian kode berikutnya.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Contoh verifikasi human_range_energy secara manual</span>
@@ -946,126 +964,136 @@ perlu dihitung dari komponen frekuensi yang masuk rentang
 <li><p>contoh ini hanya menunjukkan pemeriksaan batas frekuensi secara manual; perhitungan rasio energi lengkap digunakan pada data riil apabila terdapat komponen frekuensi di dalam rentang tersebut</p></li>
 </ul>
 </section>
-<section id="verifikasi-manual-interq-range-dan-human-range-energy-pada-data-riil">
-<h3>1.4 Verifikasi Manual <code class="docutils literal notranslate"><span class="pre">interq_range</span></code> dan <code class="docutils literal notranslate"><span class="pre">human_range_energy</span></code> pada Data Riil<a class="headerlink" href="#verifikasi-manual-interq-range-dan-human-range-energy-pada-data-riil" title="Link to this heading">#</a></h3>
+<section id="verifikasi-manual-interq-range-dan-human-range-energy-pada-data-asli">
+<h3>1.4 Verifikasi Manual <code class="docutils literal notranslate"><span class="pre">interq_range</span></code> dan <code class="docutils literal notranslate"><span class="pre">human_range_energy</span></code> pada Data Asli<a class="headerlink" href="#verifikasi-manual-interq-range-dan-human-range-energy-pada-data-asli" title="Link to this heading">#</a></h3>
 <p>Verifikasi berikut menggunakan data riil CO, NO2, dan SO2 dari <code class="docutils literal notranslate"><span class="pre">pollutant_data_tikala.csv</span></code>. Perhitungan enam hasil dilakukan kembali secara manual, bukan dengan mengmengambil nilai dari hasil ekstraksi TSFEL.</p>
 <p>Untuk <code class="docutils literal notranslate"><span class="pre">interq_range</span></code>, data diurutkan secara manual, posisi Q1 dan Q3 dihitung menggunakan rumus interpolasi, lalu IQR dihitung sebagai <code class="docutils literal notranslate"><span class="pre">Q3</span> <span class="pre">-</span> <span class="pre">Q1</span></code>.</p>
 <p>Untuk <code class="docutils literal notranslate"><span class="pre">human_range_energy</span></code>, data polutan memiliki satu pengamatan per hari sehingtidak <code class="docutils literal notranslate"><span class="pre">fs</span> <span class="pre">=</span> <span class="pre">1</span> <span class="pre">Hz</span></code>. Frekuensi Nyquist adalah <code class="docutils literal notranslate"><span class="pre">0,5</span> <span class="pre">Hz</span></code>, sedangkan rentang fitur adalah <code class="docutils literal notranslate"><span class="pre">0,6–2,5</span> <span class="pre">Hz</span></code>. Karena seluruh rentang fitur berada di atas Nyquist, energi pada rentang tersebut secara matematis adalah 0 sehingtidak HRE = 0.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Verifikasi manual fitur TSFEL menggunakan data yang sama dengan input TSFEL.</span>
-<span class="c1"># Perhitungan interq_range dilakukan secara manual tanpa menggunakan fungsi</span>
-<span class="c1"># percentile atau fungsi ekstraksi fitur TSFEL.</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">scipy</span><span class="w"> </span><span class="kn">import</span> <span class="n">signal</span>
 
+<span class="c1"># BAGIAN 1: FUNGSI PERHITUNGAN MANUAL</span>
 <span class="k">def</span><span class="w"> </span><span class="nf">urut_manual</span><span class="p">(</span><span class="n">data</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Mengurutkan data menggunakan Bubble Sort&quot;&quot;&quot;</span>
     <span class="n">hasil</span> <span class="o">=</span> <span class="n">data</span><span class="p">[:]</span>
-
     <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">hasil</span><span class="p">)):</span>
         <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">hasil</span><span class="p">)</span> <span class="o">-</span> <span class="n">i</span> <span class="o">-</span> <span class="mi">1</span><span class="p">):</span>
             <span class="k">if</span> <span class="n">hasil</span><span class="p">[</span><span class="n">j</span><span class="p">]</span> <span class="o">&gt;</span> <span class="n">hasil</span><span class="p">[</span><span class="n">j</span> <span class="o">+</span> <span class="mi">1</span><span class="p">]:</span>
                 <span class="n">sementara</span> <span class="o">=</span> <span class="n">hasil</span><span class="p">[</span><span class="n">j</span><span class="p">]</span>
                 <span class="n">hasil</span><span class="p">[</span><span class="n">j</span><span class="p">]</span> <span class="o">=</span> <span class="n">hasil</span><span class="p">[</span><span class="n">j</span> <span class="o">+</span> <span class="mi">1</span><span class="p">]</span>
                 <span class="n">hasil</span><span class="p">[</span><span class="n">j</span> <span class="o">+</span> <span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">sementara</span>
-
     <span class="k">return</span> <span class="n">hasil</span>
 
-
 <span class="k">def</span><span class="w"> </span><span class="nf">kuartil_manual</span><span class="p">(</span><span class="n">data_urut</span><span class="p">,</span> <span class="n">p</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Menghitung kuartil dengan interpolasi linear secara manual&quot;&quot;&quot;</span>
     <span class="n">n</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">data_urut</span><span class="p">)</span>
-
     <span class="n">posisi</span> <span class="o">=</span> <span class="p">(</span><span class="n">n</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span> <span class="o">*</span> <span class="n">p</span>
     <span class="n">indeks</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">posisi</span><span class="p">)</span>
     <span class="n">pecahan</span> <span class="o">=</span> <span class="n">posisi</span> <span class="o">-</span> <span class="n">indeks</span>
 
     <span class="k">if</span> <span class="n">indeks</span> <span class="o">+</span> <span class="mi">1</span> <span class="o">&lt;</span> <span class="n">n</span><span class="p">:</span>
-        <span class="k">return</span> <span class="p">(</span>
-            <span class="n">data_urut</span><span class="p">[</span><span class="n">indeks</span><span class="p">]</span>
-            <span class="o">+</span> <span class="n">pecahan</span> <span class="o">*</span> <span class="p">(</span><span class="n">data_urut</span><span class="p">[</span><span class="n">indeks</span> <span class="o">+</span> <span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="n">data_urut</span><span class="p">[</span><span class="n">indeks</span><span class="p">])</span>
-        <span class="p">)</span>
-
+        <span class="k">return</span> <span class="n">data_urut</span><span class="p">[</span><span class="n">indeks</span><span class="p">]</span> <span class="o">+</span> <span class="n">pecahan</span> <span class="o">*</span> <span class="p">(</span><span class="n">data_urut</span><span class="p">[</span><span class="n">indeks</span> <span class="o">+</span> <span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="n">data_urut</span><span class="p">[</span><span class="n">indeks</span><span class="p">])</span>
     <span class="k">return</span> <span class="n">data_urut</span><span class="p">[</span><span class="n">indeks</span><span class="p">]</span>
 
-
-<span class="n">hasil_manual</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="c1"># BAGIAN 2: LOOP VERIFIKASI</span>
+<span class="n">hasil_verifikasi</span> <span class="o">=</span> <span class="p">[]</span>
 
 <span class="k">for</span> <span class="n">polutan</span> <span class="ow">in</span> <span class="p">[</span><span class="s2">&quot;CO&quot;</span><span class="p">,</span> <span class="s2">&quot;NO2&quot;</span><span class="p">,</span> <span class="s2">&quot;SO2&quot;</span><span class="p">]:</span>
-
-    <span class="c1"># Menggunakan data hasil preprocessing yang juga menjadi</span>
-    <span class="c1"># input pada proses ekstraksi fitur TSFEL.</span>
-    <span class="n">data</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="c1"># Bungkus list comprehension dengan np.array() agar menjadi numpy array</span>
+    <span class="n">data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span>
         <span class="nb">float</span><span class="p">(</span><span class="n">nilai</span><span class="p">)</span>
         <span class="k">for</span> <span class="n">nilai</span> <span class="ow">in</span> <span class="n">sinyal_bersih</span><span class="p">[</span><span class="n">polutan</span><span class="p">]</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span>
         <span class="k">if</span> <span class="n">nilai</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span>
-    <span class="p">]</span>
+    <span class="p">])</span>
 
-    <span class="c1"># Pengurutan dilakukan secara manual.</span>
-    <span class="n">data_urut</span> <span class="o">=</span> <span class="n">urut_manual</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+    <span class="c1"># A. PERHITUNGAN MANUAL</span>
+    <span class="c1"># Ubah kembali ke list agar fungsi manual Anda tetap jalan</span>
+    <span class="n">data_list</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span>
 
-    <span class="c1"># Perhitungan kuartil Q1 dan Q3 dilakukan secara manual.</span>
-    <span class="n">q1</span> <span class="o">=</span> <span class="n">kuartil_manual</span><span class="p">(</span><span class="n">data_urut</span><span class="p">,</span> <span class="mf">0.25</span><span class="p">)</span>
-    <span class="n">q3</span> <span class="o">=</span> <span class="n">kuartil_manual</span><span class="p">(</span><span class="n">data_urut</span><span class="p">,</span> <span class="mf">0.75</span><span class="p">)</span>
+    <span class="n">data_urut</span> <span class="o">=</span> <span class="n">urut_manual</span><span class="p">(</span><span class="n">data_list</span><span class="p">)</span>
+    <span class="n">q1_manual</span> <span class="o">=</span> <span class="n">kuartil_manual</span><span class="p">(</span><span class="n">data_urut</span><span class="p">,</span> <span class="mf">0.25</span><span class="p">)</span>
+    <span class="n">q3_manual</span> <span class="o">=</span> <span class="n">kuartil_manual</span><span class="p">(</span><span class="n">data_urut</span><span class="p">,</span> <span class="mf">0.75</span><span class="p">)</span>
+    <span class="n">iqr_manual</span> <span class="o">=</span> <span class="n">q3_manual</span> <span class="o">-</span> <span class="n">q1_manual</span>
 
-    <span class="c1"># Interquartile Range dihitung berdasarkan selisih Q3 dan Q1.</span>
-    <span class="n">iqr</span> <span class="o">=</span> <span class="n">q3</span> <span class="o">-</span> <span class="n">q1</span>
-
-    <span class="c1"># Data merupakan data harian sehingga frekuensi sampling ditetapkan</span>
-    <span class="c1"># sebesar 1 Hz.</span>
     <span class="n">fs_riil</span> <span class="o">=</span> <span class="mi">1</span>
     <span class="n">nyquist</span> <span class="o">=</span> <span class="n">fs_riil</span> <span class="o">/</span> <span class="mi">2</span>
-
-    <span class="c1"># Rentang frekuensi human_range_energy.</span>
     <span class="n">batas_bawah</span> <span class="o">=</span> <span class="mf">0.6</span>
     <span class="n">batas_atas</span> <span class="o">=</span> <span class="mf">2.5</span>
 
-    <span class="c1"># Rentang 0,6-2,5 Hz berada di atas frekuensi Nyquist 0,5 Hz.</span>
-    <span class="c1"># Oleh karena itu, energi pada rentang tersebut bernilai 0.</span>
     <span class="k">if</span> <span class="n">batas_bawah</span> <span class="o">&gt;</span> <span class="n">nyquist</span><span class="p">:</span>
-        <span class="n">hre</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="n">hre_manual</span> <span class="o">=</span> <span class="mi">0</span>
     <span class="k">else</span><span class="p">:</span>
-        <span class="n">hre</span> <span class="o">=</span> <span class="s2">&quot;perlu perhitungan spektrum&quot;</span>
+        <span class="n">hre_manual</span> <span class="o">=</span> <span class="s2">&quot;perlu perhitungan spektrum&quot;</span>
 
-    <span class="n">hasil_manual</span><span class="o">.</span><span class="n">append</span><span class="p">({</span>
+    <span class="c1">#B. PERHITUNGAN OTOMATIS</span>
+
+    <span class="c1"># 1. IQR Otomatis</span>
+    <span class="n">q1_auto</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">percentile</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="mi">25</span><span class="p">)</span>
+    <span class="n">q3_auto</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">percentile</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="mi">75</span><span class="p">)</span>
+    <span class="n">iqr_auto</span> <span class="o">=</span> <span class="n">q3_auto</span> <span class="o">-</span> <span class="n">q1_auto</span>
+
+    <span class="c1"># 2. HRE Otomatis</span>
+    <span class="n">fs</span> <span class="o">=</span> <span class="mi">1</span>
+    <span class="n">freqs</span><span class="p">,</span> <span class="n">psd</span> <span class="o">=</span> <span class="n">signal</span><span class="o">.</span><span class="n">welch</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">fs</span><span class="o">=</span><span class="n">fs</span><span class="p">,</span> <span class="n">nperseg</span><span class="o">=</span><span class="nb">len</span><span class="p">(</span><span class="n">data</span><span class="p">))</span>
+
+    <span class="c1"># Mencari indeks frekuensi yang berada dalam rentang HRE (0.6 - 2.5 Hz)</span>
+    <span class="c1"># Karena fs=1, max frequency adalah 0.5 Hz.</span>
+    <span class="c1"># Maka kondisi (freqs &gt;= 0.6) tidak akan pernah terpenuhi.</span>
+    <span class="n">mask</span> <span class="o">=</span> <span class="p">(</span><span class="n">freqs</span> <span class="o">&gt;=</span> <span class="n">batas_bawah</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">freqs</span> <span class="o">&lt;=</span> <span class="n">batas_atas</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">np</span><span class="o">.</span><span class="n">any</span><span class="p">(</span><span class="n">mask</span><span class="p">):</span>
+        <span class="n">hre_auto</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">trapz</span><span class="p">(</span><span class="n">psd</span><span class="p">[</span><span class="n">mask</span><span class="p">],</span> <span class="n">freqs</span><span class="p">[</span><span class="n">mask</span><span class="p">])</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">hre_auto</span> <span class="o">=</span> <span class="mf">0.0</span>
+
+    <span class="c1"># Menyimpan hasil perbandingan</span>
+    <span class="n">hasil_verifikasi</span><span class="o">.</span><span class="n">append</span><span class="p">({</span>
         <span class="s2">&quot;polutan&quot;</span><span class="p">:</span> <span class="n">polutan</span><span class="p">,</span>
         <span class="s2">&quot;jumlah_data&quot;</span><span class="p">:</span> <span class="nb">len</span><span class="p">(</span><span class="n">data</span><span class="p">),</span>
-        <span class="s2">&quot;Q1&quot;</span><span class="p">:</span> <span class="n">q1</span><span class="p">,</span>
-        <span class="s2">&quot;Q3&quot;</span><span class="p">:</span> <span class="n">q3</span><span class="p">,</span>
-        <span class="s2">&quot;interq_range_manual&quot;</span><span class="p">:</span> <span class="n">iqr</span><span class="p">,</span>
-        <span class="s2">&quot;human_range_energy_manual&quot;</span><span class="p">:</span> <span class="n">hre</span>
+
+        <span class="c1"># Hasil Manual</span>
+        <span class="s2">&quot;Q1_manual&quot;</span><span class="p">:</span> <span class="n">q1_manual</span><span class="p">,</span>
+        <span class="s2">&quot;Q3_manual&quot;</span><span class="p">:</span> <span class="n">q3_manual</span><span class="p">,</span>
+        <span class="s2">&quot;IQR_manual&quot;</span><span class="p">:</span> <span class="n">iqr_manual</span><span class="p">,</span>
+        <span class="s2">&quot;HRE_manual&quot;</span><span class="p">:</span> <span class="n">hre_manual</span><span class="p">,</span>
+
+        <span class="c1"># Hasil Otomatis</span>
+        <span class="s2">&quot;Q1_auto&quot;</span><span class="p">:</span> <span class="n">q1_auto</span><span class="p">,</span>
+        <span class="s2">&quot;Q3_auto&quot;</span><span class="p">:</span> <span class="n">q3_auto</span><span class="p">,</span>
+        <span class="s2">&quot;IQR_auto&quot;</span><span class="p">:</span> <span class="n">iqr_auto</span><span class="p">,</span>
+        <span class="s2">&quot;HRE_auto&quot;</span><span class="p">:</span> <span class="n">hre_auto</span>
     <span class="p">})</span>
 
+<span class="c1"># BAGIAN 3: MENAMPILKAN HASIL</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="s1">&#39;Polutan&#39;</span><span class="si">:</span><span class="s2">&lt;10</span><span class="si">}</span><span class="s2"> | </span><span class="si">{</span><span class="s1">&#39;Metode&#39;</span><span class="si">:</span><span class="s2">&lt;10</span><span class="si">}</span><span class="s2"> | </span><span class="si">{</span><span class="s1">&#39;Q1&#39;</span><span class="si">:</span><span class="s2">&lt;10</span><span class="si">}</span><span class="s2"> | </span><span class="si">{</span><span class="s1">&#39;Q3&#39;</span><span class="si">:</span><span class="s2">&lt;10</span><span class="si">}</span><span class="s2"> | </span><span class="si">{</span><span class="s1">&#39;IQR&#39;</span><span class="si">:</span><span class="s2">&lt;10</span><span class="si">}</span><span class="s2"> | </span><span class="si">{</span><span class="s1">&#39;HRE&#39;</span><span class="si">:</span><span class="s2">&lt;15</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;-&quot;</span> <span class="o">*</span> <span class="mi">85</span><span class="p">)</span>
 
-<span class="c1"># Menampilkan hasil verifikasi manual.</span>
-<span class="k">for</span> <span class="n">hasil</span> <span class="ow">in</span> <span class="n">hasil_manual</span><span class="p">:</span>
-    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="se">\n</span><span class="si">{</span><span class="n">hasil</span><span class="p">[</span><span class="s1">&#39;polutan&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
-    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Jumlah data = </span><span class="si">{</span><span class="n">hasil</span><span class="p">[</span><span class="s1">&#39;jumlah_data&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
-    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Q1 = </span><span class="si">{</span><span class="n">hasil</span><span class="p">[</span><span class="s1">&#39;Q1&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
-    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Q3 = </span><span class="si">{</span><span class="n">hasil</span><span class="p">[</span><span class="s1">&#39;Q3&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
-    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;IQR manual = </span><span class="si">{</span><span class="n">hasil</span><span class="p">[</span><span class="s1">&#39;interq_range_manual&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
-    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;HRE manual = </span><span class="si">{</span><span class="n">hasil</span><span class="p">[</span><span class="s1">&#39;human_range_energy_manual&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">hasil</span> <span class="ow">in</span> <span class="n">hasil_verifikasi</span><span class="p">:</span>
+    <span class="n">polutan</span> <span class="o">=</span> <span class="n">hasil</span><span class="p">[</span><span class="s1">&#39;polutan&#39;</span><span class="p">]</span>
+
+    <span class="c1"># Baris Manual</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">polutan</span><span class="si">:</span><span class="s2">&lt;10</span><span class="si">}</span><span class="s2"> | </span><span class="si">{</span><span class="s1">&#39;MANUAL&#39;</span><span class="si">:</span><span class="s2">&lt;10</span><span class="si">}</span><span class="s2"> | </span><span class="si">{</span><span class="n">hasil</span><span class="p">[</span><span class="s1">&#39;Q1_manual&#39;</span><span class="p">]</span><span class="si">:</span><span class="s2">&lt;10.4f</span><span class="si">}</span><span class="s2"> | </span><span class="si">{</span><span class="n">hasil</span><span class="p">[</span><span class="s1">&#39;Q3_manual&#39;</span><span class="p">]</span><span class="si">:</span><span class="s2">&lt;10.4f</span><span class="si">}</span><span class="s2"> | </span><span class="si">{</span><span class="n">hasil</span><span class="p">[</span><span class="s1">&#39;IQR_manual&#39;</span><span class="p">]</span><span class="si">:</span><span class="s2">&lt;10.4f</span><span class="si">}</span><span class="s2"> | </span><span class="si">{</span><span class="n">hasil</span><span class="p">[</span><span class="s1">&#39;HRE_manual&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+    <span class="c1"># Baris Otomatis</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="s1">&#39; &#39;</span><span class="si">:</span><span class="s2">&lt;10</span><span class="si">}</span><span class="s2"> | </span><span class="si">{</span><span class="s1">&#39;OTOMATIS&#39;</span><span class="si">:</span><span class="s2">&lt;10</span><span class="si">}</span><span class="s2"> | </span><span class="si">{</span><span class="n">hasil</span><span class="p">[</span><span class="s1">&#39;Q1_auto&#39;</span><span class="p">]</span><span class="si">:</span><span class="s2">&lt;10.4f</span><span class="si">}</span><span class="s2"> | </span><span class="si">{</span><span class="n">hasil</span><span class="p">[</span><span class="s1">&#39;Q3_auto&#39;</span><span class="p">]</span><span class="si">:</span><span class="s2">&lt;10.4f</span><span class="si">}</span><span class="s2"> | </span><span class="si">{</span><span class="n">hasil</span><span class="p">[</span><span class="s1">&#39;IQR_auto&#39;</span><span class="p">]</span><span class="si">:</span><span class="s2">&lt;10.4f</span><span class="si">}</span><span class="s2"> | </span><span class="si">{</span><span class="n">hasil</span><span class="p">[</span><span class="s1">&#39;HRE_auto&#39;</span><span class="p">]</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;-&quot;</span> <span class="o">*</span> <span class="mi">85</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>CO
-Jumlah data = 363
-Q1 = 0.022673277184367124
-Q3 = 0.0274572344496846
-IQR manual = 0.004783957265317475
-HRE manual = 0
-
-NO2
-Jumlah data = 363
-Q1 = 4.394871823857708e-06
-Q3 = 1.1356197228451493e-05
-IQR manual = 6.9613254045937845e-06
-HRE manual = 0
-
-SO2
-Jumlah data = 363
-Q1 = -7.622202666915108e-05
-Q3 = 5.2876204920561626e-05
-IQR manual = 0.0001290982315897127
-HRE manual = 0
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Polutan    | Metode     | Q1         | Q3         | IQR        | HRE            
+-------------------------------------------------------------------------------------
+CO         | MANUAL     | 0.0227     | 0.0275     | 0.0048     | 0
+           | OTOMATIS   | 0.0227     | 0.0275     | 0.0048     | 0.0000
+-------------------------------------------------------------------------------------
+NO2        | MANUAL     | 0.0000     | 0.0000     | 0.0000     | 0
+           | OTOMATIS   | 0.0000     | 0.0000     | 0.0000     | 0.0000
+-------------------------------------------------------------------------------------
+SO2        | MANUAL     | -0.0001    | 0.0001     | 0.0001     | 0
+           | OTOMATIS   | -0.0001    | 0.0001     | 0.0001     | 0.0000
+-------------------------------------------------------------------------------------
 </pre></div>
 </div>
 </div>
@@ -1082,8 +1110,6 @@ HRE manual = 0
 <li><p>Perhitungan verifikasi dilakukan tanpa menggunakan <code class="docutils literal notranslate"><span class="pre">np.percentile</span></code>, fungsi IQR bawaan, <code class="docutils literal notranslate"><span class="pre">np.fft</span></code>, <code class="docutils literal notranslate"><span class="pre">tsfel_features.interq_range</span></code>, maupun <code class="docutils literal notranslate"><span class="pre">tsfel_features.human_range_energy</span></code>.</p></li>
 <li><p>Hasil perhitungan manual dapat dibandingkan dengan hasil ekstraksi TSFEL karena kedua proses menggunakan data input yang sama, yaitu <code class="docutils literal notranslate"><span class="pre">sinyal_bersih</span></code>.</p></li>
 </ul>
-<p><strong>Hasil verifikasi manual data riil:</strong></p>
-<p>Kode pada sel sebelumnya menghasilkan enam hasil, yaitu <code class="docutils literal notranslate"><span class="pre">interq_range</span></code> dan <code class="docutils literal notranslate"><span class="pre">human_range_energy</span></code> untuk masing-masing CO, NO2, dan SO2. Nilai IQR dihitung dari data riil dengan pengurutan dan interpolasi manual, sedangkan HRE ditentukan dari batas frekuensi Nyquist data harian.</p>
 </section>
 </section>
 <section id="data-preparation-deteksi-outlier-dan-imputasi-missing-value">
@@ -1228,7 +1254,7 @@ Preprocessing selesai untuk: [&#39;CO&#39;, &#39;NO2&#39;, &#39;SO2&#39;]
 </div>
 <div class="cell_output docutils container">
 <div class="output text_html">
-  <div id="df-a0e02195-e793-4de8-bfe5-5fd465fc3bfa" class="colab-df-container">
+  <div id="df-040e19ee-9ac2-44f8-b78d-adf119cf28cf" class="colab-df-container">
     <div>
 <style scoped>
     .dataframe tbody tr th:only-of-type {
@@ -1297,7 +1323,7 @@ Preprocessing selesai untuk: [&#39;CO&#39;, &#39;NO2&#39;, &#39;SO2&#39;]
     <div class="colab-df-buttons">
 
   <div class="colab-df-container">
-    <button class="colab-df-convert" onclick="convertToInteractive('df-a0e02195-e793-4de8-bfe5-5fd465fc3bfa')"
+    <button class="colab-df-convert" onclick="convertToInteractive('df-040e19ee-9ac2-44f8-b78d-adf119cf28cf')"
             title="Convert this dataframe to an interactive table."
             style="display:none;">
 
@@ -1349,12 +1375,12 @@ Preprocessing selesai untuk: [&#39;CO&#39;, &#39;NO2&#39;, &#39;SO2&#39;]
 
     <script>
       const buttonEl =
-        document.querySelector('#df-a0e02195-e793-4de8-bfe5-5fd465fc3bfa button.colab-df-convert');
+        document.querySelector('#df-040e19ee-9ac2-44f8-b78d-adf119cf28cf button.colab-df-convert');
       buttonEl.style.display =
         google.colab.kernel.accessAllowed ? 'block' : 'none';
 
       async function convertToInteractive(key) {
-        const element = document.querySelector('#df-a0e02195-e793-4de8-bfe5-5fd465fc3bfa');
+        const element = document.querySelector('#df-040e19ee-9ac2-44f8-b78d-adf119cf28cf');
         const dataTable =
           await google.colab.kernel.invokeFunction('convertToInteractive',
                                                     [key], {});
@@ -1374,7 +1400,7 @@ Preprocessing selesai untuk: [&#39;CO&#39;, &#39;NO2&#39;, &#39;SO2&#39;]
   </div>
 
 
-  <div id="id_478ef053-4e3e-4d07-abf7-925196a2180b">
+  <div id="id_91db718a-6332-4642-b533-eea7d1269814">
     <style>
       .colab-df-generate {
         background-color: #E8F0FE;
@@ -1418,7 +1444,7 @@ Preprocessing selesai untuk: [&#39;CO&#39;, &#39;NO2&#39;, &#39;SO2&#39;]
     <script>
       (() => {
       const buttonEl =
-        document.querySelector('#id_478ef053-4e3e-4d07-abf7-925196a2180b button.colab-df-generate');
+        document.querySelector('#id_91db718a-6332-4642-b533-eea7d1269814 button.colab-df-generate');
       buttonEl.style.display =
         google.colab.kernel.accessAllowed ? 'block' : 'none';
 
@@ -1581,197 +1607,6 @@ Preprocessing selesai untuk: [&#39;CO&#39;, &#39;NO2&#39;, &#39;SO2&#39;]
 <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
 </div>
-</div>
-<div class="cell_output docutils container">
-<div class="output text_html">
-  <div id="df-cd696e37-1d8a-4c7c-b45d-c6d9bad944aa" class="colab-df-container">
-    <div>
-<style scoped>
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
-
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead th {
-        text-align: right;
-    }
-</style>
-<table border="1" class="dataframe">
-  <thead>
-    <tr style="text-align: right;">
-      <th></th>
-      <th>polutan</th>
-      <th>missing_awal</th>
-      <th>missing_setelah_outlier</th>
-      <th>missing_sesudah_imputasi</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th>0</th>
-      <td>CO</td>
-      <td>180</td>
-      <td>182</td>
-      <td>0</td>
-    </tr>
-    <tr>
-      <th>1</th>
-      <td>NO2</td>
-      <td>240</td>
-      <td>247</td>
-      <td>0</td>
-    </tr>
-    <tr>
-      <th>2</th>
-      <td>SO2</td>
-      <td>181</td>
-      <td>193</td>
-      <td>0</td>
-    </tr>
-  </tbody>
-</table>
-</div>
-    <div class="colab-df-buttons">
-
-  <div class="colab-df-container">
-    <button class="colab-df-convert" onclick="convertToInteractive('df-cd696e37-1d8a-4c7c-b45d-c6d9bad944aa')"
-            title="Convert this dataframe to an interactive table."
-            style="display:none;">
-
-  <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960">
-    <path d="M120-120v-720h720v720H120Zm60-500h600v-160H180v160Zm220 220h160v-160H400v160Zm0 220h160v-160H400v160ZM180-400h160v-160H180v160Zm440 0h160v-160H620v160ZM180-180h160v-160H180v160Zm440 0h160v-160H620v160Z"/>
-  </svg>
-    </button>
-
-  <style>
-    .colab-df-container {
-      display:flex;
-      gap: 12px;
-    }
-
-    .colab-df-convert {
-      background-color: #E8F0FE;
-      border: none;
-      border-radius: 50%;
-      cursor: pointer;
-      display: none;
-      fill: #1967D2;
-      height: 32px;
-      padding: 0 0 0 0;
-      width: 32px;
-    }
-
-    .colab-df-convert:hover {
-      background-color: #E2EBFA;
-      box-shadow: 0px 1px 2px rgba(60, 64, 67, 0.3), 0px 1px 3px 1px rgba(60, 64, 67, 0.15);
-      fill: #174EA6;
-    }
-
-    .colab-df-buttons div {
-      margin-bottom: 4px;
-    }
-
-    [theme=dark] .colab-df-convert {
-      background-color: #3B4455;
-      fill: #D2E3FC;
-    }
-
-    [theme=dark] .colab-df-convert:hover {
-      background-color: #434B5C;
-      box-shadow: 0px 1px 3px 1px rgba(0, 0, 0, 0.15);
-      filter: drop-shadow(0px 1px 2px rgba(0, 0, 0, 0.3));
-      fill: #FFFFFF;
-    }
-  </style>
-
-    <script>
-      const buttonEl =
-        document.querySelector('#df-cd696e37-1d8a-4c7c-b45d-c6d9bad944aa button.colab-df-convert');
-      buttonEl.style.display =
-        google.colab.kernel.accessAllowed ? 'block' : 'none';
-
-      async function convertToInteractive(key) {
-        const element = document.querySelector('#df-cd696e37-1d8a-4c7c-b45d-c6d9bad944aa');
-        const dataTable =
-          await google.colab.kernel.invokeFunction('convertToInteractive',
-                                                    [key], {});
-        if (!dataTable) return;
-
-        const docLinkHtml = 'Like what you see? Visit the ' +
-          '<a target="_blank" href=https://colab.research.google.com/notebooks/data_table.ipynb>data table notebook</a>'
-          + ' to learn more about interactive tables.';
-        element.innerHTML = '';
-        dataTable['output_type'] = 'display_data';
-        await google.colab.output.renderOutput(dataTable, element);
-        const docLink = document.createElement('div');
-        docLink.innerHTML = docLinkHtml;
-        element.appendChild(docLink);
-      }
-    </script>
-  </div>
-
-
-  <div id="id_da9097b2-e3e6-4f46-998e-f23afca61688">
-    <style>
-      .colab-df-generate {
-        background-color: #E8F0FE;
-        border: none;
-        border-radius: 50%;
-        cursor: pointer;
-        display: none;
-        fill: #1967D2;
-        height: 32px;
-        padding: 0 0 0 0;
-        width: 32px;
-      }
-
-      .colab-df-generate:hover {
-        background-color: #E2EBFA;
-        box-shadow: 0px 1px 2px rgba(60, 64, 67, 0.3), 0px 1px 3px 1px rgba(60, 64, 67, 0.15);
-        fill: #174EA6;
-      }
-
-      [theme=dark] .colab-df-generate {
-        background-color: #3B4455;
-        fill: #D2E3FC;
-      }
-
-      [theme=dark] .colab-df-generate:hover {
-        background-color: #434B5C;
-        box-shadow: 0px 1px 3px 1px rgba(0, 0, 0, 0.15);
-        filter: drop-shadow(0px 1px 2px rgba(0, 0, 0, 0.3));
-        fill: #FFFFFF;
-      }
-    </style>
-    <button class="colab-df-generate" onclick="generateWithVariable('tabel_missing')"
-            title="Generate code using this dataframe."
-            style="display:none;">
-
-  <svg xmlns="http://www.w3.org/2000/svg" height="24px"viewBox="0 0 24 24"
-       width="24px">
-    <path d="M7,19H8.4L18.45,9,17,7.55,7,17.6ZM5,21V16.75L18.45,3.32a2,2,0,0,1,2.83,0l1.4,1.43a1.91,1.91,0,0,1,.58,1.4,1.91,1.91,0,0,1-.58,1.4L9.25,21ZM18.45,9,17,7.55Zm-12,3A5.31,5.31,0,0,0,4.9,8.1,5.31,5.31,0,0,0,1,6.5,5.31,5.31,0,0,0,4.9,4.9,5.31,5.31,0,0,0,6.5,1,5.31,5.31,0,0,0,8.1,4.9,5.31,5.31,0,0,0,12,6.5,5.46,5.46,0,0,0,6.5,12Z"/>
-  </svg>
-    </button>
-    <script>
-      (() => {
-      const buttonEl =
-        document.querySelector('#id_da9097b2-e3e6-4f46-998e-f23afca61688 button.colab-df-generate');
-      buttonEl.style.display =
-        google.colab.kernel.accessAllowed ? 'block' : 'none';
-
-      buttonEl.onclick = () => {
-        google.colab.notebook.generateWithVariable('tabel_missing');
-      }
-      })();
-    </script>
-  </div>
-
-    </div>
-  </div>
-</div><img alt="_images/51510252c53b8fe10814bd95dc170477d65241e307c21c454d7409d208b87acb.png" src="_images/51510252c53b8fe10814bd95dc170477d65241e307c21c454d7409d208b87acb.png" />
 </div>
 </div>
 <p><strong>Penjelasan kode:</strong></p>
@@ -1940,7 +1775,7 @@ Preprocessing selesai untuk: [&#39;CO&#39;, &#39;NO2&#39;, &#39;SO2&#39;]
 </div>
 <div class="cell_output docutils container">
 <div class="output text_html">
-  <div id="df-d39747ea-a194-4650-9fa8-8559e1aa0b26" class="colab-df-container">
+  <div id="df-9e1506ae-6b82-400c-a6f7-4d02e1779d3c" class="colab-df-container">
     <div>
 <style scoped>
     .dataframe tbody tr th:only-of-type {
@@ -2026,7 +1861,7 @@ Preprocessing selesai untuk: [&#39;CO&#39;, &#39;NO2&#39;, &#39;SO2&#39;]
     <div class="colab-df-buttons">
 
   <div class="colab-df-container">
-    <button class="colab-df-convert" onclick="convertToInteractive('df-d39747ea-a194-4650-9fa8-8559e1aa0b26')"
+    <button class="colab-df-convert" onclick="convertToInteractive('df-9e1506ae-6b82-400c-a6f7-4d02e1779d3c')"
             title="Convert this dataframe to an interactive table."
             style="display:none;">
 
@@ -2078,12 +1913,12 @@ Preprocessing selesai untuk: [&#39;CO&#39;, &#39;NO2&#39;, &#39;SO2&#39;]
 
     <script>
       const buttonEl =
-        document.querySelector('#df-d39747ea-a194-4650-9fa8-8559e1aa0b26 button.colab-df-convert');
+        document.querySelector('#df-9e1506ae-6b82-400c-a6f7-4d02e1779d3c button.colab-df-convert');
       buttonEl.style.display =
         google.colab.kernel.accessAllowed ? 'block' : 'none';
 
       async function convertToInteractive(key) {
-        const element = document.querySelector('#df-d39747ea-a194-4650-9fa8-8559e1aa0b26');
+        const element = document.querySelector('#df-9e1506ae-6b82-400c-a6f7-4d02e1779d3c');
         const dataTable =
           await google.colab.kernel.invokeFunction('convertToInteractive',
                                                     [key], {});
@@ -2103,7 +1938,7 @@ Preprocessing selesai untuk: [&#39;CO&#39;, &#39;NO2&#39;, &#39;SO2&#39;]
   </div>
 
 
-  <div id="id_6b52cc09-1959-42a4-87b2-4c10ce9d6171">
+  <div id="id_2ebaf8fe-a6ba-46d3-a04d-d90e2a7a1b14">
     <style>
       .colab-df-generate {
         background-color: #E8F0FE;
@@ -2147,7 +1982,7 @@ Preprocessing selesai untuk: [&#39;CO&#39;, &#39;NO2&#39;, &#39;SO2&#39;]
     <script>
       (() => {
       const buttonEl =
-        document.querySelector('#id_6b52cc09-1959-42a4-87b2-4c10ce9d6171 button.colab-df-generate');
+        document.querySelector('#id_2ebaf8fe-a6ba-46d3-a04d-d90e2a7a1b14 button.colab-df-generate');
       buttonEl.style.display =
         google.colab.kernel.accessAllowed ? 'block' : 'none';
 
@@ -2179,7 +2014,7 @@ Preprocessing selesai untuk: [&#39;CO&#39;, &#39;NO2&#39;, &#39;SO2&#39;]
 </div>
 <div class="cell_output docutils container">
 <div class="output text_html">
-  <div id="df-005292db-e53a-4609-be38-49c700ad3e8d" class="colab-df-container">
+  <div id="df-40b90ab1-78aa-4c4d-9362-a91e3d5ce66f" class="colab-df-container">
     <div>
 <style scoped>
     .dataframe tbody tr th:only-of-type {
@@ -2265,7 +2100,7 @@ Preprocessing selesai untuk: [&#39;CO&#39;, &#39;NO2&#39;, &#39;SO2&#39;]
     <div class="colab-df-buttons">
 
   <div class="colab-df-container">
-    <button class="colab-df-convert" onclick="convertToInteractive('df-005292db-e53a-4609-be38-49c700ad3e8d')"
+    <button class="colab-df-convert" onclick="convertToInteractive('df-40b90ab1-78aa-4c4d-9362-a91e3d5ce66f')"
             title="Convert this dataframe to an interactive table."
             style="display:none;">
 
@@ -2317,12 +2152,12 @@ Preprocessing selesai untuk: [&#39;CO&#39;, &#39;NO2&#39;, &#39;SO2&#39;]
 
     <script>
       const buttonEl =
-        document.querySelector('#df-005292db-e53a-4609-be38-49c700ad3e8d button.colab-df-convert');
+        document.querySelector('#df-40b90ab1-78aa-4c4d-9362-a91e3d5ce66f button.colab-df-convert');
       buttonEl.style.display =
         google.colab.kernel.accessAllowed ? 'block' : 'none';
 
       async function convertToInteractive(key) {
-        const element = document.querySelector('#df-005292db-e53a-4609-be38-49c700ad3e8d');
+        const element = document.querySelector('#df-40b90ab1-78aa-4c4d-9362-a91e3d5ce66f');
         const dataTable =
           await google.colab.kernel.invokeFunction('convertToInteractive',
                                                     [key], {});
@@ -2342,7 +2177,7 @@ Preprocessing selesai untuk: [&#39;CO&#39;, &#39;NO2&#39;, &#39;SO2&#39;]
   </div>
 
 
-  <div id="id_51e9e39b-b4d0-453d-a2a2-e0894cdad0a8">
+  <div id="id_7d08c48c-98fa-4a4a-b4ec-577e449377e2">
     <style>
       .colab-df-generate {
         background-color: #E8F0FE;
@@ -2386,7 +2221,7 @@ Preprocessing selesai untuk: [&#39;CO&#39;, &#39;NO2&#39;, &#39;SO2&#39;]
     <script>
       (() => {
       const buttonEl =
-        document.querySelector('#id_51e9e39b-b4d0-453d-a2a2-e0894cdad0a8 button.colab-df-generate');
+        document.querySelector('#id_7d08c48c-98fa-4a4a-b4ec-577e449377e2 button.colab-df-generate');
       buttonEl.style.display =
         google.colab.kernel.accessAllowed ? 'block' : 'none';
 
@@ -2418,7 +2253,7 @@ Preprocessing selesai untuk: [&#39;CO&#39;, &#39;NO2&#39;, &#39;SO2&#39;]
 </div>
 <div class="cell_output docutils container">
 <div class="output text_html">
-  <div id="df-6fda6393-3f0f-4ec5-9df9-ad5fefeba57b" class="colab-df-container">
+  <div id="df-5996d06b-813b-47cb-852c-82da4966cd2d" class="colab-df-container">
     <div>
 <style scoped>
     .dataframe tbody tr th:only-of-type {
@@ -2504,7 +2339,7 @@ Preprocessing selesai untuk: [&#39;CO&#39;, &#39;NO2&#39;, &#39;SO2&#39;]
     <div class="colab-df-buttons">
 
   <div class="colab-df-container">
-    <button class="colab-df-convert" onclick="convertToInteractive('df-6fda6393-3f0f-4ec5-9df9-ad5fefeba57b')"
+    <button class="colab-df-convert" onclick="convertToInteractive('df-5996d06b-813b-47cb-852c-82da4966cd2d')"
             title="Convert this dataframe to an interactive table."
             style="display:none;">
 
@@ -2556,12 +2391,12 @@ Preprocessing selesai untuk: [&#39;CO&#39;, &#39;NO2&#39;, &#39;SO2&#39;]
 
     <script>
       const buttonEl =
-        document.querySelector('#df-6fda6393-3f0f-4ec5-9df9-ad5fefeba57b button.colab-df-convert');
+        document.querySelector('#df-5996d06b-813b-47cb-852c-82da4966cd2d button.colab-df-convert');
       buttonEl.style.display =
         google.colab.kernel.accessAllowed ? 'block' : 'none';
 
       async function convertToInteractive(key) {
-        const element = document.querySelector('#df-6fda6393-3f0f-4ec5-9df9-ad5fefeba57b');
+        const element = document.querySelector('#df-5996d06b-813b-47cb-852c-82da4966cd2d');
         const dataTable =
           await google.colab.kernel.invokeFunction('convertToInteractive',
                                                     [key], {});
@@ -2581,7 +2416,7 @@ Preprocessing selesai untuk: [&#39;CO&#39;, &#39;NO2&#39;, &#39;SO2&#39;]
   </div>
 
 
-  <div id="id_1115d01e-48ba-4923-af0b-54b5295e070e">
+  <div id="id_1915e331-df46-4b7b-865e-e06ca58a0048">
     <style>
       .colab-df-generate {
         background-color: #E8F0FE;
@@ -2625,7 +2460,7 @@ Preprocessing selesai untuk: [&#39;CO&#39;, &#39;NO2&#39;, &#39;SO2&#39;]
     <script>
       (() => {
       const buttonEl =
-        document.querySelector('#id_1115d01e-48ba-4923-af0b-54b5295e070e button.colab-df-generate');
+        document.querySelector('#id_1915e331-df46-4b7b-865e-e06ca58a0048 button.colab-df-generate');
       buttonEl.style.display =
         google.colab.kernel.accessAllowed ? 'block' : 'none';
 
@@ -2713,7 +2548,7 @@ Preprocessing selesai untuk: [&#39;CO&#39;, &#39;NO2&#39;, &#39;SO2&#39;]
 </section>
 <section id="ringkasan">
 <h2>5. Ringkasan<a class="headerlink" href="#ringkasan" title="Link to this heading">#</a></h2>
-<p>Notebook ini menghasilkan titidak file terpisah, <code class="docutils literal notranslate"><span class="pre">CO_Tikala_TSFEL.csv</span></code>, <code class="docutils literal notranslate"><span class="pre">NO2_Tikala_TSFEL.csv</span></code>, dan <code class="docutils literal notranslate"><span class="pre">SO2_Tikala_TSFEL.csv</span></code>, masing-masing berisi satu baris dengan 68 kolom fitur TSFEL dari data Kecamatan Tikala, Manado. Ketitidak file ini mensehingga hasil akhir yang siap digabungkan dengan hasil kecamatan lain lewat proses yang dikoordinasikan komting sekelas.</p>
+<p>Notebook ini menghasilkan file terpisah, <code class="docutils literal notranslate"><span class="pre">CO_Tikala_TSFEL.csv</span></code>, <code class="docutils literal notranslate"><span class="pre">NO2_Tikala_TSFEL.csv</span></code>, dan <code class="docutils literal notranslate"><span class="pre">SO2_Tikala_TSFEL.csv</span></code>, masing-masing berisi satu baris dengan 68 kolom fitur TSFEL dari data Kecamatan Tikala, Manado. Ketitidak file ini mensehingga hasil akhir yang siap digabungkan dengan hasil kecamatan lain lewat proses yang dikoordinasikan komting sekelas.</p>
 </section>
 </section>
 
@@ -2791,9 +2626,9 @@ Preprocessing selesai untuk: [&#39;CO&#39;, &#39;NO2&#39;, &#39;SO2&#39;]
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#domain-fractal-6-fitur">1.1.4 Domain Fractal (6 fitur)</a></li>
 </ul>
 </li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#interq-range-signal">1.2 <code class="docutils literal notranslate"><span class="pre">interq_range(signal)</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#human-range-energy-signal-fs">1.3 <code class="docutils literal notranslate"><span class="pre">human_range_energy(signal,</span> <span class="pre">fs)</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#verifikasi-manual-interq-range-dan-human-range-energy-pada-data-riil">1.4 Verifikasi Manual <code class="docutils literal notranslate"><span class="pre">interq_range</span></code> dan <code class="docutils literal notranslate"><span class="pre">human_range_energy</span></code> pada Data Riil</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#interq-range-signal-interquartile-range-iqr">1.2 <code class="docutils literal notranslate"><span class="pre">interq_range(signal)</span></code> — Interquartile Range (IQR)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#human-range-energy-signal-fs-human-range-energy-hre">1.3 human_range_energy(signal, fs) — Human Range Energy (HRE)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#verifikasi-manual-interq-range-dan-human-range-energy-pada-data-asli">1.4 Verifikasi Manual <code class="docutils literal notranslate"><span class="pre">interq_range</span></code> dan <code class="docutils literal notranslate"><span class="pre">human_range_energy</span></code> pada Data Asli</a></li>
 </ul>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#data-preparation-deteksi-outlier-dan-imputasi-missing-value">2. Data Preparation: Deteksi Outlier dan Imputasi Missing Value</a><ul class="nav section-nav flex-column">
