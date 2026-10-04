@@ -225,17 +225,6 @@
 </ul>
 </details></li>
 <li class="toctree-l1 current active"><a class="current reference internal" href="#">Klasifikasi Lahan Sawah dan Non-Sawah dengan Sentinel-2A Kecamatan Mapanget, Manado</a></li>
-
-
-
-
-
-
-
-
-
-
-
 </ul>
 
     </div>
@@ -428,23 +417,21 @@
             </div>
             <nav aria-label="Page">
                 <ul class="pst-show_toc_level nav section-nav flex-column">
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">Klasifikasi Lahan Sawah dan Non-Sawah dengan Sentinel-2A Kecamatan Mapanget, Manado</a></li>
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#library">1.0 Library</a></li>
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#parameter">2.0 Parameter</a></li>
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#sampel-latih-membaca-shapefile-sawah-dan-non-sawah">3.0 Sampel Latih: Membaca Shapefile Sawah dan Non-Sawah</a></li>
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#mengunduh-citra-sentinel-2a-dari-copernicus-data-space">4.0 Mengunduh Citra Sentinel-2A dari Copernicus Data Space</a></li>
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#membaca-citra-yang-sudah-diunduh">5.0 Membaca Citra yang Sudah Diunduh</a></li>
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#membangun-fitur-band-asli-dan-indeks-spektral">6.0 Membangun Fitur: Band Asli dan Indeks Spektral</a></li>
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#rasterisasi-poligon-sampel">7.0 Rasterisasi Poligon Sampel</a></li>
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#membagi-data-latih-dan-data-uji-per-poligon">8.0 Membagi Data Latih dan Data Uji per Poligon</a></li>
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#melatih-dan-mengevaluasi-model-random-forest">9.0 Melatih dan Mengevaluasi Model Random Forest</a><ul class="pst-show_toc_level nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#kepentingan-fitur-feature-importance">9.1 Kepentingan Fitur (Feature Importance)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#library">1. Library</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#parameter">2. Parameter</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#sampel-latih-membaca-shapefile-sawah-dan-non-sawah">3. Sampel Latih: Membaca Shapefile Sawah dan Non-Sawah</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#mengunduh-citra-sentinel-2a-dari-copernicus-data-space">4. Mengunduh Citra Sentinel-2A dari Copernicus Data Space</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#membaca-citra-yang-sudah-diunduh">5. Membaca Citra yang Sudah Diunduh</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#membangun-fitur-band-asli-dan-indeks-spektral">6. Membangun Fitur: Band Asli dan Indeks Spektral</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#rasterisasi-poligon-sampel">7. Rasterisasi Poligon Sampel</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#membagi-data-latih-dan-data-uji-per-poligon">8. Membagi Data Latih dan Data Uji per Poligon</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#melatih-dan-mengevaluasi-model-random-forest">9. Melatih dan Mengevaluasi Model Random Forest</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#kepentingan-fitur-feature-importance">9.1 Kepentingan Fitur (Feature Importance)</a></li>
 </ul>
 </li>
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#mengklasifikasikan-seluruh-citra">10.0 Mengklasifikasikan Seluruh Citra</a></li>
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#peta-hasil-dan-ringkasan-akhir">11.0 Peta Hasil dan Ringkasan Akhir</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#mengklasifikasikan-seluruh-citra">10. Mengklasifikasikan Seluruh Citra</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#peta-hasil-dan-ringkasan-akhir">11. Peta Hasil dan Ringkasan Akhir</a></li>
 </ul>
-
             </nav>
         </div>
     </div>
@@ -458,9 +445,8 @@
   <section class="tex2jax_ignore mathjax_ignore" id="klasifikasi-lahan-sawah-dan-non-sawah-dengan-sentinel-2a-kecamatan-mapanget-manado">
 <h1>Klasifikasi Lahan Sawah dan Non-Sawah dengan Sentinel-2A Kecamatan Mapanget, Manado<a class="headerlink" href="#klasifikasi-lahan-sawah-dan-non-sawah-dengan-sentinel-2a-kecamatan-mapanget-manado" title="Link to this heading">#</a></h1>
 <p>Notebook ini mengklasifikasikan tutupan lahan menjadi dua kelas, <strong>sawah</strong> dan <strong>non-sawah</strong>, memakai citra Sentinel-2A yang diunduh langsung dari Copernicus Data Space Ecosystem, dan algoritma Random Forest. Sampel latihnya berupa 50 poligon sawah dan 50 poligon non-sawah yang sudah didigitasi sebelumnya, masing-masing disimpan sebagai shapefile di dalam folder <code class="docutils literal notranslate"><span class="pre">sawah_mapanget/</span></code> dan <code class="docutils literal notranslate"><span class="pre">non_sawah_mapanget/</span></code>.</p>
-</section>
-<section class="tex2jax_ignore mathjax_ignore" id="library">
-<h1>1.0 Library<a class="headerlink" href="#library" title="Link to this heading">#</a></h1>
+<section id="library">
+<h2>1. Library<a class="headerlink" href="#library" title="Link to this heading">#</a></h2>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="err">!</span><span class="n">pip</span> <span class="n">install</span> <span class="n">requests</span> <span class="n">rasterio</span> <span class="n">scikit</span><span class="o">-</span><span class="n">learn</span> <span class="n">numpy</span> <span class="n">matplotlib</span> <span class="n">geopandas</span> <span class="o">-</span><span class="n">q</span>
@@ -490,8 +476,8 @@
 </div>
 </div>
 </section>
-<section class="tex2jax_ignore mathjax_ignore" id="parameter">
-<h1>2.0 Parameter<a class="headerlink" href="#parameter" title="Link to this heading">#</a></h1>
+<section id="parameter">
+<h2>2. Parameter<a class="headerlink" href="#parameter" title="Link to this heading">#</a></h2>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># --- Akun Copernicus (OAuth client dari dashboard Sentinel Hub) ---</span>
@@ -570,8 +556,8 @@ non_sawah_mapanget: [&#39;input.shx&#39;, &#39;input.prj&#39;, &#39;input.dbf&#3
 </div>
 <p><strong>Penjelasan kode:</strong> <code class="docutils literal notranslate"><span class="pre">BAND_NAMES</span></code> memuat 4 band 10 meter (B02 Blue, B03 Green, B04 Red, B08 NIR) ditambah 2 band 20 meter (B11, B12 SWIR) yang dipakai untuk menghitung indeks NDBI. <code class="docutils literal notranslate"><span class="pre">TRAIN_FRAC</span> <span class="pre">=</span> <span class="pre">0.7</span></code> berarti 70% poligon dipakai untuk melatih model dan 30% sisanya disisihkan untuk menguji akurasinya – pembagian dilakukan per poligon, bukan per piksel, supaya piksel-piksel yang bertetangga dari poligon yang sama tidak bocor antara data latih dan data uji (<em>spatial data leakage</em>).</p>
 </section>
-<section class="tex2jax_ignore mathjax_ignore" id="sampel-latih-membaca-shapefile-sawah-dan-non-sawah">
-<h1>3.0 Sampel Latih: Membaca Shapefile Sawah dan Non-Sawah<a class="headerlink" href="#sampel-latih-membaca-shapefile-sawah-dan-non-sawah" title="Link to this heading">#</a></h1>
+<section id="sampel-latih-membaca-shapefile-sawah-dan-non-sawah">
+<h2>3. Sampel Latih: Membaca Shapefile Sawah dan Non-Sawah<a class="headerlink" href="#sampel-latih-membaca-shapefile-sawah-dan-non-sawah" title="Link to this heading">#</a></h2>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">cari_shp</span><span class="p">(</span><span class="n">folder</span><span class="p">):</span>
@@ -648,8 +634,8 @@ BBox area (lon/lat): (124.85143, 1.47564, 124.93068, 1.5397)
 </div>
 <p><strong>Penjelasan kode:</strong> <code class="docutils literal notranslate"><span class="pre">cari_shp()</span></code> mencari satu file <code class="docutils literal notranslate"><span class="pre">.shp</span></code> di dalam folder <code class="docutils literal notranslate"><span class="pre">sawah_mapanget</span></code> dan <code class="docutils literal notranslate"><span class="pre">non_sawah_mapanget</span></code>, apapun persis nama filenya, supaya tidak perlu mengetik nama file secara manual. <code class="docutils literal notranslate"><span class="pre">load_samples_shp()</span></code> lalu membaca shapefile yang ditemukan itu, memastikan sistem koordinatnya WGS-84, lalu mengambil sampai 50 poligon secara acak dengan <code class="docutils literal notranslate"><span class="pre">SEED</span></code> yang tetap supaya hasilnya bisa diulang persis sama. Dari seluruh titik koordinat 100 poligon (50 sawah + 50 non-sawah) dihitung kotak pembatas (<code class="docutils literal notranslate"><span class="pre">BBOX</span></code>), ditambah margin <code class="docutils literal notranslate"><span class="pre">BUFFER_M</span></code> = 1500 meter di tiap sisi, sebagai area yang akan diunduh dari Sentinel-2A.</p>
 </section>
-<section class="tex2jax_ignore mathjax_ignore" id="mengunduh-citra-sentinel-2a-dari-copernicus-data-space">
-<h1>4.0 Mengunduh Citra Sentinel-2A dari Copernicus Data Space<a class="headerlink" href="#mengunduh-citra-sentinel-2a-dari-copernicus-data-space" title="Link to this heading">#</a></h1>
+<section id="mengunduh-citra-sentinel-2a-dari-copernicus-data-space">
+<h2>4. Mengunduh Citra Sentinel-2A dari Copernicus Data Space<a class="headerlink" href="#mengunduh-citra-sentinel-2a-dari-copernicus-data-space" title="Link to this heading">#</a></h2>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">get_token</span><span class="p">():</span>
@@ -821,8 +807,8 @@ Tersimpan: /content/sentinel2a_aoi.tif dan /content/sentinel2a_aoi_info.txt
 </div>
 <p><strong>Penjelasan kode:</strong> <code class="docutils literal notranslate"><span class="pre">get_token()</span></code> melakukan autentikasi OAuth ke Copernicus Data Space memakai <code class="docutils literal notranslate"><span class="pre">CLIENT_ID</span></code>/<code class="docutils literal notranslate"><span class="pre">CLIENT_SECRET</span></code>. <code class="docutils literal notranslate"><span class="pre">search_scenes()</span></code> mencari scene Sentinel-2A pada rentang <code class="docutils literal notranslate"><span class="pre">START_DATE</span></code>-<code class="docutils literal notranslate"><span class="pre">END_DATE</span></code> yang tumpang-tindih dengan <code class="docutils literal notranslate"><span class="pre">BBOX</span></code>, lalu disaring berdasarkan persentase awan tile (<code class="docutils literal notranslate"><span class="pre">MAX_CLOUD</span></code>) dan diurutkan dari yang paling sedikit awannya. <code class="docutils literal notranslate"><span class="pre">download_scene()</span></code> mengunduh 6 band (B02, B03, B04, B08, B11, B12) untuk satu scene lewat Sentinel Hub Process API, memakai <code class="docutils literal notranslate"><span class="pre">evalscript</span></code> yang juga membuang piksel awan/bayangan/salju berdasarkan band SCL kalau <code class="docutils literal notranslate"><span class="pre">MASK_CLOUD=True</span></code>. Karena scene paling sedikit awan di level <em>tile</em> belum tentu bersih persis di area sampel, <code class="docutils literal notranslate"><span class="pre">fetch_sentinel2a()</span></code> mencoba sampai <code class="docutils literal notranslate"><span class="pre">MAX_TRIES</span></code> scene teratas dan memilih yang fraksi piksel validnya (<code class="docutils literal notranslate"><span class="pre">valid_fraction</span></code>) paling tinggi, berhenti lebih awal begitu sudah mencapai <code class="docutils literal notranslate"><span class="pre">MIN_VALID</span></code>. Kalau <code class="docutils literal notranslate"><span class="pre">sentinel2a_aoi.tif</span></code> sudah ada di folder kerja, seluruh proses unduh ini dilewati.</p>
 </section>
-<section class="tex2jax_ignore mathjax_ignore" id="membaca-citra-yang-sudah-diunduh">
-<h1>5.0 Membaca Citra yang Sudah Diunduh<a class="headerlink" href="#membaca-citra-yang-sudah-diunduh" title="Link to this heading">#</a></h1>
+<section id="membaca-citra-yang-sudah-diunduh">
+<h2>5. Membaca Citra yang Sudah Diunduh<a class="headerlink" href="#membaca-citra-yang-sudah-diunduh" title="Link to this heading">#</a></h2>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">with</span> <span class="n">rasterio</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="n">TIF_IN</span><span class="p">)</span> <span class="k">as</span> <span class="n">src</span><span class="p">:</span>
@@ -851,8 +837,8 @@ WARNING:rasterio._env:CPLE_AppDefined in TIFFReadDirectory:Sum of Photometric ty
 </div>
 <p><strong>Penjelasan kode:</strong> citra dibaca dengan <code class="docutils literal notranslate"><span class="pre">rasterio</span></code>, dan piksel yang bernilai nol di semua band atau tidak valid (bekas awan yang sudah di-mask pada tahap unduh) diubah jadi <code class="docutils literal notranslate"><span class="pre">NaN</span></code> supaya tidak ikut dihitung sebagai data asli pada langkah-langkah berikutnya. Hasil cetakan <code class="docutils literal notranslate"><span class="pre">Ukuran</span> <span class="pre">citra:</span> <span class="pre">611</span> <span class="pre">x</span> <span class="pre">524</span> <span class="pre">piksel</span> <span class="pre">|</span> <span class="pre">CRS:</span> <span class="pre">EPSG:32749</span> <span class="pre">|</span> <span class="pre">piksel</span> <span class="pre">tanpa</span> <span class="pre">data:</span> <span class="pre">2.1%</span></code> pada contoh sebelumnya menunjukkan citranya terbilang bersih, hanya sekitar 2% piksel yang hilang.</p>
 </section>
-<section class="tex2jax_ignore mathjax_ignore" id="membangun-fitur-band-asli-dan-indeks-spektral">
-<h1>6.0 Membangun Fitur: Band Asli dan Indeks Spektral<a class="headerlink" href="#membangun-fitur-band-asli-dan-indeks-spektral" title="Link to this heading">#</a></h1>
+<section id="membangun-fitur-band-asli-dan-indeks-spektral">
+<h2>6. Membangun Fitur: Band Asli dan Indeks Spektral<a class="headerlink" href="#membangun-fitur-band-asli-dan-indeks-spektral" title="Link to this heading">#</a></h2>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">nd</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">):</span>
@@ -872,8 +858,8 @@ WARNING:rasterio._env:CPLE_AppDefined in TIFFReadDirectory:Sum of Photometric ty
 </div>
 <p><strong>Penjelasan kode:</strong> selain 6 band mentah, dihitung juga 4 indeks spektral yang relevan untuk membedakan sawah dari non-sawah: <strong>NDVI</strong> (kerapatan vegetasi), <strong>NDWI</strong> (kandungan air – penting karena sawah tergenang air), <strong>NDBI</strong> (lahan terbangun, buat memisahkan permukiman dari sawah), dan <strong>EVI</strong> (versi NDVI yang lebih tahan terhadap gangguan tanah/atmosfer). Total ada 10 fitur per piksel (6 band + 4 indeks) yang nantinya dipakai Random Forest.</p>
 </section>
-<section class="tex2jax_ignore mathjax_ignore" id="rasterisasi-poligon-sampel">
-<h1>7.0 Rasterisasi Poligon Sampel<a class="headerlink" href="#rasterisasi-poligon-sampel" title="Link to this heading">#</a></h1>
+<section id="rasterisasi-poligon-sampel">
+<h2>7. Rasterisasi Poligon Sampel<a class="headerlink" href="#rasterisasi-poligon-sampel" title="Link to this heading">#</a></h2>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">poly_label</span><span class="p">,</span> <span class="n">shapes</span><span class="p">,</span> <span class="n">pid</span> <span class="o">=</span> <span class="p">{},</span> <span class="p">[],</span> <span class="mi">0</span>
@@ -907,8 +893,8 @@ Kelas 1 (sawah): 50 poligon terpakai, 1168 piksel bebas awan
 </div>
 <p><strong>Penjelasan kode:</strong> tiap poligon sampel diubah jadi piksel bernomor ID unik (<code class="docutils literal notranslate"><span class="pre">poly_raster</span></code>), lalu digabung ke label kelasnya lewat <code class="docutils literal notranslate"><span class="pre">poly_label</span></code>. Piksel yang masuk ke dalam poligon tapi ternyata tertutup awan (NaN pada fitur) dibuang dari <code class="docutils literal notranslate"><span class="pre">labeled</span></code>, supaya model tidak dilatih dengan data yang cacat. Hasil contoh sebelumnya menunjukkan 50 poligon sawah menghasilkan 604 piksel bebas awan, jauh lebih sedikit dibanding 50 poligon non-sawah yang menghasilkan 3399 piksel – wajar, karena poligon sawah biasanya lebih kecil dan lebih sempit dibanding area non-sawah seperti permukiman atau lahan terbuka.</p>
 </section>
-<section class="tex2jax_ignore mathjax_ignore" id="membagi-data-latih-dan-data-uji-per-poligon">
-<h1>8.0 Membagi Data Latih dan Data Uji per Poligon<a class="headerlink" href="#membagi-data-latih-dan-data-uji-per-poligon" title="Link to this heading">#</a></h1>
+<section id="membagi-data-latih-dan-data-uji-per-poligon">
+<h2>8. Membagi Data Latih dan Data Uji per Poligon<a class="headerlink" href="#membagi-data-latih-dan-data-uji-per-poligon" title="Link to this heading">#</a></h2>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">rng</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">default_rng</span><span class="p">(</span><span class="n">SEED</span><span class="p">)</span>
@@ -940,8 +926,8 @@ Piksel training: 3703 | testing: 1766
 </div>
 <p><strong>Penjelasan kode:</strong> pembagian data latih/uji dilakukan <strong>per poligon</strong>, bukan per piksel acak. Kalau pembagiannya acak per piksel, piksel-piksel yang bertetangga dari poligon yang sama bisa jatuh terpisah ke data latih dan data uji, padahal mereka sangat mirip satu sama lain – ini membuat skor akurasi jadi terlihat lebih bagus dari kenyataannya (<em>spatial data leakage</em>). Dengan membagi per poligon, seluruh piksel dari satu poligon selalu berada di sisi yang sama (latih atau uji), sehingga evaluasi akurasinya lebih jujur mencerminkan kemampuan model pada area yang benar-benar belum pernah dilihat.</p>
 </section>
-<section class="tex2jax_ignore mathjax_ignore" id="melatih-dan-mengevaluasi-model-random-forest">
-<h1>9.0 Melatih dan Mengevaluasi Model Random Forest<a class="headerlink" href="#melatih-dan-mengevaluasi-model-random-forest" title="Link to this heading">#</a></h1>
+<section id="melatih-dan-mengevaluasi-model-random-forest">
+<h2>9. Melatih dan Mengevaluasi Model Random Forest<a class="headerlink" href="#melatih-dan-mengevaluasi-model-random-forest" title="Link to this heading">#</a></h2>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">rf</span> <span class="o">=</span> <span class="n">RandomForestClassifier</span><span class="p">(</span><span class="n">n_estimators</span><span class="o">=</span><span class="n">N_TREES</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="n">SEED</span><span class="p">,</span> <span class="n">n_jobs</span><span class="o">=-</span><span class="mi">1</span><span class="p">)</span>
@@ -1344,7 +1330,7 @@ Overall Accuracy : 0.9366  |  Kappa : 0.8095
 </div>
 <p><strong>Penjelasan kode:</strong> Random Forest dilatih dengan <code class="docutils literal notranslate"><span class="pre">N_TREES=200</span></code> pohon keputusan pada data latih, lalu diuji pada data uji yang poligonnya tidak pernah dilihat model sebelumnya. <code class="docutils literal notranslate"><span class="pre">Overall</span> <span class="pre">Accuracy</span></code> menunjukkan persentase piksel uji yang diklasifikasikan benar, sedangkan <code class="docutils literal notranslate"><span class="pre">Kappa</span></code> mengukur kesepakatan model dengan label sebenarnya setelah memperhitungkan kemungkinan cocok karena kebetulan – lebih ketat daripada akurasi biasa. Confusion matrix di sini ditampilkan dua kali: versi jumlah piksel mentah, dan versi persentase per baris (recall per kelas) yang lebih mudah dibaca langsung – baris mana yang paling banyak “bocor” ke kelas lain langsung kelihatan tanpa perlu menghitung manual.</p>
 <section id="kepentingan-fitur-feature-importance">
-<h2>9.1 Kepentingan Fitur (Feature Importance)<a class="headerlink" href="#kepentingan-fitur-feature-importance" title="Link to this heading">#</a></h2>
+<h3>9.1 Kepentingan Fitur (Feature Importance)<a class="headerlink" href="#kepentingan-fitur-feature-importance" title="Link to this heading">#</a></h3>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">fi</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">(</span><span class="n">rf</span><span class="o">.</span><span class="n">feature_importances_</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="n">FEATURE_NAMES</span><span class="p">)</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="n">ascending</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
@@ -1372,8 +1358,8 @@ Overall Accuracy : 0.9366  |  Kappa : 0.8095
 <p><strong>Penjelasan kode:</strong> <code class="docutils literal notranslate"><span class="pre">feature_importances_</span></code> menunjukkan band atau indeks mana yang paling berperan dalam membedakan sawah dari non-sawah, di sini digambar sebagai bar chart supaya perbandingan antarfiturnya langsung kelihatan, bukan cuma daftar angka. Band SWIR (B11/B12) dan NDWI biasanya unggul untuk kasus ini karena keduanya sensitif terhadap kandungan air, dan sawah yang tergenang air punya ciri spektral yang cukup khas dibanding non-sawah.</p>
 </section>
 </section>
-<section class="tex2jax_ignore mathjax_ignore" id="mengklasifikasikan-seluruh-citra">
-<h1>10.0 Mengklasifikasikan Seluruh Citra<a class="headerlink" href="#mengklasifikasikan-seluruh-citra" title="Link to this heading">#</a></h1>
+<section id="mengklasifikasikan-seluruh-citra">
+<h2>10. Mengklasifikasikan Seluruh Citra<a class="headerlink" href="#mengklasifikasikan-seluruh-citra" title="Link to this heading">#</a></h2>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Model akhir dilatih ulang dengan SEMUA sampel; akurasi di atas tetap dari data uji.</span>
@@ -1401,8 +1387,8 @@ Luas non-sawah: 4536.2 ha
 </div>
 </div>
 </section>
-<section class="tex2jax_ignore mathjax_ignore" id="peta-hasil-dan-ringkasan-akhir">
-<h1>11.0 Peta Hasil dan Ringkasan Akhir<a class="headerlink" href="#peta-hasil-dan-ringkasan-akhir" title="Link to this heading">#</a></h1>
+<section id="peta-hasil-dan-ringkasan-akhir">
+<h2>11. Peta Hasil dan Ringkasan Akhir<a class="headerlink" href="#peta-hasil-dan-ringkasan-akhir" title="Link to this heading">#</a></h2>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">with</span> <span class="n">rasterio</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="n">OUT_TIF</span><span class="p">,</span> <span class="s2">&quot;w&quot;</span><span class="p">,</span> <span class="n">driver</span><span class="o">=</span><span class="s2">&quot;GTiff&quot;</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="n">H</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="n">W</span><span class="p">,</span> <span class="n">count</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
@@ -1470,6 +1456,7 @@ Selesai -- hasil klasifikasi tersimpan sebagai: klasifikasi_sawah_s2a.tif
 </div>
 </div>
 </section>
+</section>
 
     <script type="text/x-thebe-config">
     {
@@ -1528,23 +1515,21 @@ Selesai -- hasil klasifikasi tersimpan sebagai: klasifikasi_sawah_s2a.tif
   </div>
   <nav id="pst-page-toc-nav" class="page-toc" aria-labelledby="pst-page-navigation-heading-2">
     <ul class="pst-show_toc_level nav section-nav flex-column">
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">Klasifikasi Lahan Sawah dan Non-Sawah dengan Sentinel-2A Kecamatan Mapanget, Manado</a></li>
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#library">1.0 Library</a></li>
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#parameter">2.0 Parameter</a></li>
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#sampel-latih-membaca-shapefile-sawah-dan-non-sawah">3.0 Sampel Latih: Membaca Shapefile Sawah dan Non-Sawah</a></li>
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#mengunduh-citra-sentinel-2a-dari-copernicus-data-space">4.0 Mengunduh Citra Sentinel-2A dari Copernicus Data Space</a></li>
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#membaca-citra-yang-sudah-diunduh">5.0 Membaca Citra yang Sudah Diunduh</a></li>
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#membangun-fitur-band-asli-dan-indeks-spektral">6.0 Membangun Fitur: Band Asli dan Indeks Spektral</a></li>
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#rasterisasi-poligon-sampel">7.0 Rasterisasi Poligon Sampel</a></li>
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#membagi-data-latih-dan-data-uji-per-poligon">8.0 Membagi Data Latih dan Data Uji per Poligon</a></li>
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#melatih-dan-mengevaluasi-model-random-forest">9.0 Melatih dan Mengevaluasi Model Random Forest</a><ul class="pst-show_toc_level nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#kepentingan-fitur-feature-importance">9.1 Kepentingan Fitur (Feature Importance)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#library">1. Library</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#parameter">2. Parameter</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#sampel-latih-membaca-shapefile-sawah-dan-non-sawah">3. Sampel Latih: Membaca Shapefile Sawah dan Non-Sawah</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#mengunduh-citra-sentinel-2a-dari-copernicus-data-space">4. Mengunduh Citra Sentinel-2A dari Copernicus Data Space</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#membaca-citra-yang-sudah-diunduh">5. Membaca Citra yang Sudah Diunduh</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#membangun-fitur-band-asli-dan-indeks-spektral">6. Membangun Fitur: Band Asli dan Indeks Spektral</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#rasterisasi-poligon-sampel">7. Rasterisasi Poligon Sampel</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#membagi-data-latih-dan-data-uji-per-poligon">8. Membagi Data Latih dan Data Uji per Poligon</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#melatih-dan-mengevaluasi-model-random-forest">9. Melatih dan Mengevaluasi Model Random Forest</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#kepentingan-fitur-feature-importance">9.1 Kepentingan Fitur (Feature Importance)</a></li>
 </ul>
 </li>
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#mengklasifikasikan-seluruh-citra">10.0 Mengklasifikasikan Seluruh Citra</a></li>
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#peta-hasil-dan-ringkasan-akhir">11.0 Peta Hasil dan Ringkasan Akhir</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#mengklasifikasikan-seluruh-citra">10. Mengklasifikasikan Seluruh Citra</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#peta-hasil-dan-ringkasan-akhir">11. Peta Hasil dan Ringkasan Akhir</a></li>
 </ul>
-
   </nav></div>
 
 </div></div>
