@@ -60,6 +60,8 @@
     <script async="async" src="_static/sphinx-thebe.js?v=c100c467"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
     <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'Klasifikasi_Sawah_Sentinel2A';</script>
     <script>DOCUMENTATION_OPTIONS.search_as_you_type = false;</script>
     <link rel="index" title="Index" href="genindex.html" />
@@ -418,6 +420,26 @@
             <nav aria-label="Page">
                 <ul class="pst-show_toc_level nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#library">1. Library</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#sentinel-2a">2. Sentinel 2A</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#band-spektral">2.1 Band Spektral</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#b02-blue">B02 (Blue)</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#b03-green">B03 (Green)</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#b04-red">B04 (Red)</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#b08-nir-near-infrared">B08 (NIR, Near Infrared)</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#b11-swir-1">B11 (SWIR 1)</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#b12-swir-2">B12 (SWIR 2)</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#indeks-turunan">2.2 Indeks Turunan</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#ndvi-normalized-difference-vegetation-index">NDVI (Normalized Difference Vegetation Index)</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#ndwi-normalized-difference-water-index">NDWI (Normalized Difference Water Index)</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#evi-enhanced-vegetation-index">EVI (Enhanced Vegetation Index)</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#ndbi-normalized-difference-built-up-index">NDBI (Normalized Difference Built-up Index)</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ringkasan-kepentingan-fitur">2.3 Ringkasan Kepentingan Fitur</a></li>
+</ul>
+</li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#parameter">2. Parameter</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#sampel-latih-membaca-shapefile-sawah-dan-non-sawah">3. Sampel Latih: Membaca Shapefile Sawah dan Non-Sawah</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#mengunduh-citra-sentinel-2a-dari-copernicus-data-space">4. Mengunduh Citra Sentinel-2A dari Copernicus Data Space</a></li>
@@ -476,41 +498,162 @@
 </div>
 </div>
 </section>
+<section id="sentinel-2a">
+<h2>2. Sentinel 2A<a class="headerlink" href="#sentinel-2a" title="Link to this heading">#</a></h2>
+<p>Sentinel-2A adalah satelit observasi bumi milik Copernicus (Badan Antariksa Eropa) dengan sensor multispektral MSI yang merekam 13 band dari cahaya tampak sampai inframerah gelombang pendek. Penelitian ini memakai 10 fitur, yaitu 6 band spektral (B02, B03, B04, B08, B11, B12) dan 4 indeks turunan (NDVI, NDWI, EVI, NDBI). Nilai kepentingan fitur diambil dari model Random Forest untuk klasifikasi sawah dan non-sawah.</p>
+<section id="band-spektral">
+<h3>2.1 Band Spektral<a class="headerlink" href="#band-spektral" title="Link to this heading">#</a></h3>
+<section id="b02-blue">
+<h4>B02 (Blue)<a class="headerlink" href="#b02-blue" title="Link to this heading">#</a></h4>
+<ul class="simple">
+<li><p><strong>Panjang gelombang:</strong> sekitar 490 nm, resolusi 10 m.</p></li>
+<li><p><strong>Deskripsi:</strong> merekam cahaya biru. Cahaya biru mudah dihamburkan atmosfer dan dapat menembus air.</p></li>
+<li><p><strong>Kegunaan:</strong> vegetasi menyerap sebagian besar cahaya biru, sehingga pantulannya rendah pada tanaman sehat. Tanah terbuka dan air memantulkannya berbeda, jadi band ini membantu membedakan penutup lahan. B02 juga menjadi koreksi atmosfer dalam rumus EVI.</p></li>
+<li><p><strong>Kepentingan:</strong> 0,174 (peringkat 1).</p></li>
+</ul>
+</section>
+<section id="b03-green">
+<h4>B03 (Green)<a class="headerlink" href="#b03-green" title="Link to this heading">#</a></h4>
+<ul class="simple">
+<li><p><strong>Panjang gelombang:</strong> sekitar 560 nm, resolusi 10 m.</p></li>
+<li><p><strong>Deskripsi:</strong> merekam cahaya hijau.</p></li>
+<li><p><strong>Kegunaan:</strong> vegetasi sehat memantulkan sedikit cahaya hijau (puncak hijau pada spektrum), sehingga band ini dipakai menilai kondisi tanaman. B03 juga dipakai untuk menandai air pada indeks NDWI.</p></li>
+<li><p><strong>Kepentingan:</strong> 0,086 (peringkat 5).</p></li>
+</ul>
+</section>
+<section id="b04-red">
+<h4>B04 (Red)<a class="headerlink" href="#b04-red" title="Link to this heading">#</a></h4>
+<ul class="simple">
+<li><p><strong>Panjang gelombang:</strong> sekitar 665 nm, resolusi 10 m.</p></li>
+<li><p><strong>Deskripsi:</strong> merekam cahaya merah.</p></li>
+<li><p><strong>Kegunaan:</strong> klorofil menyerap cahaya merah, sehingga pantulannya rendah pada vegetasi sehat dan tinggi pada tanah terbuka. B04 adalah komponen utama indeks vegetasi (NDVI dan EVI).</p></li>
+<li><p><strong>Kepentingan:</strong> 0,135 (peringkat 3).</p></li>
+</ul>
+</section>
+<section id="b08-nir-near-infrared">
+<h4>B08 (NIR, Near Infrared)<a class="headerlink" href="#b08-nir-near-infrared" title="Link to this heading">#</a></h4>
+<ul class="simple">
+<li><p><strong>Panjang gelombang:</strong> sekitar 842 nm, resolusi 10 m.</p></li>
+<li><p><strong>Deskripsi:</strong> merekam inframerah dekat.</p></li>
+<li><p><strong>Kegunaan:</strong> struktur daun sehat memantulkan NIR sangat kuat, sedangkan air menyerapnya. Perbedaan ini yang membedakan vegetasi dan air. B08 dipakai di NDVI, NDWI, EVI, dan NDBI.</p></li>
+<li><p><strong>Kepentingan:</strong> 0,079 (peringkat 6).</p></li>
+</ul>
+</section>
+<section id="b11-swir-1">
+<h4>B11 (SWIR 1)<a class="headerlink" href="#b11-swir-1" title="Link to this heading">#</a></h4>
+<ul class="simple">
+<li><p><strong>Panjang gelombang:</strong> sekitar 1610 nm, resolusi 20 m.</p></li>
+<li><p><strong>Deskripsi:</strong> merekam inframerah gelombang pendek.</p></li>
+<li><p><strong>Kegunaan:</strong> sangat peka terhadap kandungan air pada tanah dan tanaman. Pantulannya turun ketika kelembapan naik, sehingga membantu memisahkan lahan basah atau tergenang (seperti sawah) dari lahan kering. B11 juga menjadi komponen NDBI.</p></li>
+<li><p><strong>Kepentingan:</strong> 0,141 (peringkat 2).</p></li>
+</ul>
+</section>
+<section id="b12-swir-2">
+<h4>B12 (SWIR 2)<a class="headerlink" href="#b12-swir-2" title="Link to this heading">#</a></h4>
+<ul class="simple">
+<li><p><strong>Panjang gelombang:</strong> sekitar 2190 nm, resolusi 20 m.</p></li>
+<li><p><strong>Deskripsi:</strong> merekam inframerah gelombang pendek pada panjang gelombang lebih jauh dari B11.</p></li>
+<li><p><strong>Kegunaan:</strong> membantu membedakan tanah, lahan terbangun, dan vegetasi kering, serta peka terhadap kelembapan.</p></li>
+<li><p><strong>Kepentingan:</strong> 0,075 (peringkat 7).</p></li>
+</ul>
+</section>
+</section>
+<section id="indeks-turunan">
+<h3>2.2 Indeks Turunan<a class="headerlink" href="#indeks-turunan" title="Link to this heading">#</a></h3>
+<section id="ndvi-normalized-difference-vegetation-index">
+<h4>NDVI (Normalized Difference Vegetation Index)<a class="headerlink" href="#ndvi-normalized-difference-vegetation-index" title="Link to this heading">#</a></h4>
+<ul class="simple">
+<li><p><strong>Rumus:</strong></p></li>
+</ul>
+<div class="math notranslate nohighlight">
+\[NDVI = \frac{B08 - B04}{B08 + B04}\]</div>
+<ul class="simple">
+<li><p><strong>Deskripsi:</strong> mengukur kehijauan dan kerapatan vegetasi. Nilainya berkisar -1 sampai 1.</p></li>
+<li><p><strong>Interpretasi:</strong> nilai tinggi (mendekati 1) berarti vegetasi lebat, nilai mendekati 0 berarti tanah terbuka, dan nilai negatif berarti air.</p></li>
+<li><p><strong>Kegunaan:</strong> padi yang sedang tumbuh punya NDVI yang berubah dari rendah (lahan baru ditanami atau tergenang) ke tinggi (fase vegetatif), sehingga berguna untuk mengenali sawah.</p></li>
+<li><p><strong>Kepentingan:</strong> 0,070 (peringkat 8).</p></li>
+</ul>
+</section>
+<section id="ndwi-normalized-difference-water-index">
+<h4>NDWI (Normalized Difference Water Index)<a class="headerlink" href="#ndwi-normalized-difference-water-index" title="Link to this heading">#</a></h4>
+<ul class="simple">
+<li><p><strong>Rumus:</strong></p></li>
+</ul>
+<div class="math notranslate nohighlight">
+\[NDWI = \frac{B03 - B08}{B03 + B08}\]</div>
+<ul class="simple">
+<li><p><strong>Deskripsi:</strong> menonjolkan permukaan air.</p></li>
+<li><p><strong>Interpretasi:</strong> nilai positif biasanya menunjukkan air atau lahan tergenang, sedangkan nilai negatif menunjukkan vegetasi atau tanah.</p></li>
+<li><p><strong>Kegunaan:</strong> sawah sering tergenang pada fase awal tanam, sehingga NDWI membantu membedakannya dari lahan kering.</p></li>
+<li><p><strong>Kepentingan:</strong> 0,131 (peringkat 4).</p></li>
+</ul>
+</section>
+<section id="evi-enhanced-vegetation-index">
+<h4>EVI (Enhanced Vegetation Index)<a class="headerlink" href="#evi-enhanced-vegetation-index" title="Link to this heading">#</a></h4>
+<ul class="simple">
+<li><p><strong>Rumus:</strong></p></li>
+</ul>
+<div class="math notranslate nohighlight">
+\[EVI = 2.5 \times \frac{B08 - B04}{B08 + 6 \times B04 - 7.5 \times B02 + 1}\]</div>
+<ul class="simple">
+<li><p><strong>Deskripsi:</strong> indeks vegetasi yang dikoreksi dari pengaruh atmosfer dan latar belakang tanah.</p></li>
+<li><p><strong>Interpretasi:</strong> tidak mudah jenuh pada vegetasi yang rapat, berbeda dengan NDVI.</p></li>
+<li><p><strong>Kegunaan:</strong> lebih sensitif terhadap perubahan kondisi tanaman padi pada fase pertumbuhan yang lebat.</p></li>
+<li><p><strong>Kepentingan:</strong> 0,065 (peringkat 9).</p></li>
+</ul>
+</section>
+<section id="ndbi-normalized-difference-built-up-index">
+<h4>NDBI (Normalized Difference Built-up Index)<a class="headerlink" href="#ndbi-normalized-difference-built-up-index" title="Link to this heading">#</a></h4>
+<ul class="simple">
+<li><p><strong>Rumus:</strong></p></li>
+</ul>
+<div class="math notranslate nohighlight">
+\[NDBI = \frac{B11 - B08}{B11 + B08}\]</div>
+<ul class="simple">
+<li><p><strong>Deskripsi:</strong> menonjolkan lahan terbangun seperti bangunan dan jalan.</p></li>
+<li><p><strong>Interpretasi:</strong> nilai tinggi menunjukkan permukaan keras atau lahan terbangun, sedangkan nilai rendah menunjukkan vegetasi atau air.</p></li>
+<li><p><strong>Kegunaan:</strong> membantu memisahkan sawah dari area permukiman.</p></li>
+<li><p><strong>Kepentingan:</strong> 0,041 (peringkat 10, paling rendah).</p></li>
+</ul>
+</section>
+</section>
+<section id="ringkasan-kepentingan-fitur">
+<h3>2.3 Ringkasan Kepentingan Fitur<a class="headerlink" href="#ringkasan-kepentingan-fitur" title="Link to this heading">#</a></h3>
+<p>Tiga fitur terpenting adalah <strong>B02, B11, dan B04</strong>. NDWI (0,131) juga masuk empat besar. Keempatnya terkait dengan air dan penyerapan cahaya oleh vegetasi, yang membedakan sawah dari non-sawah. NDBI paling rendah (0,041), sehingga ciri lahan terbangun paling kecil perannya pada data ini.</p>
+</section>
+</section>
 <section id="parameter">
 <h2>2. Parameter<a class="headerlink" href="#parameter" title="Link to this heading">#</a></h2>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># --- Akun Copernicus (OAuth client dari dashboard Sentinel Hub) ---</span>
-<span class="c1"># Diambil dari Colab Secrets, BUKAN dituliskan langsung di sini.</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">google.colab</span><span class="w"> </span><span class="kn">import</span> <span class="n">userdata</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">google.colab</span><span class="w"> </span><span class="kn">import</span> <span class="n">userdata</span>
 
+<span class="c1"># Akun Copernicus</span>
 <span class="n">CLIENT_ID</span> <span class="o">=</span> <span class="n">userdata</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;CDSE_CLIENT_ID&quot;</span><span class="p">)</span>
 <span class="n">CLIENT_SECRET</span> <span class="o">=</span> <span class="n">userdata</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;CDSE_CLIENT_SECRET&quot;</span><span class="p">)</span>
 
-<span class="c1"># --- Pencarian citra ---</span>
-<span class="n">START_DATE</span> <span class="o">=</span> <span class="s2">&quot;2026-06-01&quot;</span>      <span class="c1"># rentang tanggal pencarian citra</span>
+<span class="c1"># Pencarian citra</span>
+<span class="n">START_DATE</span> <span class="o">=</span> <span class="s2">&quot;2026-06-01&quot;</span>
 <span class="n">END_DATE</span> <span class="o">=</span> <span class="s2">&quot;2026-09-30&quot;</span>
-<span class="n">PLATFORM_PREFIX</span> <span class="o">=</span> <span class="s2">&quot;S2A&quot;</span>        <span class="c1"># hanya Sentinel-2A. Isi None untuk semua satelit Sentinel-2</span>
-<span class="n">MAX_CLOUD</span> <span class="o">=</span> <span class="mi">30</span>                 <span class="c1"># % awan maksimum (level tile) untuk kandidat scene</span>
-<span class="n">MAX_TRIES</span> <span class="o">=</span> <span class="mi">5</span>                  <span class="c1"># coba maks. N scene terbaik sampai area sampel cukup bersih</span>
-<span class="n">MIN_VALID</span> <span class="o">=</span> <span class="mf">0.90</span>               <span class="c1"># minimal fraksi piksel bebas awan di area unduhan</span>
-<span class="n">MASK_CLOUD</span> <span class="o">=</span> <span class="kc">True</span>              <span class="c1"># buang awan/bayangan awan/salju memakai band SCL</span>
-<span class="n">BUFFER_M</span> <span class="o">=</span> <span class="mi">1500</span>                <span class="c1"># margin area unduhan di sekeliling sampel (meter)</span>
+<span class="n">PLATFORM_PREFIX</span> <span class="o">=</span> <span class="s2">&quot;S2A&quot;</span>        <span class="c1"># None = semua satelit Sentinel-2</span>
+<span class="n">MAX_CLOUD</span> <span class="o">=</span> <span class="mi">30</span>                 <span class="c1"># % awan maksimum per tile</span>
+<span class="n">MAX_TRIES</span> <span class="o">=</span> <span class="mi">5</span>                  <span class="c1"># jumlah scene terbaik yang dicoba</span>
+<span class="n">MIN_VALID</span> <span class="o">=</span> <span class="mf">0.90</span>               <span class="c1"># minimal fraksi piksel bebas awan</span>
+<span class="n">MASK_CLOUD</span> <span class="o">=</span> <span class="kc">True</span>              <span class="c1"># buang awan, bayangan, salju (band SCL)</span>
+<span class="n">BUFFER_M</span> <span class="o">=</span> <span class="mi">1500</span>                <span class="c1"># margin area unduhan (meter)</span>
 
-<span class="c1"># --- Sampel &amp; model ---</span>
-<span class="n">N_SAMPLE</span> <span class="o">=</span> <span class="mi">50</span>                   <span class="c1"># jumlah poligon sampel PER KELAS</span>
-<span class="n">FOLDER_SAWAH</span>    <span class="o">=</span> <span class="n">BASE_DIR</span> <span class="o">/</span> <span class="s2">&quot;sawah_mapanget&quot;</span>       <span class="c1"># kelas = 1</span>
-<span class="n">FOLDER_NONSAWAH</span> <span class="o">=</span> <span class="n">BASE_DIR</span> <span class="o">/</span> <span class="s2">&quot;non_sawah_mapanget&quot;</span>   <span class="c1"># kelas = 0</span>
-<span class="n">TRAIN_FRAC</span> <span class="o">=</span> <span class="mf">0.7</span>                <span class="c1"># porsi poligon untuk training (sisanya testing)</span>
+<span class="c1"># Sampel dan model</span>
+<span class="n">N_SAMPLE</span> <span class="o">=</span> <span class="mi">50</span>                  <span class="c1"># poligon per kelas</span>
+<span class="n">FOLDER_SAWAH</span> <span class="o">=</span> <span class="n">BASE_DIR</span> <span class="o">/</span> <span class="s2">&quot;sawah_mapanget&quot;</span>             <span class="c1"># kelas 1</span>
+<span class="n">FOLDER_NONSAWAH</span> <span class="o">=</span> <span class="n">BASE_DIR</span> <span class="o">/</span> <span class="s2">&quot;non_sawah_mapanget&quot;</span>      <span class="c1"># kelas 0</span>
+<span class="n">TRAIN_FRAC</span> <span class="o">=</span> <span class="mf">0.7</span>
 <span class="n">N_TREES</span> <span class="o">=</span> <span class="mi">200</span>
 <span class="n">SEED</span> <span class="o">=</span> <span class="mi">42</span>
 
-<span class="c1"># --- File ---</span>
-<span class="c1"># Jika file ini sudah ada, unduhan dilewati (boleh juga diisi TIF manual dari</span>
-<span class="c1"># Copernicus Browser dengan band B02,B03,B04,B08,B11,B12 berurutan).</span>
+<span class="c1"># File (unduhan dilewati jika TIF_IN sudah ada)</span>
 <span class="n">TIF_IN</span> <span class="o">=</span> <span class="n">BASE_DIR</span> <span class="o">/</span> <span class="s2">&quot;sentinel2a_aoi.tif&quot;</span>
 <span class="n">INFO_TXT</span> <span class="o">=</span> <span class="n">BASE_DIR</span> <span class="o">/</span> <span class="s2">&quot;sentinel2a_aoi_info.txt&quot;</span>
-<span class="n">OUT_TIF</span> <span class="o">=</span> <span class="n">BASE_DIR</span> <span class="o">/</span> <span class="s2">&quot;klasifikasi_sawah_s2a.tif&quot;</span>  <span class="c1"># satu-satunya file keluaran yang disimpan ke disk</span>
+<span class="n">OUT_TIF</span> <span class="o">=</span> <span class="n">BASE_DIR</span> <span class="o">/</span> <span class="s2">&quot;klasifikasi_sawah_s2a.tif&quot;</span>
 
 <span class="n">BAND_NAMES</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;B02&quot;</span><span class="p">,</span> <span class="s2">&quot;B03&quot;</span><span class="p">,</span> <span class="s2">&quot;B04&quot;</span><span class="p">,</span> <span class="s2">&quot;B08&quot;</span><span class="p">,</span> <span class="s2">&quot;B11&quot;</span><span class="p">,</span> <span class="s2">&quot;B12&quot;</span><span class="p">]</span>
 
@@ -791,16 +934,7 @@ BBox area (lon/lat): (124.85143, 1.47564, 124.93068, 1.5397)
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Scene ditemukan: 70 | lolos filter (S2A, awan &lt;= 30%): 8
-</pre></div>
-</div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>WARNING:rasterio._env:CPLE_AppDefined in 086ae5d9-67c1-445e-837f-d0744fa436d2.tif: TIFFReadDirectory:Sum of Photometric type-related color channels and ExtraSamples doesn&#39;t match SamplesPerPixel. Defining non-color channels as ExtraSamples.
-WARNING:rasterio._env:CPLE_AppDefined in TIFFReadDirectory:Sum of Photometric type-related color channels and ExtraSamples doesn&#39;t match SamplesPerPixel. Defining non-color channels as ExtraSamples.
-</pre></div>
-</div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>  S2A_MSIL2A_20260906T020501_N0512_R017_T5... | 2026-09-06T02:07:26.946Z | awan tile 1.3% | piksel valid 99.5%
-Scene dipakai: S2A_MSIL2A_20260906T020501_N0512_R017_T51NYB_20260906T044612.SAFE (2026-09-06T02:07:26.946Z), valid 99.5%
-Tersimpan: /content/sentinel2a_aoi.tif dan /content/sentinel2a_aoi_info.txt
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>sentinel2a_aoi.tif sudah ada -&gt; langkah unduh dilewati.
 </pre></div>
 </div>
 </div>
@@ -914,53 +1048,35 @@ Kelas 1 (sawah): 50 poligon terpakai, 1168 piksel bebas awan
 <span class="n">X_test</span><span class="p">,</span> <span class="n">y_test</span> <span class="o">=</span> <span class="n">feats</span><span class="p">[:,</span> <span class="n">m_test</span><span class="p">]</span><span class="o">.</span><span class="n">T</span><span class="p">,</span> <span class="n">lab_map</span><span class="p">[</span><span class="n">poly_raster</span><span class="p">[</span><span class="n">m_test</span><span class="p">]]</span>
 <span class="n">log</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Poligon training: </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">train_ids</span><span class="p">)</span><span class="si">}</span><span class="s2"> | testing: </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">present</span><span class="p">)</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="nb">len</span><span class="p">(</span><span class="n">train_ids</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
 <span class="n">log</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Piksel training: </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">y_train</span><span class="p">)</span><span class="si">}</span><span class="s2"> | testing: </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">y_test</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="n">log</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Dimensi data : </span><span class="si">{</span><span class="n">X_train</span><span class="o">.</span><span class="n">shape</span><span class="si">}</span><span class="s2"> &quot;</span><span class="p">)</span>
+
+<span class="n">NAMA_KELAS</span> <span class="o">=</span> <span class="p">{</span><span class="mi">0</span><span class="p">:</span> <span class="s2">&quot;Non-sawah&quot;</span><span class="p">,</span> <span class="mi">1</span><span class="p">:</span> <span class="s2">&quot;Sawah&quot;</span><span class="p">}</span>
+
+<span class="n">y_all</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">concatenate</span><span class="p">([</span><span class="n">y_train</span><span class="p">,</span> <span class="n">y_test</span><span class="p">])</span>
+<span class="n">rekap</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span>
+    <span class="s2">&quot;Kelas&quot;</span><span class="p">:</span> <span class="p">[</span><span class="n">NAMA_KELAS</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">)],</span>
+    <span class="s2">&quot;Training&quot;</span><span class="p">:</span> <span class="p">[</span><span class="nb">int</span><span class="p">((</span><span class="n">y_train</span> <span class="o">==</span> <span class="n">k</span><span class="p">)</span><span class="o">.</span><span class="n">sum</span><span class="p">())</span> <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">)],</span>
+    <span class="s2">&quot;Testing&quot;</span><span class="p">:</span> <span class="p">[</span><span class="nb">int</span><span class="p">((</span><span class="n">y_test</span> <span class="o">==</span> <span class="n">k</span><span class="p">)</span><span class="o">.</span><span class="n">sum</span><span class="p">())</span> <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">)],</span>
+    <span class="s2">&quot;Total&quot;</span><span class="p">:</span> <span class="p">[</span><span class="nb">int</span><span class="p">((</span><span class="n">y_all</span> <span class="o">==</span> <span class="n">k</span><span class="p">)</span><span class="o">.</span><span class="n">sum</span><span class="p">())</span> <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">)],</span>
+<span class="p">})</span>
+<span class="n">rekap</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="nb">len</span><span class="p">(</span><span class="n">rekap</span><span class="p">)]</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;Jumlah&quot;</span><span class="p">,</span> <span class="n">rekap</span><span class="p">[</span><span class="s2">&quot;Training&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">sum</span><span class="p">(),</span> <span class="n">rekap</span><span class="p">[</span><span class="s2">&quot;Testing&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">sum</span><span class="p">(),</span> <span class="n">rekap</span><span class="p">[</span><span class="s2">&quot;Total&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">sum</span><span class="p">()]</span>
+<span class="n">display</span><span class="p">(</span><span class="n">rekap</span><span class="p">)</span>
+
+<span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">):</span>
+    <span class="n">log</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">NAMA_KELAS</span><span class="p">[</span><span class="n">k</span><span class="p">]</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="nb">int</span><span class="p">((</span><span class="n">y_all</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">k</span><span class="p">)</span><span class="o">.</span><span class="n">sum</span><span class="p">())</span><span class="si">}</span><span class="s2"> piksel &quot;</span>
+        <span class="sa">f</span><span class="s2">&quot;(</span><span class="si">{</span><span class="p">(</span><span class="n">y_all</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">k</span><span class="p">)</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="mi">100</span><span class="si">:</span><span class="s2">.1f</span><span class="si">}</span><span class="s2">%)&quot;</span><span class="p">)</span>
+<span class="n">log</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Total piksel: </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">y_all</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Poligon training: 70 | testing: 30
 Piksel training: 3703 | testing: 1766
-</pre></div>
-</div>
-</div>
-</div>
-<p><strong>Penjelasan kode:</strong> pembagian data latih/uji dilakukan <strong>per poligon</strong>, bukan per piksel acak. Kalau pembagiannya acak per piksel, piksel-piksel yang bertetangga dari poligon yang sama bisa jatuh terpisah ke data latih dan data uji, padahal mereka sangat mirip satu sama lain – ini membuat skor akurasi jadi terlihat lebih bagus dari kenyataannya (<em>spatial data leakage</em>). Dengan membagi per poligon, seluruh piksel dari satu poligon selalu berada di sisi yang sama (latih atau uji), sehingga evaluasi akurasinya lebih jujur mencerminkan kemampuan model pada area yang benar-benar belum pernah dilihat.</p>
-</section>
-<section id="melatih-dan-mengevaluasi-model-random-forest">
-<h2>9. Melatih dan Mengevaluasi Model Random Forest<a class="headerlink" href="#melatih-dan-mengevaluasi-model-random-forest" title="Link to this heading">#</a></h2>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">rf</span> <span class="o">=</span> <span class="n">RandomForestClassifier</span><span class="p">(</span><span class="n">n_estimators</span><span class="o">=</span><span class="n">N_TREES</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="n">SEED</span><span class="p">,</span> <span class="n">n_jobs</span><span class="o">=-</span><span class="mi">1</span><span class="p">)</span>
-<span class="n">rf</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">)</span>
-<span class="n">pred_test</span> <span class="o">=</span> <span class="n">rf</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_test</span><span class="p">)</span>
-
-<span class="n">cm</span> <span class="o">=</span> <span class="n">confusion_matrix</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">pred_test</span><span class="p">,</span> <span class="n">labels</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">])</span>
-<span class="n">cm_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">cm</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;Aktual: non-sawah&quot;</span><span class="p">,</span> <span class="s2">&quot;Aktual: sawah&quot;</span><span class="p">],</span>
-                      <span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;Prediksi: non-sawah&quot;</span><span class="p">,</span> <span class="s2">&quot;Prediksi: sawah&quot;</span><span class="p">])</span>
-<span class="n">cm_pct</span> <span class="o">=</span> <span class="p">(</span><span class="n">cm</span> <span class="o">/</span> <span class="n">cm</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">keepdims</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span> <span class="o">*</span> <span class="mi">100</span><span class="p">)</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
-<span class="n">cm_pct_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">cm_pct</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="n">cm_df</span><span class="o">.</span><span class="n">index</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="n">cm_df</span><span class="o">.</span><span class="n">columns</span><span class="p">)</span>
-
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Confusion matrix (jumlah piksel):&quot;</span><span class="p">)</span>
-<span class="n">display</span><span class="p">(</span><span class="n">cm_df</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Confusion matrix (persentase per baris, yaitu recall per kelas):&quot;</span><span class="p">)</span>
-<span class="n">display</span><span class="p">(</span><span class="n">cm_pct_df</span><span class="p">)</span>
-
-<span class="n">acc</span> <span class="o">=</span> <span class="n">accuracy_score</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">pred_test</span><span class="p">)</span>
-<span class="n">kappa</span> <span class="o">=</span> <span class="n">cohen_kappa_score</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">pred_test</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Overall Accuracy : </span><span class="si">{</span><span class="n">acc</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Kappa            : </span><span class="si">{</span><span class="n">kappa</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">classification_report</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">pred_test</span><span class="p">,</span> <span class="n">labels</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span>
-                             <span class="n">target_names</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;non-sawah&quot;</span><span class="p">,</span> <span class="s2">&quot;sawah&quot;</span><span class="p">],</span> <span class="n">digits</span><span class="o">=</span><span class="mi">3</span><span class="p">))</span>
-<span class="n">log</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Overall Accuracy : </span><span class="si">{</span><span class="n">acc</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2">  |  Kappa : </span><span class="si">{</span><span class="n">kappa</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Confusion matrix (jumlah piksel):
+Dimensi data : (3703, 10) 
 </pre></div>
 </div>
 <div class="output text_html">
-  <div id="df-860ce676-643f-4ad9-87a7-1cb2d9ebefb8" class="colab-df-container">
+  <div id="df-f9d26e05-9eb4-476a-aa70-40f68a8494b0" class="colab-df-container">
     <div>
 <style scoped>
     .dataframe tbody tr th:only-of-type {
@@ -979,20 +1095,33 @@ Piksel training: 3703 | testing: 1766
   <thead>
     <tr style="text-align: right;">
       <th></th>
-      <th>Prediksi: non-sawah</th>
-      <th>Prediksi: sawah</th>
+      <th>Kelas</th>
+      <th>Training</th>
+      <th>Testing</th>
+      <th>Total</th>
     </tr>
   </thead>
   <tbody>
     <tr>
-      <th>Aktual: non-sawah</th>
-      <td>1338</td>
-      <td>31</td>
+      <th>0</th>
+      <td>Non-sawah</td>
+      <td>2932</td>
+      <td>1369</td>
+      <td>4301</td>
     </tr>
     <tr>
-      <th>Aktual: sawah</th>
-      <td>81</td>
-      <td>316</td>
+      <th>1</th>
+      <td>Sawah</td>
+      <td>771</td>
+      <td>397</td>
+      <td>1168</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>Jumlah</td>
+      <td>3703</td>
+      <td>1766</td>
+      <td>5469</td>
     </tr>
   </tbody>
 </table>
@@ -1000,7 +1129,7 @@ Piksel training: 3703 | testing: 1766
     <div class="colab-df-buttons">
 
   <div class="colab-df-container">
-    <button class="colab-df-convert" onclick="convertToInteractive('df-860ce676-643f-4ad9-87a7-1cb2d9ebefb8')"
+    <button class="colab-df-convert" onclick="convertToInteractive('df-f9d26e05-9eb4-476a-aa70-40f68a8494b0')"
             title="Convert this dataframe to an interactive table."
             style="display:none;">
 
@@ -1052,12 +1181,12 @@ Piksel training: 3703 | testing: 1766
 
     <script>
       const buttonEl =
-        document.querySelector('#df-860ce676-643f-4ad9-87a7-1cb2d9ebefb8 button.colab-df-convert');
+        document.querySelector('#df-f9d26e05-9eb4-476a-aa70-40f68a8494b0 button.colab-df-convert');
       buttonEl.style.display =
         google.colab.kernel.accessAllowed ? 'block' : 'none';
 
       async function convertToInteractive(key) {
-        const element = document.querySelector('#df-860ce676-643f-4ad9-87a7-1cb2d9ebefb8');
+        const element = document.querySelector('#df-f9d26e05-9eb4-476a-aa70-40f68a8494b0');
         const dataTable =
           await google.colab.kernel.invokeFunction('convertToInteractive',
                                                     [key], {});
@@ -1077,7 +1206,224 @@ Piksel training: 3703 | testing: 1766
   </div>
 
 
-  <div id="id_57c35f72-ed37-4e30-a069-4d93e871bbb9">
+  <div id="id_a919dfb6-07d5-4c96-be27-27619a2ae824">
+    <style>
+      .colab-df-generate {
+        background-color: #E8F0FE;
+        border: none;
+        border-radius: 50%;
+        cursor: pointer;
+        display: none;
+        fill: #1967D2;
+        height: 32px;
+        padding: 0 0 0 0;
+        width: 32px;
+      }
+
+      .colab-df-generate:hover {
+        background-color: #E2EBFA;
+        box-shadow: 0px 1px 2px rgba(60, 64, 67, 0.3), 0px 1px 3px 1px rgba(60, 64, 67, 0.15);
+        fill: #174EA6;
+      }
+
+      [theme=dark] .colab-df-generate {
+        background-color: #3B4455;
+        fill: #D2E3FC;
+      }
+
+      [theme=dark] .colab-df-generate:hover {
+        background-color: #434B5C;
+        box-shadow: 0px 1px 3px 1px rgba(0, 0, 0, 0.15);
+        filter: drop-shadow(0px 1px 2px rgba(0, 0, 0, 0.3));
+        fill: #FFFFFF;
+      }
+    </style>
+    <button class="colab-df-generate" onclick="generateWithVariable('rekap')"
+            title="Generate code using this dataframe."
+            style="display:none;">
+
+  <svg xmlns="http://www.w3.org/2000/svg" height="24px"viewBox="0 0 24 24"
+       width="24px">
+    <path d="M7,19H8.4L18.45,9,17,7.55,7,17.6ZM5,21V16.75L18.45,3.32a2,2,0,0,1,2.83,0l1.4,1.43a1.91,1.91,0,0,1,.58,1.4,1.91,1.91,0,0,1-.58,1.4L9.25,21ZM18.45,9,17,7.55Zm-12,3A5.31,5.31,0,0,0,4.9,8.1,5.31,5.31,0,0,0,1,6.5,5.31,5.31,0,0,0,4.9,4.9,5.31,5.31,0,0,0,6.5,1,5.31,5.31,0,0,0,8.1,4.9,5.31,5.31,0,0,0,12,6.5,5.46,5.46,0,0,0,6.5,12Z"/>
+  </svg>
+    </button>
+    <script>
+      (() => {
+      const buttonEl =
+        document.querySelector('#id_a919dfb6-07d5-4c96-be27-27619a2ae824 button.colab-df-generate');
+      buttonEl.style.display =
+        google.colab.kernel.accessAllowed ? 'block' : 'none';
+
+      buttonEl.onclick = () => {
+        google.colab.notebook.generateWithVariable('rekap');
+      }
+      })();
+    </script>
+  </div>
+
+    </div>
+  </div>
+</div><div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Non-sawah: 4301 piksel (78.6%)
+Sawah: 1168 piksel (21.4%)
+Total piksel: 5469
+</pre></div>
+</div>
+</div>
+</div>
+<p><strong>Penjelasan kode:</strong> pembagian data latih/uji dilakukan <strong>per poligon</strong>, bukan per piksel acak. Kalau pembagiannya acak per piksel, piksel-piksel yang bertetangga dari poligon yang sama bisa jatuh terpisah ke data latih dan data uji, padahal mereka sangat mirip satu sama lain – ini membuat skor akurasi jadi terlihat lebih bagus dari kenyataannya (<em>spatial data leakage</em>). Dengan membagi per poligon, seluruh piksel dari satu poligon selalu berada di sisi yang sama (latih atau uji), sehingga evaluasi akurasinya lebih jujur mencerminkan kemampuan model pada area yang benar-benar belum pernah dilihat.</p>
+</section>
+<section id="melatih-dan-mengevaluasi-model-random-forest">
+<h2>9. Melatih dan Mengevaluasi Model Random Forest<a class="headerlink" href="#melatih-dan-mengevaluasi-model-random-forest" title="Link to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">rf</span> <span class="o">=</span> <span class="n">RandomForestClassifier</span><span class="p">(</span><span class="n">n_estimators</span><span class="o">=</span><span class="n">N_TREES</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="n">SEED</span><span class="p">,</span> <span class="n">n_jobs</span><span class="o">=-</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">rf</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">)</span>
+<span class="n">pred_test</span> <span class="o">=</span> <span class="n">rf</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_test</span><span class="p">)</span>
+
+<span class="n">cm</span> <span class="o">=</span> <span class="n">confusion_matrix</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">pred_test</span><span class="p">,</span> <span class="n">labels</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">])</span>
+<span class="n">cm_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">cm</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;Aktual: non-sawah&quot;</span><span class="p">,</span> <span class="s2">&quot;Aktual: sawah&quot;</span><span class="p">],</span>
+                      <span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;Prediksi: non-sawah&quot;</span><span class="p">,</span> <span class="s2">&quot;Prediksi: sawah&quot;</span><span class="p">])</span>
+<span class="n">cm_pct</span> <span class="o">=</span> <span class="p">(</span><span class="n">cm</span> <span class="o">/</span> <span class="n">cm</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">keepdims</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span> <span class="o">*</span> <span class="mi">100</span><span class="p">)</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">cm_pct_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">cm_pct</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="n">cm_df</span><span class="o">.</span><span class="n">index</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="n">cm_df</span><span class="o">.</span><span class="n">columns</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Confusion matrix (jumlah piksel):&quot;</span><span class="p">)</span>
+<span class="n">display</span><span class="p">(</span><span class="n">cm_df</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Confusion matrix (persentase per baris, yaitu recall per kelas):&quot;</span><span class="p">)</span>
+<span class="n">display</span><span class="p">(</span><span class="n">cm_pct_df</span><span class="p">)</span>
+
+<span class="n">acc</span> <span class="o">=</span> <span class="n">accuracy_score</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">pred_test</span><span class="p">)</span>
+<span class="n">kappa</span> <span class="o">=</span> <span class="n">cohen_kappa_score</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">pred_test</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Overall Accuracy : </span><span class="si">{</span><span class="n">acc</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Kappa            : </span><span class="si">{</span><span class="n">kappa</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">classification_report</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">pred_test</span><span class="p">,</span> <span class="n">labels</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span>
+                             <span class="n">target_names</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;non-sawah&quot;</span><span class="p">,</span> <span class="s2">&quot;sawah&quot;</span><span class="p">],</span> <span class="n">digits</span><span class="o">=</span><span class="mi">3</span><span class="p">))</span>
+<span class="n">log</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Overall Accuracy : </span><span class="si">{</span><span class="n">acc</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2">  |  Kappa : </span><span class="si">{</span><span class="n">kappa</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Confusion matrix (jumlah piksel):
+</pre></div>
+</div>
+<div class="output text_html">
+  <div id="df-2a1c0c05-2c7c-41bf-90b4-bd04e2c0d1d3" class="colab-df-container">
+    <div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Prediksi: non-sawah</th>
+      <th>Prediksi: sawah</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>Aktual: non-sawah</th>
+      <td>1338</td>
+      <td>31</td>
+    </tr>
+    <tr>
+      <th>Aktual: sawah</th>
+      <td>81</td>
+      <td>316</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+    <div class="colab-df-buttons">
+
+  <div class="colab-df-container">
+    <button class="colab-df-convert" onclick="convertToInteractive('df-2a1c0c05-2c7c-41bf-90b4-bd04e2c0d1d3')"
+            title="Convert this dataframe to an interactive table."
+            style="display:none;">
+
+  <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960">
+    <path d="M120-120v-720h720v720H120Zm60-500h600v-160H180v160Zm220 220h160v-160H400v160Zm0 220h160v-160H400v160ZM180-400h160v-160H180v160Zm440 0h160v-160H620v160ZM180-180h160v-160H180v160Zm440 0h160v-160H620v160Z"/>
+  </svg>
+    </button>
+
+  <style>
+    .colab-df-container {
+      display:flex;
+      gap: 12px;
+    }
+
+    .colab-df-convert {
+      background-color: #E8F0FE;
+      border: none;
+      border-radius: 50%;
+      cursor: pointer;
+      display: none;
+      fill: #1967D2;
+      height: 32px;
+      padding: 0 0 0 0;
+      width: 32px;
+    }
+
+    .colab-df-convert:hover {
+      background-color: #E2EBFA;
+      box-shadow: 0px 1px 2px rgba(60, 64, 67, 0.3), 0px 1px 3px 1px rgba(60, 64, 67, 0.15);
+      fill: #174EA6;
+    }
+
+    .colab-df-buttons div {
+      margin-bottom: 4px;
+    }
+
+    [theme=dark] .colab-df-convert {
+      background-color: #3B4455;
+      fill: #D2E3FC;
+    }
+
+    [theme=dark] .colab-df-convert:hover {
+      background-color: #434B5C;
+      box-shadow: 0px 1px 3px 1px rgba(0, 0, 0, 0.15);
+      filter: drop-shadow(0px 1px 2px rgba(0, 0, 0, 0.3));
+      fill: #FFFFFF;
+    }
+  </style>
+
+    <script>
+      const buttonEl =
+        document.querySelector('#df-2a1c0c05-2c7c-41bf-90b4-bd04e2c0d1d3 button.colab-df-convert');
+      buttonEl.style.display =
+        google.colab.kernel.accessAllowed ? 'block' : 'none';
+
+      async function convertToInteractive(key) {
+        const element = document.querySelector('#df-2a1c0c05-2c7c-41bf-90b4-bd04e2c0d1d3');
+        const dataTable =
+          await google.colab.kernel.invokeFunction('convertToInteractive',
+                                                    [key], {});
+        if (!dataTable) return;
+
+        const docLinkHtml = 'Like what you see? Visit the ' +
+          '<a target="_blank" href=https://colab.research.google.com/notebooks/data_table.ipynb>data table notebook</a>'
+          + ' to learn more about interactive tables.';
+        element.innerHTML = '';
+        dataTable['output_type'] = 'display_data';
+        await google.colab.output.renderOutput(dataTable, element);
+        const docLink = document.createElement('div');
+        docLink.innerHTML = docLinkHtml;
+        element.appendChild(docLink);
+      }
+    </script>
+  </div>
+
+
+  <div id="id_9398c112-54ce-49d7-8b0b-bfba971a4a4d">
     <style>
       .colab-df-generate {
         background-color: #E8F0FE;
@@ -1121,7 +1467,7 @@ Piksel training: 3703 | testing: 1766
     <script>
       (() => {
       const buttonEl =
-        document.querySelector('#id_57c35f72-ed37-4e30-a069-4d93e871bbb9 button.colab-df-generate');
+        document.querySelector('#id_9398c112-54ce-49d7-8b0b-bfba971a4a4d button.colab-df-generate');
       buttonEl.style.display =
         google.colab.kernel.accessAllowed ? 'block' : 'none';
 
@@ -1138,7 +1484,7 @@ Piksel training: 3703 | testing: 1766
 </pre></div>
 </div>
 <div class="output text_html">
-  <div id="df-518b3cee-a48a-4262-9395-5c44fd232f98" class="colab-df-container">
+  <div id="df-a6ee9a74-4510-4614-bd3c-d29ce857093f" class="colab-df-container">
     <div>
 <style scoped>
     .dataframe tbody tr th:only-of-type {
@@ -1178,7 +1524,7 @@ Piksel training: 3703 | testing: 1766
     <div class="colab-df-buttons">
 
   <div class="colab-df-container">
-    <button class="colab-df-convert" onclick="convertToInteractive('df-518b3cee-a48a-4262-9395-5c44fd232f98')"
+    <button class="colab-df-convert" onclick="convertToInteractive('df-a6ee9a74-4510-4614-bd3c-d29ce857093f')"
             title="Convert this dataframe to an interactive table."
             style="display:none;">
 
@@ -1230,12 +1576,12 @@ Piksel training: 3703 | testing: 1766
 
     <script>
       const buttonEl =
-        document.querySelector('#df-518b3cee-a48a-4262-9395-5c44fd232f98 button.colab-df-convert');
+        document.querySelector('#df-a6ee9a74-4510-4614-bd3c-d29ce857093f button.colab-df-convert');
       buttonEl.style.display =
         google.colab.kernel.accessAllowed ? 'block' : 'none';
 
       async function convertToInteractive(key) {
-        const element = document.querySelector('#df-518b3cee-a48a-4262-9395-5c44fd232f98');
+        const element = document.querySelector('#df-a6ee9a74-4510-4614-bd3c-d29ce857093f');
         const dataTable =
           await google.colab.kernel.invokeFunction('convertToInteractive',
                                                     [key], {});
@@ -1255,7 +1601,7 @@ Piksel training: 3703 | testing: 1766
   </div>
 
 
-  <div id="id_c5d8813c-4850-46e6-9846-57d181ac47a4">
+  <div id="id_26c796ba-7870-40c1-b7e5-76edbde5037e">
     <style>
       .colab-df-generate {
         background-color: #E8F0FE;
@@ -1299,7 +1645,7 @@ Piksel training: 3703 | testing: 1766
     <script>
       (() => {
       const buttonEl =
-        document.querySelector('#id_c5d8813c-4850-46e6-9846-57d181ac47a4 button.colab-df-generate');
+        document.querySelector('#id_26c796ba-7870-40c1-b7e5-76edbde5037e button.colab-df-generate');
       buttonEl.style.display =
         google.colab.kernel.accessAllowed ? 'block' : 'none';
 
@@ -1435,15 +1781,15 @@ Luas non-sawah: 4536.2 ha
 input.shp: 50 poligon di file -&gt; dipakai 50
 input.shp: 50 poligon di file -&gt; dipakai 50
 BBox area (lon/lat): (124.85143, 1.47564, 124.93068, 1.5397)
-Scene ditemukan: 70 | lolos filter (S2A, awan &lt;= 30%): 8
-  S2A_MSIL2A_20260906T020501_N0512_R017_T5... | 2026-09-06T02:07:26.946Z | awan tile 1.3% | piksel valid 99.5%
-Scene dipakai: S2A_MSIL2A_20260906T020501_N0512_R017_T51NYB_20260906T044612.SAFE (2026-09-06T02:07:26.946Z), valid 99.5%
-Tersimpan: /content/sentinel2a_aoi.tif dan /content/sentinel2a_aoi_info.txt
+sentinel2a_aoi.tif sudah ada -&gt; langkah unduh dilewati.
 Ukuran citra: 884 x 711 piksel | CRS: EPSG:32651 | piksel tanpa data: 0.5%
 Kelas 0 (non-sawah): 50 poligon terpakai, 4323 piksel bebas awan
 Kelas 1 (sawah): 50 poligon terpakai, 1168 piksel bebas awan
 Poligon training: 70 | testing: 30
 Piksel training: 3703 | testing: 1766
+Non-sawah: 4301 piksel (78.6%)
+Sawah: 1168 piksel (21.4%)
+Total piksel: 5469
 Overall Accuracy : 0.9366  |  Kappa : 0.8095
 Fitur paling penting: B02, B11, B04
 
@@ -1516,6 +1862,26 @@ Selesai -- hasil klasifikasi tersimpan sebagai: klasifikasi_sawah_s2a.tif
   <nav id="pst-page-toc-nav" class="page-toc" aria-labelledby="pst-page-navigation-heading-2">
     <ul class="pst-show_toc_level nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#library">1. Library</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#sentinel-2a">2. Sentinel 2A</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#band-spektral">2.1 Band Spektral</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#b02-blue">B02 (Blue)</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#b03-green">B03 (Green)</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#b04-red">B04 (Red)</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#b08-nir-near-infrared">B08 (NIR, Near Infrared)</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#b11-swir-1">B11 (SWIR 1)</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#b12-swir-2">B12 (SWIR 2)</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#indeks-turunan">2.2 Indeks Turunan</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#ndvi-normalized-difference-vegetation-index">NDVI (Normalized Difference Vegetation Index)</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#ndwi-normalized-difference-water-index">NDWI (Normalized Difference Water Index)</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#evi-enhanced-vegetation-index">EVI (Enhanced Vegetation Index)</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#ndbi-normalized-difference-built-up-index">NDBI (Normalized Difference Built-up Index)</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ringkasan-kepentingan-fitur">2.3 Ringkasan Kepentingan Fitur</a></li>
+</ul>
+</li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#parameter">2. Parameter</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#sampel-latih-membaca-shapefile-sawah-dan-non-sawah">3. Sampel Latih: Membaca Shapefile Sawah dan Non-Sawah</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#mengunduh-citra-sentinel-2a-dari-copernicus-data-space">4. Mengunduh Citra Sentinel-2A dari Copernicus Data Space</a></li>
